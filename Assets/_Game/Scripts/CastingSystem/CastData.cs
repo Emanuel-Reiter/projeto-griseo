@@ -53,25 +53,21 @@ public class CastData : ScriptableObject
 
     [Header("OnSpawn subcast")]
     public CastData OnSpawnCast;
-    [Range(1, 99)] public int OnSpawnAmountOfCasts = 1;
     [Range(0f, 1f)] public float OnSpawnCastChance = 1f;
     [Range(0f, 60f)] public float OnSpawnCastDelay = 0f;
 
     [Header("OverLifetime subcast")]
     public CastData OverLifetimeCast;
-    [Range(1, 99)] public int OverLifetimeAmountOfCasts = 1;
     [Range(0f, 1f)] public float OverLifetimeCastChance = 1f;
     [Range(0.05f, 60f)] public float OverLifetimeCastInterval = 1f;
 
     [Header("OnFizzle subcast")]
     public CastData OnFizzleCast;
-    [Range(1, 99)] public int OnFizzleAmountOfCasts = 1;
     [Range(0f, 1f)] public float OnFizzleCastChance = 1f;
     [Range(0f, 60f)] public float OnFizzleCastDelay = 0f;
 
     [Header("OnHit subcast")]
     public CastData OnHitCast;
-    [Range(1, 99)] public int OnHitAmountOfCasts = 1;
     [Range(0f, 1f)] public float OnHitCastChance = 1f;
     [Range(0f, 60f)] public float OnHitCastDelay = 0f;
 }

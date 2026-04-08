@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
+  m_Name: CastData_Spell_ShatterStars
+  m_EditorClassIdentifier: 
+  BaseDMGPhysical: 0
+  BaseDMGStellar: 5
+  BaseDMGFire: 0
+  BaseDMGLightining: 0
+  STSPoison: 0
+  STSFrostbite: 0
+  STSIchor: 0
+  CritChace: 0
+  CritModifier: 1
+  KnockbackForce: 0
+  ArmorPenetration: 0
+  Projectile: {fileID: 1280583928218935999, guid: f02dfbff8a6b4384da522d549f4c0aaf, type: 3}
+  AmountOfCasts: 1
+  CastScatteringAngle: 0
+  ProjectileTrackingPercent: 0
+  ProjectileDuration: 1
+  InitialForce: 0
+  InitialDirection: {x: 0, y: 0}
+  ConstantVelocity: 0.1
+  ConstantDirection: {x: 1, y: 0}
+  DecelerationRate: 0
+  GravityModifier: 0
+  OnSpawnCast: {fileID: 0}
+  OnSpawnCastChance: 1
+  OnSpawnCastDelay: 0
+  OverLifetimeCast: {fileID: 0}
+  OverLifetimeCastChance: 1
+  OverLifetimeCastInterval: 0.05
+  OnFizzleCast: {fileID: 11400000, guid: 991557a1d532c8e4793fb888b6825781, type: 2}
+  OnFizzleCastChance: 1
+  OnFizzleCastDelay: 0
+  OnHitCast: {fileID: 0}
+  OnHitCastChance: 1
+  OnHitCastDelay: 0

@@ -2,16 +2,20 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Rendering.Universal;
 
-[RequireComponent (typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
     private Rigidbody2D _body;
+    private ProjectileCaster _caster;
 
     private Vector2 _constantVelocity;
 
     private int _fizzleTimerIndex;
 
     private bool _hasDied = false;
+    private bool _isFacingRight;
+
+    private CastData _castData;
 
     // Collision layers
     private const string ENV_LAYER = "EnvCollisions";
@@ -91,6 +95,7 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
+        _caster = GetComponent<ProjectileCaster>();
         TryGetComponent<Animator>(out _projectileAnimator);
     }
 
@@ -107,22 +112,70 @@ public class Projectile : MonoBehaviour
         if (_hasDied) return;
 
         DetectHit();
+        UpdateSpriteRotation();
     }
 
-    public void FireProjectile(float projectileDuration, float gravityModifier, Vector2 inicialForce, Vector2 constantVelocity)
+    private void UpdateSpriteRotation()
     {
-        if (_body == null) _body = GetComponent<Rigidbody2D>();
+        Vector2 velocity = _body.linearVelocity;
+        if (velocity.sqrMagnitude > 0.01f)
+        {
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
 
-        // Projectile setup
-        SetProjectileDuration(projectileDuration);
-        SetGravityModifier(gravityModifier);
+    private void CalculateVelocity()
+    {
+        Vector2 initialForce = _castData.InitialForce * _castData.InitialDirection.normalized;
+        Vector2 constantVelocity = _castData.ConstantVelocity * _castData.ConstantDirection.normalized;
 
-        Vector2 initialForceWorld = transform.right * inicialForce.x + transform.up * inicialForce.y;
+        if (_castData.CastScatteringAngle > 0f)
+        {
+            float halfAngle = _castData.CastScatteringAngle * 0.5f;
+            float randomAngleDeg = Random.Range(-halfAngle, halfAngle);
+            float randomAngleRad = randomAngleDeg * Mathf.Deg2Rad;
+
+            initialForce = RotateVector(initialForce, randomAngleRad);
+            constantVelocity = RotateVector(constantVelocity, randomAngleRad);
+        }
+
+        Vector2 initialForceWorld = transform.right * initialForce.x + transform.up * initialForce.y;
 
         _body.AddForce(initialForceWorld, ForceMode2D.Impulse);
         _constantVelocity = transform.right * constantVelocity.x + transform.up * constantVelocity.y;
+    }
+
+    private Vector2 RotateVector(Vector2 vector, float radians)
+    {
+        float cos = Mathf.Cos(radians);
+        float sin = Mathf.Sin(radians);
+        return new Vector2(vector.x * cos - vector.y * sin, vector.x * sin + vector.y * cos);
+    }
+
+    public void FireProjectile(CastData castData, bool isFacingRight)
+    {
+        if (_body == null) _body = GetComponent<Rigidbody2D>();
+
+        _castData = castData;
+        _isFacingRight = isFacingRight;
+
+        // Projectile setup
+        SetProjectileDuration(_castData.ProjectileDuration);
+        SetGravityModifier(_castData.GravityModifier);
+        CalculateVelocity();
 
         _fizzleTimerIndex = TimerManager.I.StartTimer(_projectileDuration, () => Fizzle());
+
+        // OnSpawn Subcast
+
+        if (_castData.OnSpawnCast != null && Random.value <= _castData.OnSpawnCastChance)
+        {
+            TimerManager.I.StartTimer(_castData.OnSpawnCastDelay, () => { CastSubcast(_castData.OnSpawnCast); });
+        }
+
+        // Over lifetime subcast
+        InvokeRepeating(nameof(TriggerOverLifetimeCast), castData.OverLifetimeCastInterval, castData.OverLifetimeCastInterval);
 
         // VFX
         if (_sigilSprite != null)
@@ -137,12 +190,27 @@ public class Projectile : MonoBehaviour
         // SFX
         if (_spawnSfx != null) AudioPool.Play(_spawnSfx, transform.position, _isSpawnSfx3D, 127, _spawnSfxVolume, Random.Range(_spawnSfxPitchMin, _spawnSfxPitchMax));
         if (_idleSfx != null) _idleVoice = AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax), default, default, true);
-    
+
         // Animation
         if (_projectileAnimator != null)
         {
             if (_idleAnim != null) _projectileAnimator.Play(_idleAnim.name);
         }
+    }
+
+    private void TriggerOverLifetimeCast()
+    {
+        if (_hasDied) return;
+
+        if (_castData.OverLifetimeCast != null && Random.value <= _castData.OverLifetimeCastChance)
+        {
+            CastSubcast(_castData.OverLifetimeCast);
+        }
+    }
+
+    private void CastSubcast(CastData subcast)
+    {
+        _caster.Cast(subcast, transform.position, _isFacingRight);
     }
 
     private void DetectHit()
@@ -155,7 +223,7 @@ public class Projectile : MonoBehaviour
         Vector2 hitPos = new Vector2(transform.position.x + _hitDetectionOffset.x, transform.position.y + _hitDetectionOffset.y);
         RaycastHit2D[] hits = Physics2D.CircleCastAll(hitPos, _hitDetectionRadius, Vector2.zero);
 
-        foreach(RaycastHit2D hit in hits)
+        foreach (RaycastHit2D hit in hits)
         {
             int hitLayer = hit.collider.gameObject.layer;
             if (hitLayer != envLayer && hitLayer != entitiesLayer) continue;
@@ -169,10 +237,14 @@ public class Projectile : MonoBehaviour
                 hitParticles.Play();
                 Destroy(hitParticles.gameObject, _hitVfx.main.duration);
             }
-            
+
             // SFX
             if (_hitSfx != null) AudioPool.Play(_hitSfx, hit.point, _isHitSfx3D, 129, _hitSfxVolume, Random.Range(_hitSfxPitchMin, _hitSfxPitchMax));
 
+            if (_castData.OnHitCast != null && Random.value <= _castData.OnHitCastChance)
+            {
+                TimerManager.I.StartTimer(_castData.OnHitCastDelay, () => { CastSubcast(_castData.OnHitCast); });
+            }
             break;
         }
     }
@@ -217,6 +289,11 @@ public class Projectile : MonoBehaviour
 
         // SFX
         if (_fizzleSfx != null) AudioPool.Play(_fizzleSfx, transform.position, _isFizzleSfx3D, 129, _fizzleSfxVolume, Random.Range(_fizzleSfxPitchMin, _fizzleSfxPitchMax));
+
+        if (_castData.OnFizzleCast != null && Random.value <= _castData.OnFizzleCastChance)
+        {
+            TimerManager.I.StartTimer(_castData.OnFizzleCastDelay, () => { CastSubcast(_castData.OnFizzleCast); });
+        }
     }
 
 #if UNITY_EDITOR
