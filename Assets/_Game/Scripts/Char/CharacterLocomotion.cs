@@ -8,7 +8,7 @@ public class CharacterLocomotion : MonoBehaviour
     private bool _isFacingRight = true;
     public bool IsFacingRight => _isFacingRight;
 
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _rb.linearDamping = 0f;

@@ -22,6 +22,9 @@ public class PlayerInputManager : MonoBehaviour
     private bool _isAttackBasicPressed = false;
     public bool IsAttackBasicPressed => _isAttackBasicPressed;
 
+    private bool _isAttackBasicHold = false;
+    public bool IsAttackBasicHold => _isAttackBasicHold;
+
     private bool _isAttackSpecial1Pressed = false;
     public bool IsAttackSpecial1Pressed => _isAttackSpecial1Pressed;
 
@@ -90,6 +93,7 @@ public class PlayerInputManager : MonoBehaviour
 
         _playerInputActions.InGame.AttackBasic.started += ProcessPerformedAttackLightInput;
         _playerInputActions.InGame.AttackBasic.canceled += ProcessCanceledAttackLightInput;
+        _playerInputActions.InGame.AttackBasic.performed += ProcessHoldAttackLightInput;
 
         _playerInputActions.InGame.AttackSpecial1.started += ProcessPerformedAttackSpecial1Input;
         _playerInputActions.InGame.AttackSpecial1.canceled += ProcessCanceledAttackSpecial1Input;
@@ -121,6 +125,7 @@ public class PlayerInputManager : MonoBehaviour
 
         _playerInputActions.InGame.AttackBasic.started -= ProcessPerformedAttackLightInput;
         _playerInputActions.InGame.AttackBasic.canceled -= ProcessCanceledAttackLightInput;
+        _playerInputActions.InGame.AttackBasic.performed -= ProcessHoldAttackLightInput;
 
         _playerInputActions.InGame.AttackSpecial1.started -= ProcessPerformedAttackSpecial1Input;
         _playerInputActions.InGame.AttackSpecial1.canceled -= ProcessCanceledAttackSpecial1Input;
@@ -148,6 +153,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ProcessPerformedAttackLightInput(InputAction.CallbackContext context) { StartCoroutine(ProcessPerformedAttackBasicInputCoroutine()); }
     private void ProcessCanceledAttackLightInput(InputAction.CallbackContext context) { _isAttackBasicPressed = false; }
+    private void ProcessHoldAttackLightInput(InputAction.CallbackContext context) { _isAttackBasicHold = true; }
 
     private void ProcessPerformedAttackSpecial1Input(InputAction.CallbackContext context) { StartCoroutine(ProcessPerformedAttackSpecial1InputCoroutine()); }
     private void ProcessCanceledAttackSpecial1Input(InputAction.CallbackContext context) { _isAttackSpecial1Pressed = false; }

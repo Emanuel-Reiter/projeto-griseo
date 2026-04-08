@@ -5,8 +5,8 @@ public class PlayerStateAtkBasic : PlayerBaseState
     [Header("Transitions")]
     [SerializeField] private PlayerBaseState _idleState;
 
-    [Header("Spell")]
-    [SerializeField] private GameObject _basicSpell1;
+    [Header("Current spell")]
+    [SerializeField] private CastData _spell;
 
     private bool _queueAttack = false;
     private int _atkPushTimer;
@@ -28,9 +28,7 @@ public class PlayerStateAtkBasic : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        Vector3 eulerDir = manager.Deps.Locomotion.IsFacingRight ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 180f, 0f);
-        GameObject go = Instantiate(_basicSpell1, manager.Deps.SpellOrigin.position, Quaternion.Euler(eulerDir), null);
-        //Debug.Log(go.transform.eulerAngles);
+        manager.Deps.Cast.Cast(_spell, manager.Deps.SpellOrigin.position, manager.Deps.Locomotion.IsFacingRight);
 
         if (_baseAnim == null) return;
     
@@ -55,7 +53,7 @@ public class PlayerStateAtkBasic : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        bool atkInput = manager.Deps.Input.IsAttackBasicPressed;
+        bool atkInput = manager.Deps.Input.IsAttackBasicHold;
         if (GetCurrentTime() > GetStateCompletion(0.667f) && atkInput) _queueAttack = true;
 
         if (GetCurrentTime() < GetStateCompletion(0.2f))

@@ -13,11 +13,14 @@ public class PlayerDependencies : MonoBehaviour
     [SerializeField] private Transform _spellOrigin;
     public Transform SpellOrigin => _spellOrigin;
 
+    public ProjectileCaster Cast { get; private set; }
+
     private void Awake()
     {
         Locomotion = GetComponent<CharacterLocomotion>();
         CharAnimator = GetComponentInChildren<CharacterAnimator>();
         Input = GetComponent<PlayerInputManager>();
         EnvDetection = GetComponent<CharacterEnvironmentDetection>();
+        Cast = GetComponent<ProjectileCaster>();
     }
 }
