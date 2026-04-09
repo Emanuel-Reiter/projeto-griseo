@@ -76,7 +76,7 @@ Material:
     - _BaseColor2: {r: 0.6679737, g: 0.5019608, b: 1, a: 0}
     - _BaseColor_01: {r: 1, g: 0.8333334, b: 0.5, a: 0}
     - _BaseColor_02: {r: 0.6666665, g: 0.5, b: 1, a: 0}
-    - _EmissionColor: {r: 1.2078422, g: 0.3137254, b: 2.9960785, a: 0}
+    - _EmissionColor: {r: 2.4156845, g: 0.6274508, b: 5.992157, a: 0}
     - _EmissionColor1: {r: 5.992157, g: 3.3380392, b: 0.59921587, a: 0}
     - _EmissionColor2: {r: 0.6039211, g: 0.1568627, b: 1.4980392, a: 0}
     - _EmissionColor_01: {r: 4, g: 2.1, b: 0.20000005, a: 0}

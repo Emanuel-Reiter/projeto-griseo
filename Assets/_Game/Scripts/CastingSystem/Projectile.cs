@@ -66,7 +66,6 @@ public class Projectile : MonoBehaviour
     [Space]
     [Range(0.5f, 1.5f)][SerializeField] private float _idleSfxPitchMin = 1f;
     [Range(0.5f, 1.5f)][SerializeField] private float _idleSfxPitchMax = 1f;
-    private AudioHandle _idleVoice;
 
     [Space]
     [Space]
@@ -122,6 +121,12 @@ public class Projectile : MonoBehaviour
         {
             float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            if (_projectileSprite != null)
+            {
+                if (Mathf.Abs(angle) > 90f) _projectileSprite.flipY = true;
+                else _projectileSprite.flipY = false;
+            }
         }
     }
 
@@ -189,13 +194,19 @@ public class Projectile : MonoBehaviour
 
         // SFX
         if (_spawnSfx != null) AudioPool.Play(_spawnSfx, transform.position, _isSpawnSfx3D, 127, _spawnSfxVolume, Random.Range(_spawnSfxPitchMin, _spawnSfxPitchMax));
-        if (_idleSfx != null) _idleVoice = AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax), default, default, true);
+        if (_idleSfx != null) InvokeRepeating(nameof(TriggerIdleSfx), 0f, _idleSfx.length);
 
         // Animation
         if (_projectileAnimator != null)
         {
             if (_idleAnim != null) _projectileAnimator.Play(_idleAnim.name);
         }
+    }
+
+    private void TriggerIdleSfx()
+    {
+        if (_hasDied) return;
+        AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax));
     }
 
     private void TriggerOverLifetimeCast()
@@ -258,8 +269,6 @@ public class Projectile : MonoBehaviour
 
         if (_light != null) _light.gameObject.SetActive(false);
 
-        _idleVoice.Stop();
-
         if (_idleVfx != null) _idleVfx.Stop();
         if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.1f);
 
@@ -272,8 +281,6 @@ public class Projectile : MonoBehaviour
         _body.linearVelocity = Vector2.zero;
 
         if (_light != null) _light.gameObject.SetActive(false);
-
-        _idleVoice.Stop();
 
         if (_idleVfx != null) _idleVfx.Stop();
         if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.3f);

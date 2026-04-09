@@ -95,9 +95,9 @@ public sealed class AudioPool : Singleton<AudioPool>
         var src = voice.Source;
 
         src.spatialBlend = req.Is3D ? 1f : 0f;
-        if (req.Is3D)
-            src.transform.position = req.Position;
-
+        if (req.Is3D) src.transform.position = req.Position;
+        if (req.MinDistance < 0f) src.minDistance = _defaultMinDistance;
+        if (req.MaxDistance < 0f) src.maxDistance = _defaultMaxDistance;
         if (req.MinDistance >= 0f) src.minDistance = req.MinDistance;
         if (req.MaxDistance >= 0f) src.maxDistance = req.MaxDistance;
 

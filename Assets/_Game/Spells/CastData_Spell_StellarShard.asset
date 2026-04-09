@@ -25,7 +25,7 @@ MonoBehaviour:
   ArmorPenetration: 0
   Projectile: {fileID: 1280583928218935999, guid: c34d3d2cd0dc2e84f98231ef28db6ec6, type: 3}
   AmountOfCasts: 1
-  CastScatteringAngle: 10
+  CastScatteringAngle: 5
   ProjectileTrackingPercent: 0
   ProjectileDuration: 1
   InitialForce: 0
@@ -35,18 +35,14 @@ MonoBehaviour:
   DecelerationRate: 0
   GravityModifier: 0
   OnSpawnCast: {fileID: 0}
-  OnSpawntimeAmountOfCasts: 1
   OnSpawnCastChance: 1
   OnSpawnCastDelay: 0
   OverLifetimeCast: {fileID: 0}
-  OverLifetimeAmountOfCasts: 1
   OverLifetimeCastChance: 1
   OverLifetimeCastInterval: 0.05
   OnFizzleCast: {fileID: 0}
-  OnFizzleAmountOfCasts: 1
   OnFizzleCastChance: 1
   OnFizzleCastDelay: 0
-  OnHitCast: {fileID: 0}
-  OnHitAmountOfCasts: 1
+  OnHitCast: {fileID: 11400000, guid: e74198ec40fd5c84ab4c1ff4d407ec62, type: 2}
   OnHitCastChance: 1
   OnHitCastDelay: 0
