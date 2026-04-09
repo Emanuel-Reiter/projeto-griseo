@@ -30,6 +30,7 @@ MonoBehaviour:
   ProjectileDuration: 5
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
+  ConstantVelocityStartDelay: 0
   ConstantVelocity: 2.5
   ConstantDirection: {x: 1, y: 0}
   DecelerationRate: 0
@@ -42,7 +43,7 @@ MonoBehaviour:
   OverLifetimeCastInterval: 0.05
   OnFizzleCast: {fileID: 11400000, guid: 448ed4c77b27c79448df2c771b0e75ca, type: 2}
   OnFizzleCastChance: 1
-  OnFizzleCastDelay: 0.1
+  OnFizzleCastDelay: 0
   OnHitCast: {fileID: 11400000, guid: 448ed4c77b27c79448df2c771b0e75ca, type: 2}
   OnHitCastChance: 1
-  OnHitCastDelay: 0.1
+  OnHitCastDelay: 0

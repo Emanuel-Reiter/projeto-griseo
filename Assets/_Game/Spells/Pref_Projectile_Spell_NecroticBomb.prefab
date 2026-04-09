@@ -4996,7 +4996,7 @@ MonoBehaviour:
   _isFizzleSfx3D: 1
   _fizzleSfxPitchMin: 1
   _fizzleSfxPitchMax: 1
-  _hitSfx: {fileID: 8300000, guid: e6ae32fb924114145a15f467ccd2187c, type: 3}
+  _hitSfx: {fileID: 0}
   _hitSfxVolume: 1
   _isHitSfx3D: 1
   _hitSfxPitchMin: 0.9

@@ -9809,6 +9809,7 @@ MonoBehaviour:
   _projectileSprite: {fileID: 8448834085452088135}
   _sigilSprite: {fileID: 2081211139926189139}
   _light: {fileID: 3006181996789964883}
+  _disableLightOnDie: 1
   _idleAnim: {fileID: 0}
   _spawnVfx: {fileID: 3217804109893927996}
   _idleVfx: {fileID: 8103072221620021688}
@@ -9894,7 +9895,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.5019608, g: 0.8339869, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.5019608, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 0.03
   m_LightVolumeEnabled: 0
