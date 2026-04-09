@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CastData_Spell_NecroticBomb
   m_EditorClassIdentifier: 
   BaseDMGPhysical: 0
-  BaseDMGStellar: 120
+  BaseDMGStellar: 5
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0
@@ -40,9 +40,9 @@ MonoBehaviour:
   OverLifetimeCast: {fileID: 0}
   OverLifetimeCastChance: 1
   OverLifetimeCastInterval: 0.05
-  OnFizzleCast: {fileID: 0}
+  OnFizzleCast: {fileID: 11400000, guid: 448ed4c77b27c79448df2c771b0e75ca, type: 2}
   OnFizzleCastChance: 1
-  OnFizzleCastDelay: 0
-  OnHitCast: {fileID: 11400000, guid: e74198ec40fd5c84ab4c1ff4d407ec62, type: 2}
+  OnFizzleCastDelay: 0.1
+  OnHitCast: {fileID: 11400000, guid: 448ed4c77b27c79448df2c771b0e75ca, type: 2}
   OnHitCastChance: 1
-  OnHitCastDelay: 0
+  OnHitCastDelay: 0.1

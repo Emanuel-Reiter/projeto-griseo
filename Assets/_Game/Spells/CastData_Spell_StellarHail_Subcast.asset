@@ -25,15 +25,15 @@ MonoBehaviour:
   ArmorPenetration: 0
   Projectile: {fileID: 1280583928218935999, guid: 105281334d2927f4cad277c44215993b, type: 3}
   AmountOfCasts: 1
-  CastScatteringAngle: 15
+  CastScatteringAngle: 30
   ProjectileTrackingPercent: 0
   ProjectileDuration: 1
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
-  ConstantVelocity: 0
-  ConstantDirection: {x: 0, y: 0}
+  ConstantVelocity: 25
+  ConstantDirection: {x: 0, y: -1}
   DecelerationRate: 0
-  GravityModifier: 5
+  GravityModifier: 1
   OnSpawnCast: {fileID: 0}
   OnSpawnCastChance: 1
   OnSpawnCastDelay: 0

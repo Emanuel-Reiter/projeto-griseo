@@ -44,6 +44,7 @@ public class CastData : ScriptableObject
     public Vector2 InitialDirection = Vector2.zero;
 
     [Header("Constant velocity")]
+    [Range(0f, 9f)] public float ConstantVelocityStartDelay = 0f;
     public float ConstantVelocity = 0f;
     public Vector2 ConstantDirection = Vector2.zero;
 

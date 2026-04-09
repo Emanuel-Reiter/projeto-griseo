@@ -39,7 +39,7 @@ MonoBehaviour:
   OnSpawnCastDelay: 0
   OverLifetimeCast: {fileID: 11400000, guid: 80e9690fe2bc7974887e116e5e47ecfb, type: 2}
   OverLifetimeCastChance: 1
-  OverLifetimeCastInterval: 0.2
+  OverLifetimeCastInterval: 0.15
   OnFizzleCast: {fileID: 0}
   OnFizzleCastChance: 1
   OnFizzleCastDelay: 0

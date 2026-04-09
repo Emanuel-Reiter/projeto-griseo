@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour
     private bool _hasDied = false;
     private bool _isFacingRight;
 
+    private bool _allowConstantVelocity = false;
+
     private CastData _castData;
 
     // Collision layers
@@ -34,6 +36,7 @@ public class Projectile : MonoBehaviour
 
     [Header("Light params")]
     [SerializeField] private Light2D _light;
+    [SerializeField] private bool _disableLightOnDie = true;
 
     [Header("Animations")]
     //[SerializeField] private AnimationClip _spawnAnim;
@@ -102,6 +105,7 @@ public class Projectile : MonoBehaviour
     {
         if (_hasDied) return;
         if (_constantVelocity == Vector2.zero) return;
+        if (!_allowConstantVelocity) return;
 
         _body.linearVelocity = _constantVelocity;
     }
@@ -169,6 +173,8 @@ public class Projectile : MonoBehaviour
         SetProjectileDuration(_castData.ProjectileDuration);
         SetGravityModifier(_castData.GravityModifier);
         CalculateVelocity();
+
+        TimerManager.I.StartTimer(_castData.ConstantVelocityStartDelay, () => _allowConstantVelocity = true);
 
         _fizzleTimerIndex = TimerManager.I.StartTimer(_projectileDuration, () => Fizzle());
 
@@ -260,6 +266,19 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    private void HandleDieLightBehaviour()
+    {
+        if (_light != null)
+        {
+            if (_disableLightOnDie) _light.gameObject.SetActive(false);
+            else TimerManager.I.StartTimer(_castData.ProjectileDuration, () =>
+            {
+                DOTween.To(() => _light.intensity, x => _light.intensity = x, 0f, _castData.ProjectileDuration)
+                .OnComplete(() => _light.gameObject.SetActive(false));
+            });
+        }
+    }
+
     private void Destroy()
     {
         _hasDied = true;
@@ -267,7 +286,7 @@ public class Projectile : MonoBehaviour
 
         TimerManager.I.CancelTimer(_fizzleTimerIndex);
 
-        if (_light != null) _light.gameObject.SetActive(false);
+        HandleDieLightBehaviour();
 
         if (_idleVfx != null) _idleVfx.Stop();
         if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.1f);
@@ -280,7 +299,7 @@ public class Projectile : MonoBehaviour
         _hasDied = true;
         _body.linearVelocity = Vector2.zero;
 
-        if (_light != null) _light.gameObject.SetActive(false);
+        HandleDieLightBehaviour();
 
         if (_idleVfx != null) _idleVfx.Stop();
         if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.3f);
