@@ -394,14 +394,9 @@ public class Projectile : MonoBehaviour
 
             // Damage
             if (hit.collider.gameObject.TryGetComponent<CharAttributesManager>(out CharAttributesManager target))
-            {   
-                bool isFacingRight = _body.linearVelocityX > 0f ? true : false;
-                if(_body.linearVelocityX == 0f)
-                {
-                    int value = Random.Range(0, 2);
-                    isFacingRight = value == 1 ? true : false;
-                    // Debug.Log($"Used random value: {value}");
-                }
+            {
+                Vector2 projectilePos = transform.position;
+                Vector2 dirKb = hit.point - projectilePos;
 
                 DamageData damageData = new DamageData(
                     _castData.BaseDMGPhysical,
@@ -414,7 +409,7 @@ public class Projectile : MonoBehaviour
                     _castData.CritChace,
                     _castData.CritModifier,
                     _castData.KnockbackForce,
-                    isFacingRight
+                    dirKb
                 );
                 
                 target.TakeDamage(damageData);

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public struct DamageData
 {
     // Damage
@@ -17,9 +19,9 @@ public struct DamageData
 
     // Knockback
     public float KnockbackForce;
-    public bool IsFacingRight;
+    public Vector2 KnockbackDir;
 
-    public DamageData(int dmgPhysical, int dmgStellar, int dmgFire, int dmgLightining, int stsPoison, int stsFrostbite, int stsIchor, float critChance, float critModifier, float knockback, bool isFacingRight)
+    public DamageData(int dmgPhysical, int dmgStellar, int dmgFire, int dmgLightining, int stsPoison, int stsFrostbite, int stsIchor, float critChance, float critModifier, float knockback, Vector2 knockbackDir)
     {
         BaseDMGPhysical = dmgPhysical;
         BaseDMGStellar = dmgStellar;
@@ -34,6 +36,6 @@ public struct DamageData
         CritModifier = critModifier;
 
         KnockbackForce = knockback;
-        IsFacingRight = isFacingRight;
+        KnockbackDir = knockbackDir;
     }
 }

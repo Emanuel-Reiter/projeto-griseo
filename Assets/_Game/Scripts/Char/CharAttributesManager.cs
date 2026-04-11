@@ -12,7 +12,6 @@ public class CharAttributesManager : MonoBehaviour
     public void TakeDamage(DamageData damageData)
     {
         Debug.Log($"{gameObject.name} damaged, kb: {damageData.KnockbackForce}");
-        Vector2 dir = damageData.IsFacingRight ? Vector2.right : Vector2.left;
-        _locomotion.PushByDirectionSimple(dir, damageData.KnockbackForce);
+        _locomotion.PushByDirectionSimple(damageData.KnockbackDir.normalized, damageData.KnockbackForce);
     }
 }
