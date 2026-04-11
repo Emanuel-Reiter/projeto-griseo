@@ -19,11 +19,15 @@ MonoBehaviour:
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  MaxTargetPenetration: 0
+  PerTargetDmgReduction: 0
+  MaxEnvironmentHits: 0
+  PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
   KnockbackForce: 0
   ArmorPenetration: 0
-  Projectile: {fileID: 3868220713616496007, guid: d2c9bbded43403f47b0251deef6a8bb9, type: 3}
+  Projectile: {fileID: 3868220713616496007, guid: 88685f4bb998d3b4198e190610d2f38a, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 2
   ProjectileTrackingPercent: 0
@@ -41,9 +45,9 @@ MonoBehaviour:
   OverLifetimeCast: {fileID: 0}
   OverLifetimeCastChance: 1
   OverLifetimeCastInterval: 0.05
-  OnFizzleCast: {fileID: 11400000, guid: 448ed4c77b27c79448df2c771b0e75ca, type: 2}
+  OnFizzleCast: {fileID: 11400000, guid: bf3b5fc1bc7cbf647b28a2336d0e5581, type: 2}
   OnFizzleCastChance: 1
   OnFizzleCastDelay: 0
-  OnHitCast: {fileID: 11400000, guid: 448ed4c77b27c79448df2c771b0e75ca, type: 2}
+  OnHitCast: {fileID: 11400000, guid: bf3b5fc1bc7cbf647b28a2336d0e5581, type: 2}
   OnHitCastChance: 1
   OnHitCastDelay: 0

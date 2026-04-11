@@ -392,27 +392,31 @@ public class Projectile : MonoBehaviour
             int hitLayer = hit.collider.gameObject.layer;
             if (hitLayer != _entitiesLayer) continue;
 
-            // Damage
-            if (hit.collider.gameObject.TryGetComponent<CharAttributesManager>(out CharAttributesManager target))
+            if(_castData.CanDealDamage)
             {
-                Vector2 projectilePos = transform.position;
-                Vector2 dirKb = hit.point - projectilePos;
+                // Damage
+                if (hit.collider.gameObject.TryGetComponent<CharAttributesManager>(out CharAttributesManager target))
+                {   
+                    Vector2 targetPos = hit.collider.transform.position;
+                    Vector2 projectilePos = transform.position;
+                    Vector2 dirKb = new Vector2(targetPos.x - projectilePos.x, 0f);
 
-                DamageData damageData = new DamageData(
-                    _castData.BaseDMGPhysical,
-                    _castData.BaseDMGStellar,
-                    _castData.BaseDMGFire,
-                    _castData.BaseDMGLightining,
-                    _castData.STSPoison,
-                    _castData.STSFrostbite,
-                    _castData.STSIchor,
-                    _castData.CritChace,
-                    _castData.CritModifier,
-                    _castData.KnockbackForce,
-                    dirKb
-                );
-                
-                target.TakeDamage(damageData);
+                    DamageData damageData = new DamageData(
+                        _castData.BaseDMGPhysical,
+                        _castData.BaseDMGStellar,
+                        _castData.BaseDMGFire,
+                        _castData.BaseDMGLightining,
+                        _castData.STSPoison,
+                        _castData.STSFrostbite,
+                        _castData.STSIchor,
+                        _castData.CritChace,
+                        _castData.CritModifier,
+                        _castData.KnockbackForce,
+                        dirKb
+                    );
+
+                    target.TakeDamage(damageData);
+                }
             }
 
             _remainingTargetPenetrations--;

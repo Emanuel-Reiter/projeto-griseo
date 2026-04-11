@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CastData", menuName = "Character/CastData")]
 public class CastData : ScriptableObject
 {
+    [Header("Damage toggle")]
+    public bool CanDealDamage = true;
+
     [Header("Damage")]
     public int BaseDMGPhysical = 0;
     public int BaseDMGStellar = 0;

@@ -19,17 +19,22 @@ MonoBehaviour:
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  MaxTargetPenetration: 0
+  PerTargetDmgReduction: 0
+  MaxEnvironmentHits: 0
+  PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
   KnockbackForce: 0
   ArmorPenetration: 0
-  Projectile: {fileID: 1611011760824452471, guid: 6662ba128c3d57e4db81c639beecb2a0, type: 3}
+  Projectile: {fileID: 1611011760824452471, guid: 2b9304eeab35cab4699d4eb7c28f3e43, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 0
   ProjectileTrackingPercent: 0
   ProjectileDuration: 0.5
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
+  ConstantVelocityStartDelay: 0
   ConstantVelocity: 0
   ConstantDirection: {x: 0, y: 0}
   DecelerationRate: 0
