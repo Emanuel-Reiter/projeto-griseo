@@ -1,33 +1,44 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Rendering.Universal;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
     private Rigidbody2D _body;
     private ProjectileCaster _caster;
-
-    private Vector2 _constantVelocity;
+    private CircleCollider2D _collider;
 
     private int _fizzleTimerIndex;
 
+    private CastData _castData;
     private bool _hasDied = false;
     private bool _isFacingRight;
-
     private bool _allowConstantVelocity = false;
-
-    private CastData _castData;
+    private Vector2 _constantVelocity;
+    private int _remainingTargetPenetrations = 0;
+    private int _remainingEnvHits = 0;
 
     // Collision layers
     private const string ENV_LAYER = "EnvCollisions";
     private const string ENTITIES_LAYER = "Entities";
+    private const string PLAYER_LAYER = "Player";
+    private const string PROJECTILES_LAYER = "Projectiles";
+
+    private int _envLayer;
+    private int _entitiesLayer;
+    private int _playerLayer;
+    private int _projectilesLayer;
 
     [Header("Projectile params")]
-    [SerializeField] private bool _useHitDetection = true;
+    [SerializeField] private bool _useEntityDetection = true;
+    [SerializeField] private bool _useEnvDetection = true;
     [SerializeField] private float _hitDetectionRadius = 0.5f;
     [SerializeField] private Vector2 _hitDetectionOffset = Vector2.zero;
     private float _projectileDuration;
+    // [SerializeField] private bool _useLingringHitbox = false;
+    // private bool _hasHit = false;
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer _projectileSprite;
@@ -96,9 +107,31 @@ public class Projectile : MonoBehaviour
 
     private void Awake()
     {
+        _envLayer = LayerMask.NameToLayer(ENV_LAYER);
+        _entitiesLayer = LayerMask.NameToLayer(ENTITIES_LAYER);
+        _playerLayer = LayerMask.NameToLayer(PLAYER_LAYER);
+        _projectilesLayer = LayerMask.NameToLayer(PROJECTILES_LAYER);
+
         _body = GetComponent<Rigidbody2D>();
         _caster = GetComponent<ProjectileCaster>();
         TryGetComponent<Animator>(out _projectileAnimator);
+
+        if (_useEnvDetection)
+        {
+            _body.freezeRotation = false;
+            if (!TryGetComponent<CircleCollider2D>(out _collider))
+            {
+                _collider = gameObject.AddComponent<CircleCollider2D>();
+            }
+
+            LayerMask mask = LayerMask.GetMask(ENTITIES_LAYER, PLAYER_LAYER, PROJECTILES_LAYER);
+            _collider.excludeLayers = mask;
+            _collider.radius = _hitDetectionRadius;
+        }
+        else
+        {
+            if (TryGetComponent<CircleCollider2D>(out _collider)) _collider.enabled = false;
+        }
     }
 
     private void FixedUpdate()
@@ -113,8 +146,7 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         if (_hasDied) return;
-
-        DetectHit();
+        DetectEntityHit();
         UpdateSpriteRotation();
     }
 
@@ -164,43 +196,30 @@ public class Projectile : MonoBehaviour
 
     public void FireProjectile(CastData castData, bool isFacingRight)
     {
-        if (_body == null) _body = GetComponent<Rigidbody2D>();
-
+        // Projectile setup
         _castData = castData;
         _isFacingRight = isFacingRight;
+        _remainingEnvHits = _castData.MaxEnvironmentHits;
+        _remainingTargetPenetrations = _castData.MaxTargetPenetration;
 
-        // Projectile setup
         SetProjectileDuration(_castData.ProjectileDuration);
         SetGravityModifier(_castData.GravityModifier);
         CalculateVelocity();
 
+        // Constant velociy apply delay trigger
         TimerManager.I.StartTimer(_castData.ConstantVelocityStartDelay, () => _allowConstantVelocity = true);
 
+        // Fizzle timer
         _fizzleTimerIndex = TimerManager.I.StartTimer(_projectileDuration, () => Fizzle());
 
-        // OnSpawn Subcast
+        // Initial subcasts
+        TriggerOnSpawnSubcast();
+        InvokeRepeating(nameof(TriggerOverLifetimeSubast), castData.OverLifetimeCastInterval, castData.OverLifetimeCastInterval);
 
-        if (_castData.OnSpawnCast != null && Random.value <= _castData.OnSpawnCastChance)
-        {
-            TimerManager.I.StartTimer(_castData.OnSpawnCastDelay, () => { CastSubcast(_castData.OnSpawnCast); });
-        }
-
-        // Over lifetime subcast
-        InvokeRepeating(nameof(TriggerOverLifetimeCast), castData.OverLifetimeCastInterval, castData.OverLifetimeCastInterval);
-
-        // VFX
-        if (_sigilSprite != null)
-        {
-            _sigilSprite.transform.parent = null;
-            _sigilSprite.DOFade(0f, 0.75f).OnComplete(() => Destroy(_sigilSprite.gameObject));
-        }
-
-        if (_spawnVfx != null) _spawnVfx.Play();
-        if (_idleVfx != null) _idleVfx.Play();
-
-        // SFX
-        if (_spawnSfx != null) AudioPool.Play(_spawnSfx, transform.position, _isSpawnSfx3D, 127, _spawnSfxVolume, Random.Range(_spawnSfxPitchMin, _spawnSfxPitchMax));
-        if (_idleSfx != null) InvokeRepeating(nameof(TriggerIdleSfx), 0f, _idleSfx.length);
+        // Effects
+        TriggerSigilEffects();
+        TriggerSpawnEffects();
+        TriggerIdleEffects();
 
         // Animation
         if (_projectileAnimator != null)
@@ -209,13 +228,47 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void TriggerIdleSfx()
+    private void Die()
     {
-        if (_hasDied) return;
-        AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax));
+        _hasDied = true;
+        _body.linearVelocity = Vector2.zero;
+
+        TimerManager.I.CancelTimer(_fizzleTimerIndex);
+
+        if (_collider != null) _collider.enabled = false;
+
+        LightFadeBehaviour();
+
+        if (_idleVfx != null) _idleVfx.Stop();
+        if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.1f);
+
+        TimerManager.I.StartTimer(5f, () => { Destroy(gameObject); });
     }
 
-    private void TriggerOverLifetimeCast()
+    private void Fizzle()
+    {
+        Die();
+        TriggerFizzleEffects();
+        TriggerOnFizzleSubcast();
+    }
+
+    #region Subcasts
+    private void CastSubcast(CastData subcast)
+    {
+        _caster.Cast(subcast, transform.position, _isFacingRight);
+    }
+
+    // On spawn subcast
+    private void TriggerOnSpawnSubcast()
+    {
+        if (_castData.OnSpawnCast != null && Random.value <= _castData.OnSpawnCastChance)
+        {
+            TimerManager.I.StartTimer(_castData.OnSpawnCastDelay, () => { CastSubcast(_castData.OnSpawnCast); });
+        }
+    }
+
+    // Over lifetime subcast
+    private void TriggerOverLifetimeSubast()
     {
         if (_hasDied) return;
 
@@ -225,48 +278,92 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void CastSubcast(CastData subcast)
+    // On fizzle subcast
+    private void TriggerOnFizzleSubcast()
     {
-        _caster.Cast(subcast, transform.position, _isFacingRight);
-    }
-
-    private void DetectHit()
-    {
-        if (!_useHitDetection) return;
-
-        int envLayer = LayerMask.NameToLayer(ENV_LAYER);
-        int entitiesLayer = LayerMask.NameToLayer(ENTITIES_LAYER);
-
-        Vector2 hitPos = new Vector2(transform.position.x + _hitDetectionOffset.x, transform.position.y + _hitDetectionOffset.y);
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(hitPos, _hitDetectionRadius, Vector2.zero);
-
-        foreach (RaycastHit2D hit in hits)
+        if (_castData.OnFizzleCast != null && Random.value <= _castData.OnFizzleCastChance)
         {
-            int hitLayer = hit.collider.gameObject.layer;
-            if (hitLayer != envLayer && hitLayer != entitiesLayer) continue;
-
-            Destroy();
-
-            // VFX
-            if (_hitVfx != null)
-            {
-                ParticleSystem hitParticles = Instantiate(_hitVfx, hit.point, Quaternion.identity, null);
-                hitParticles.Play();
-                Destroy(hitParticles.gameObject, _hitVfx.main.duration);
-            }
-
-            // SFX
-            if (_hitSfx != null) AudioPool.Play(_hitSfx, hit.point, _isHitSfx3D, 129, _hitSfxVolume, Random.Range(_hitSfxPitchMin, _hitSfxPitchMax));
-
-            if (_castData.OnHitCast != null && Random.value <= _castData.OnHitCastChance)
-            {
-                TimerManager.I.StartTimer(_castData.OnHitCastDelay, () => { CastSubcast(_castData.OnHitCast); });
-            }
-            break;
+            TimerManager.I.StartTimer(_castData.OnFizzleCastDelay, () => { CastSubcast(_castData.OnFizzleCast); });
         }
     }
 
-    private void HandleDieLightBehaviour()
+    // On hit subcast
+    private void TriggerOnHitSubcast()
+    {
+        if (_castData.OnHitCast != null && Random.value <= _castData.OnHitCastChance)
+        {
+            TimerManager.I.StartTimer(_castData.OnHitCastDelay, () => { CastSubcast(_castData.OnHitCast); });
+        }
+    }
+
+    #endregion
+
+    #region Effects
+    // Sigil effects
+    private void TriggerSigilEffects()
+    {
+        if (_sigilSprite != null)
+        {
+            _sigilSprite.transform.parent = null;
+            _sigilSprite.DOFade(0f, 0.75f).OnComplete(() => Destroy(_sigilSprite.gameObject));
+        }
+    }
+
+    // Spawn effects
+    private void TriggerSpawnEffects()
+    {
+        if (_spawnVfx != null) _spawnVfx.Play();
+        if (_spawnSfx != null) AudioPool.Play(_spawnSfx, transform.position, _isSpawnSfx3D, 127, _spawnSfxVolume, Random.Range(_spawnSfxPitchMin, _spawnSfxPitchMax));
+    }
+
+    // Idle effects
+    private void TriggerIdleEffects()
+    {
+        if (_idleVfx != null && !_idleVfx.isPlaying) _idleVfx.Play();
+        InvokeRepeating(nameof(PlayIdleAudio), _castData.OverLifetimeCastInterval, _castData.OverLifetimeCastInterval);
+    }
+
+    private void PlayIdleAudio()
+    {
+        if (_hasDied) return;
+        if (_idleSfx != null) AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax));
+    }
+
+    // Fizzle effects
+    private void TriggerFizzleEffects()
+    {
+        if (_fizzleVfx != null) _fizzleVfx.Play();
+        if (_fizzleSfx != null) AudioPool.Play(_fizzleSfx, transform.position, _isFizzleSfx3D, 129, _fizzleSfxVolume, Random.Range(_fizzleSfxPitchMin, _fizzleSfxPitchMax));
+    }
+
+    // Hit effects
+    private void TriggerHitEffects(Vector3 pos)
+    {
+        if (_hitVfx != null)
+        {
+            ParticleSystem hitParticles = Instantiate(_hitVfx, pos, Quaternion.identity, null);
+            hitParticles.Play();
+            Destroy(hitParticles.gameObject, _hitVfx.main.duration);
+        }
+
+        if (_hitSfx != null) AudioPool.Play(_hitSfx, pos, _isHitSfx3D, 129, _hitSfxVolume, Random.Range(_hitSfxPitchMin, _hitSfxPitchMax));
+    }
+
+    private void TriggerHitEffects()
+    {
+        if (_hitVfx != null)
+        {
+            ParticleSystem hitParticles = Instantiate(_hitVfx, transform.position, Quaternion.identity, null);
+            hitParticles.Play();
+            Destroy(hitParticles.gameObject, _hitVfx.main.duration);
+        }
+
+        if (_hitSfx != null) AudioPool.Play(_hitSfx, transform.position, _isHitSfx3D, 129, _hitSfxVolume, Random.Range(_hitSfxPitchMin, _hitSfxPitchMax));
+
+    }
+
+    // Light effects
+    private void LightFadeBehaviour()
     {
         if (_light != null)
         {
@@ -279,53 +376,87 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void Destroy()
+    #endregion 
+
+    #region Collisions
+    private void DetectEntityHit()
     {
-        _hasDied = true;
-        _body.linearVelocity = Vector2.zero;
+        if (!_useEntityDetection) return;
 
-        TimerManager.I.CancelTimer(_fizzleTimerIndex);
+        Vector2 hitPos = new Vector2(transform.position.x + _hitDetectionOffset.x, transform.position.y + _hitDetectionOffset.y);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(hitPos, _hitDetectionRadius, Vector2.zero);
 
-        HandleDieLightBehaviour();
+        foreach (RaycastHit2D hit in hits)
+        {
+            int hitLayer = hit.collider.gameObject.layer;
+            if (hitLayer != _entitiesLayer) continue;
 
-        if (_idleVfx != null) _idleVfx.Stop();
-        if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.1f);
+            // Damage
+            if (hit.collider.gameObject.TryGetComponent<CharAttributesManager>(out CharAttributesManager target))
+            {   
+                bool isFacingRight = _body.linearVelocityX > 0f ? true : false;
+                if(_body.linearVelocityX == 0f)
+                {
+                    int value = Random.Range(0, 2);
+                    isFacingRight = value == 1 ? true : false;
+                    // Debug.Log($"Used random value: {value}");
+                }
 
-        TimerManager.I.StartTimer(5f, () => { Destroy(gameObject); });
+                DamageData damageData = new DamageData(
+                    _castData.BaseDMGPhysical,
+                    _castData.BaseDMGStellar,
+                    _castData.BaseDMGFire,
+                    _castData.BaseDMGLightining,
+                    _castData.STSPoison,
+                    _castData.STSFrostbite,
+                    _castData.STSIchor,
+                    _castData.CritChace,
+                    _castData.CritModifier,
+                    _castData.KnockbackForce,
+                    isFacingRight
+                );
+                
+                target.TakeDamage(damageData);
+            }
+
+            _remainingTargetPenetrations--;
+
+            bool destroyProjectile = (_remainingEnvHits <= 0 || _remainingTargetPenetrations <= 0) ? true : false;
+
+            TriggerHitEffects(hit.point);
+            TriggerOnHitSubcast();
+
+            if (destroyProjectile)
+            {
+                Die();
+                break;
+            }
+        }
     }
 
-    private void Fizzle()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        _hasDied = true;
-        _body.linearVelocity = Vector2.zero;
+        if (!_useEnvDetection) return;
 
-        HandleDieLightBehaviour();
+        int hitLayer = collision.gameObject.layer;
+        if (hitLayer != _envLayer) return;
 
-        if (_idleVfx != null) _idleVfx.Stop();
-        if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.3f);
+        TriggerHitEffects();
+        TriggerOnHitSubcast();
 
-        TimerManager.I.StartTimer(5f, () => { Destroy(gameObject); });
-
-        // VFX
-        if (_fizzleVfx != null)
-        {
-            ParticleSystem fizzleParticle = Instantiate(_fizzleVfx, transform.position, Quaternion.identity, null);
-            Destroy(fizzleParticle, _fizzleVfx.main.duration);
-        }
-
-        // SFX
-        if (_fizzleSfx != null) AudioPool.Play(_fizzleSfx, transform.position, _isFizzleSfx3D, 129, _fizzleSfxVolume, Random.Range(_fizzleSfxPitchMin, _fizzleSfxPitchMax));
-
-        if (_castData.OnFizzleCast != null && Random.value <= _castData.OnFizzleCastChance)
-        {
-            TimerManager.I.StartTimer(_castData.OnFizzleCastDelay, () => { CastSubcast(_castData.OnFizzleCast); });
-        }
+        _remainingEnvHits--;
+        if (_remainingEnvHits <= 0) Die();
     }
+
+    #endregion
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.magenta;
+        if (!_hasDied) Gizmos.color = Color.magenta;
+        else Gizmos.color = Color.white;
+
         Vector2 hitPos = new Vector2(transform.position.x + _hitDetectionOffset.x, transform.position.y + _hitDetectionOffset.y);
         Gizmos.DrawWireSphere(hitPos, _hitDetectionRadius);
     }

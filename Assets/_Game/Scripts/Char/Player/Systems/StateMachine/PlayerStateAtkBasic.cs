@@ -37,7 +37,7 @@ public class PlayerStateAtkBasic : PlayerBaseState
 
         _atkPushTimer = TimerManager.I.StartTimer(GetStateCompletion(0.333f), () =>
         {
-            manager.Deps.Locomotion.PushByDirection(manager.transform.right, 0.5f);
+            manager.Deps.Locomotion.PushByDirectionComplex(manager.transform.right, 0.5f);
         });
     }
 
@@ -48,7 +48,7 @@ public class PlayerStateAtkBasic : PlayerBaseState
 
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.Decelerate(manager.Deps.MovementData.BaseAcceleration);
+        manager.Deps.Locomotion.Decelerate(manager.Deps.MoveData.BaseAcceleration);
     }
 
     public override void UpdateState(PlayerStateManager manager)

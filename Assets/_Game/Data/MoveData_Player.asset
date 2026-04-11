@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d3ab39ccc51d147848c0ba024e320b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c8a64a40eac66144a239e05e54292d7, type: 3}
   m_Name: MoveData_Player
   m_EditorClassIdentifier: 
   _walkSpeed: 4
   _runSpeed: 10
-  _baseAcceleration: 2
-  _jumpHeight: 5
-  _gravityMultiplaier: 4
-  _maxVerticalVel: -30
+  _baseAcceleration: 1.5
+  _jumpHeight: 6
+  _gravityMultiplaier: 5
+  _maxVerticalVel: -50

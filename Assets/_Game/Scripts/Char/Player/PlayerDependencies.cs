@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerDependencies : MonoBehaviour
 {
-    public CharacterLocomotion Locomotion { get; private set; }
-    public CharacterAnimator CharAnimator { get; private set; }
+    public CharLocomotion Locomotion { get; private set; }
+    public CharAnimator CharAnimator { get; private set; }
     public PlayerInputManager Input { get; private set; }
-    public CharacterEnvironmentDetection EnvDetection { get; private set; }
+    public CharEnvDetection EnvDetection { get; private set; }
 
-    [SerializeField] private CharacterMovmentData _movementData;
-    public CharacterMovmentData MovementData => _movementData;
+    [SerializeField] private CharMoveData _moveData;
+    public CharMoveData MoveData => _moveData;
 
     [SerializeField] private Transform _spellOrigin;
     public Transform SpellOrigin => _spellOrigin;
@@ -17,10 +17,10 @@ public class PlayerDependencies : MonoBehaviour
 
     private void Awake()
     {
-        Locomotion = GetComponent<CharacterLocomotion>();
-        CharAnimator = GetComponentInChildren<CharacterAnimator>();
+        Locomotion = GetComponent<CharLocomotion>();
+        CharAnimator = GetComponentInChildren<CharAnimator>();
         Input = GetComponent<PlayerInputManager>();
-        EnvDetection = GetComponent<CharacterEnvironmentDetection>();
+        EnvDetection = GetComponent<CharEnvDetection>();
         Cast = GetComponent<ProjectileCaster>();
     }
 }

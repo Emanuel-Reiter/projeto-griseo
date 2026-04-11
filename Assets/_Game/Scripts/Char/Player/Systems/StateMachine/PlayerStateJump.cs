@@ -15,7 +15,7 @@ public class PlayerStateJump : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.PushByDirection(Vector2.up, manager.Deps.MovementData.JumpHeight);
+        manager.Deps.Locomotion.PushByDirectionComplex(Vector2.up, manager.Deps.MoveData.JumpHeight);
     }
 
     public override void ExitState(PlayerStateManager manager)
@@ -26,7 +26,7 @@ public class PlayerStateJump : PlayerBaseState
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
         Vector2 inputDir = manager.Deps.Input.MoveDirInput;
-        manager.Deps.Locomotion.Move(manager.Deps.MovementData.RunSpeed, manager.Deps.MovementData.BaseAcceleration, inputDir);
+        manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir);
     }
 
     public override void UpdateState(PlayerStateManager manager)

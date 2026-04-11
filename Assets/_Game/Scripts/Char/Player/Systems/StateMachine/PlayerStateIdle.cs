@@ -46,7 +46,7 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.SetGravityModifier(manager.Deps.MovementData.GravityMultiplaier);
+        manager.Deps.Locomotion.SetGravityModifier(manager.Deps.MoveData.GravityMultiplaier);
     }
 
     public override void ExitState(PlayerStateManager manager)
@@ -56,7 +56,7 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.Decelerate(manager.Deps.MovementData.BaseAcceleration);
+        manager.Deps.Locomotion.Decelerate(manager.Deps.MoveData.BaseAcceleration);
     }
 
     public override void UpdateState(PlayerStateManager manager)

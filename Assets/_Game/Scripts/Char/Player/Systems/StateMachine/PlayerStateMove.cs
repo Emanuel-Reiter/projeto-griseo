@@ -59,7 +59,7 @@ public class PlayerStateMove : PlayerBaseState
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
         Vector2 inputDir = manager.Deps.Input.MoveDirInput;
-        manager.Deps.Locomotion.Move(manager.Deps.MovementData.RunSpeed, manager.Deps.MovementData.BaseAcceleration, inputDir);
+        manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir);
     }
 
     public override void UpdateState(PlayerStateManager manager)

@@ -345,6 +345,20 @@
             },
             "m_InputSlot": {
                 "m_Node": {
+                    "m_Id": "2b76fdbce61249e7862fad181ff17027"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "bc490b53bcd240ceb45fd8175f580414"
+                },
+                "m_SlotId": 3
+            },
+            "m_InputSlot": {
+                "m_Node": {
                     "m_Id": "486ec8ca162a49b4999d127c5818bd3c"
                 },
                 "m_SlotId": 2
@@ -1379,7 +1393,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "50cad53fa28442be8c906544030c8df0",
     "m_Id": 0,
-    "m_DisplayName": "_BaseMap",
+    "m_DisplayName": "_MainTex",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3032,10 +3046,10 @@
     "m_Guid": {
         "m_GuidSerialized": "323cd769-d1e3-4b84-b03b-b12b226d7ebc"
     },
-    "m_Name": "_BaseMap",
+    "m_Name": "_MainTex",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "_BaseMap",
-    "m_DefaultReferenceName": "_BaseMap",
+    "m_RefNameGeneratedByDisplayName": "_MainTex",
+    "m_DefaultReferenceName": "_MainTex",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -3051,7 +3065,7 @@
     },
     "isMainTexture": false,
     "useTilingAndOffset": false,
-    "isHDR": false,
+    "useTexelSize": true,
     "m_Modifiable": true,
     "m_DefaultType": 0
 }
@@ -3265,7 +3279,7 @@
     },
     "isMainTexture": false,
     "useTilingAndOffset": false,
-    "isHDR": false,
+    "useTexelSize": true,
     "m_Modifiable": true,
     "m_DefaultType": 0
 }

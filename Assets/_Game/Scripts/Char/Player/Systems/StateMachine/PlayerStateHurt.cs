@@ -27,7 +27,7 @@ public class PlayerStateHurt : PlayerBaseState
 
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.Decelerate(manager.Deps.MovementData.BaseAcceleration);
+        manager.Deps.Locomotion.Decelerate(manager.Deps.MoveData.BaseAcceleration);
     }
 
     public override void UpdateState(PlayerStateManager manager)
