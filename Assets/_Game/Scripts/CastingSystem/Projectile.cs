@@ -320,13 +320,14 @@ public class Projectile : MonoBehaviour
     private void TriggerIdleEffects()
     {
         if (_idleVfx != null && !_idleVfx.isPlaying) _idleVfx.Play();
-        InvokeRepeating(nameof(PlayIdleAudio), _castData.OverLifetimeCastInterval, _castData.OverLifetimeCastInterval);
+        if (_idleSfx != null) InvokeRepeating(nameof(PlayIdleAudio), 0f, _idleSfx.length);
     }
 
     private void PlayIdleAudio()
     {
         if (_hasDied) return;
-        if (_idleSfx != null) AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax));
+        if (_idleSfx == null) return; 
+        AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax));
     }
 
     // Fizzle effects
