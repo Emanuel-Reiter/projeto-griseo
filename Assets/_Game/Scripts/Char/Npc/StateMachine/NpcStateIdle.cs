@@ -4,10 +4,18 @@ public class NpcStateIdle : NpcBaseState
 {
     [Header("State transitions")]
     [SerializeField] private NpcBaseState _patrolState;
+    [SerializeField] private NpcBaseState _fallState;
+
+    private bool _wasAirborne = false;
 
     public override void CheckExitState(NpcStateManager manager)
     {
-        if (GetCurrentTime() < GetStateDuration()) return;
+        if (!manager.Deps.EnvDetection.IsGrounded)
+        {
+            manager.SwitchState(_fallState);
+        }
+
+        if (!_wasAirborne && GetCurrentTime() < GetStateDuration()) return;
 
         manager.SwitchState(_patrolState);
         return;
@@ -15,7 +23,7 @@ public class NpcStateIdle : NpcBaseState
 
     public override void EnterState(NpcStateManager manager)
     {
-
+        _wasAirborne = manager.WasPreviousState<NpcStateFall>();
     }
 
     public override void ExitState(NpcStateManager manager)

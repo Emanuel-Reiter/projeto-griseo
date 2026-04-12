@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class NpcStatePatrol : NpcBaseState
 {
+    [Header("State transitions")]
+    [SerializeField] private NpcBaseState _idleState;
+    [SerializeField] private NpcBaseState _fallState;
+
     public override void CheckExitState(NpcStateManager manager)
     {
-        
+        if (!manager.Deps.EnvDetection.IsGrounded)
+        {
+            manager.SwitchState(_fallState);
+        }
     }
 
     public override void EnterState(NpcStateManager manager)
@@ -29,6 +36,7 @@ public class NpcStatePatrol : NpcBaseState
         {
             float dir = manager.Deps.Locomotion.IsFacingRight ? -1f : 1f;
             manager.Deps.Locomotion.ChangeDirectionByInput(dir);
+            manager.SwitchState(_idleState);
         }
     }
 }
