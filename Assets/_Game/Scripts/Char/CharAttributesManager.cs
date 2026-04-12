@@ -11,7 +11,9 @@ public class CharAttributesManager : MonoBehaviour
 
     public void TakeDamage(DamageData damageData)
     {
+        // Apply knockback
         Debug.Log($"{gameObject.name} damaged, kb: {damageData.KnockbackForce}");
-        _locomotion.PushByDirectionSimple(damageData.KnockbackDir.normalized, damageData.KnockbackForce);
+        Vector2 kbDir = new Vector2(damageData.KnockbackDir.x, 0.2f).normalized;
+        _locomotion.PushByDirectionRaw(kbDir, damageData.KnockbackForce);
     }
 }

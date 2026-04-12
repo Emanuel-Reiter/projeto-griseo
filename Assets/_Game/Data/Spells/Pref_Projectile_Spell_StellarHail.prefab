@@ -9804,7 +9804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09fb7898217a8a4db45cdb501937045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useEntityDetection: 1
+  _useEntityDetection: 0
   _useEnvDetection: 1
   _hitDetectionRadius: 0.5
   _hitDetectionOffset: {x: 0, y: 0}

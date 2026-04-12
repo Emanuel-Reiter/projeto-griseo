@@ -1,7 +1,8 @@
-using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Rendering.Universal;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
@@ -16,9 +17,11 @@ public class Projectile : MonoBehaviour
     private bool _hasDied = false;
     private bool _isFacingRight;
     private bool _allowConstantVelocity = false;
-    private Vector2 _constantVelocity;
+    private Vector2 _calculatedConstantVelocity;
     private int _remainingTargetPenetrations = 0;
     private int _remainingEnvHits = 0;
+
+    private Transform _target = null;
 
     // Collision layers
     private const string ENV_LAYER = "EnvCollisions";
@@ -31,14 +34,16 @@ public class Projectile : MonoBehaviour
     private int _playerLayer;
     private int _projectilesLayer;
 
+    private float _projectileViewRadius = 32f;
+
+    private float _rotationVelocity = 720f;
+
     [Header("Projectile params")]
     [SerializeField] private bool _useEntityDetection = true;
     [SerializeField] private bool _useEnvDetection = true;
     [SerializeField] private float _hitDetectionRadius = 0.5f;
     [SerializeField] private Vector2 _hitDetectionOffset = Vector2.zero;
     private float _projectileDuration;
-    // [SerializeField] private bool _useLingringHitbox = false;
-    // private bool _hasHit = false;
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer _projectileSprite;
@@ -137,20 +142,39 @@ public class Projectile : MonoBehaviour
     private void FixedUpdate()
     {
         if (_hasDied) return;
-        if (_constantVelocity == Vector2.zero) return;
-        if (!_allowConstantVelocity) return;
 
-        _body.linearVelocity = _constantVelocity;
+        // Try use homing values
+        if (_target != null && _castData.ProjectileTrackingPercent > 0f)
+        {
+            Vector2 targetDir = (_target.position - transform.position).normalized;
+            Vector2 currentDir = _body.linearVelocity.normalized;
+            if (currentDir == Vector2.zero) currentDir = _calculatedConstantVelocity.normalized ;
+
+            float angleDelta = Vector2.SignedAngle(currentDir, targetDir);
+            float maxStep = (_rotationVelocity * _castData.ProjectileTrackingPercent) * Time.fixedDeltaTime;
+            float newAngle = Mathf.MoveTowardsAngle(0f, angleDelta, maxStep);
+
+            Vector2 newDir = Quaternion.Euler(0f, 0f, newAngle) * currentDir;
+
+            float currentSpeed = _castData.ConstantVelocity;
+            _body.linearVelocity = newDir * currentSpeed;
+        }
+        // If doesn't have homing use constant velocity instead
+        else if (_allowConstantVelocity && _calculatedConstantVelocity != Vector2.zero)
+        {
+            _body.linearVelocity = _calculatedConstantVelocity;
+        }
     }
 
     private void Update()
     {
         if (_hasDied) return;
         DetectEntityHit();
-        UpdateSpriteRotation();
+        UpdateVisualsRotation();
+        DetectTrackingTarget();
     }
 
-    private void UpdateSpriteRotation()
+    private void UpdateVisualsRotation()
     {
         Vector2 velocity = _body.linearVelocity;
         if (velocity.sqrMagnitude > 0.01f)
@@ -184,7 +208,7 @@ public class Projectile : MonoBehaviour
         Vector2 initialForceWorld = transform.right * initialForce.x + transform.up * initialForce.y;
 
         _body.AddForce(initialForceWorld, ForceMode2D.Impulse);
-        _constantVelocity = transform.right * constantVelocity.x + transform.up * constantVelocity.y;
+        _calculatedConstantVelocity = transform.right * constantVelocity.x + transform.up * constantVelocity.y;
     }
 
     private Vector2 RotateVector(Vector2 vector, float radians)
@@ -326,7 +350,7 @@ public class Projectile : MonoBehaviour
     private void PlayIdleAudio()
     {
         if (_hasDied) return;
-        if (_idleSfx == null) return; 
+        if (_idleSfx == null) return;
         AudioPool.Play(_idleSfx, transform.position, _isIdleSfx3D, 128, _idleSFXVolume, Random.Range(_idleSfxPitchMin, _idleSfxPitchMax));
     }
 
@@ -379,7 +403,7 @@ public class Projectile : MonoBehaviour
 
     #endregion 
 
-    #region Collisions
+    #region Detections
     private void DetectEntityHit()
     {
         if (!_useEntityDetection) return;
@@ -392,11 +416,11 @@ public class Projectile : MonoBehaviour
             int hitLayer = hit.collider.gameObject.layer;
             if (hitLayer != _entitiesLayer) continue;
 
-            if(_castData.CanDealDamage)
+            if (_castData.CanDealDamage)
             {
                 // Damage
                 if (hit.collider.gameObject.TryGetComponent<CharAttributesManager>(out CharAttributesManager target))
-                {   
+                {
                     Vector2 targetPos = hit.collider.transform.position;
                     Vector2 projectilePos = transform.position;
                     Vector2 dirKb = new Vector2(targetPos.x - projectilePos.x, 0f);
@@ -434,7 +458,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!_useEnvDetection) return;
 
@@ -448,6 +472,39 @@ public class Projectile : MonoBehaviour
         if (_remainingEnvHits <= 0) Die();
     }
 
+    private void DetectTrackingTarget()
+    {
+        if (_target != null) return;
+
+        int entitiesMask = LayerMask.GetMask(ENTITIES_LAYER);
+        Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(transform.position, _projectileViewRadius, entitiesMask);
+
+        Transform bestTarget = null;
+        float bestDistance = float.MaxValue;
+        foreach (Collider2D target in targetsInRadius)
+        {
+            float targetDistance = Vector2.Distance(target.transform.position, transform.position);
+            if (targetDistance < bestDistance)
+            {
+                bestDistance = targetDistance;
+                Transform trackingTarget = target.GetComponentInChildren<CharTrackingTarget>().transform;
+                if (trackingTarget != null)
+                {
+                    bestTarget = trackingTarget.transform;
+                }
+                else
+                {
+                    bestTarget = target.transform;
+                }
+            }
+        }
+
+        if (bestTarget != null)
+        {
+            Debug.Log($"Found a target: {bestTarget.gameObject.name}");
+            _target = bestTarget;
+        }
+    }
     #endregion
 
 

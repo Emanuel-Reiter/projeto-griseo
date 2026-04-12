@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_StellarHail_Subcast
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
   BaseDMGStellar: 15
   BaseDMGFire: 0
@@ -30,7 +31,7 @@ MonoBehaviour:
   Projectile: {fileID: 1280583928218935999, guid: 2a4a0661c4c05c043962e414b06404aa, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 30
-  ProjectileTrackingPercent: 0
+  ProjectileTrackingPercent: 1
   ProjectileDuration: 1
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
@@ -38,7 +39,7 @@ MonoBehaviour:
   ConstantVelocity: 25
   ConstantDirection: {x: 0, y: -1}
   DecelerationRate: 0
-  GravityModifier: 1
+  GravityModifier: 0
   OnSpawnCast: {fileID: 0}
   OnSpawnCastChance: 1
   OnSpawnCastDelay: 0

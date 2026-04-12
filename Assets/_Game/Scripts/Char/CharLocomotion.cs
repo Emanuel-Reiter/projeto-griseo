@@ -17,9 +17,9 @@ public class CharLocomotion : MonoBehaviour
         SetGravityModifier(1f);
     }
 
-    public void Move(float targetSpeed, float acceleration, Vector2 direction) 
+    public void Move(float targetSpeed, float acceleration, float direction) 
     {
-        Vector2 moveVector = new Vector2(direction.x * targetSpeed, 0f);
+        Vector2 moveVector = new Vector2(direction * targetSpeed, 0f);
         Accelerate(moveVector, acceleration);
     }
 
@@ -51,7 +51,7 @@ public class CharLocomotion : MonoBehaviour
         _rb.linearVelocity = forceVector;
     }
 
-        public void PushByDirectionSimple(Vector2 direction, float force)
+    public void PushByDirectionSimple(Vector2 direction, float force)
     {
         if (!_isFacingRight) direction = new Vector2(-direction.x, direction.y);
 
@@ -61,14 +61,21 @@ public class CharLocomotion : MonoBehaviour
         _rb.linearVelocity = forceVector;
     }
 
-    public void ChangeDirectionByInput(Vector2 direction)
+    public void PushByDirectionRaw(Vector2 direction, float force)
     {
-        if(_isFacingRight && direction.x < 0f)
+        direction = direction.normalized;
+        Vector2 forceVector = direction * force;
+        _rb.linearVelocity = forceVector;
+    }
+
+    public void ChangeDirectionByInput(float direction)
+    {
+        if(_isFacingRight && direction < 0f)
         {
             transform.localScale = new Vector3(-1f, 1, 1);
             _isFacingRight = false;
         } 
-        else if (!_isFacingRight && direction.x > 0f)
+        else if (!_isFacingRight && direction > 0f)
         {
             transform.localScale = new Vector3(1f, 1, 1);
             _isFacingRight = true;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_StellarShard
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
   BaseDMGStellar: 15
   BaseDMGFire: 0
@@ -25,12 +26,12 @@ MonoBehaviour:
   PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
-  KnockbackForce: 0
+  KnockbackForce: 14
   ArmorPenetration: 0
   Projectile: {fileID: 1280583928218935999, guid: 0eaff5deb38eb674cabaf254679e090f, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 5
-  ProjectileTrackingPercent: 0
+  ProjectileTrackingPercent: 0.1
   ProjectileDuration: 0.3
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}

@@ -26,11 +26,11 @@ public class PlayerStateFall : PlayerBaseState
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
         Vector2 inputDir = manager.Deps.Input.MoveDirInput;
-        manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir);
+        manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir.x);
     }
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput);
+        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
     }
 }

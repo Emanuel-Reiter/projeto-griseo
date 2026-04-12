@@ -19,6 +19,9 @@ public class PlayerStateManager : MonoBehaviour
     {
         // Set the initial state
         SwitchState(_initialState);
+
+        // Set player gravity scale
+        Deps.Locomotion.SetGravityModifier(Deps.MoveData.GravityMultiplaier);
     }
 
     private void Update()

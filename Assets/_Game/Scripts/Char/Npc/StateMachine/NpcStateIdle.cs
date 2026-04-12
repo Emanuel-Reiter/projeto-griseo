@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class NpcStateIdle : NpcBaseState
 {
+    [Header("State transitions")]
+    [SerializeField] private NpcBaseState _patrolState;
+
     public override void CheckExitState(NpcStateManager manager)
     {
-        
+        if (GetCurrentTime() < GetStateDuration()) return;
+
+        manager.SwitchState(_patrolState);
+        return;
     }
 
     public override void EnterState(NpcStateManager manager)
     {
-        
+
     }
 
     public override void ExitState(NpcStateManager manager)

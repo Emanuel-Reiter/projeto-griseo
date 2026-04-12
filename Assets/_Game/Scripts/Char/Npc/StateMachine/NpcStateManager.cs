@@ -19,6 +19,9 @@ public class NpcStateManager : MonoBehaviour
     {
         // Set the initial state
         SwitchState(_initialState);
+
+        // Set Npc gravity scale
+        Deps.Locomotion.SetGravityModifier(Deps.MoveData.GravityMultiplaier);
     }
 
     private void Update()

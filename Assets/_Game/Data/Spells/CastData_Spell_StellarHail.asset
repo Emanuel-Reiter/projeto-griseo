@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_StellarHail
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 15
+  BaseDMGStellar: 0
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0

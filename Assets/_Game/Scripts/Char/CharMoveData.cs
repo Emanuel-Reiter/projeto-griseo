@@ -11,17 +11,17 @@ public class CharMoveData : ScriptableObject
     public float RunSpeed => _runSpeed;
 
     [Header("Acceleration")]
-    [SerializeField] private float _baseAcceleration = 2f;
+    [SerializeField] private float _baseAcceleration = 1.5f;
     public float BaseAcceleration => _baseAcceleration;
 
     [Header("Jump")]
-    [SerializeField] private float _jumpHeight = 5f;
+    [SerializeField] private float _jumpHeight = 6f;
     public float JumpHeight => _jumpHeight;
 
     [Header("Gravity")]
-    [SerializeField] private float _gravityMultiplaier = 4.0f;
+    [SerializeField] private float _gravityMultiplaier = 5.0f;
     public float GravityMultiplaier => _gravityMultiplaier;
 
-    [SerializeField] private float _maxVerticalVel = -30f;
+    [SerializeField] private float _maxVerticalVel = -50f;
     public float MaxVerticalVel => _maxVerticalVel;
 }

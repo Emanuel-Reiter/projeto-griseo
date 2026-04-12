@@ -51,7 +51,7 @@ public class PlayerStateAtkSpecial : PlayerBaseState
 
         if (GetCurrentTime() < GetStateCompletion(0.2f))
         {
-            manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput);
+            manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
         }
     }
 }

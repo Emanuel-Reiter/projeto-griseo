@@ -46,7 +46,7 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.SetGravityModifier(manager.Deps.MoveData.GravityMultiplaier);
+
     }
 
     public override void ExitState(PlayerStateManager manager)
@@ -61,6 +61,6 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput);
+        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
     }
 }
