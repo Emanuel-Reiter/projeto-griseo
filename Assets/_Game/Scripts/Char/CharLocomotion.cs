@@ -65,7 +65,7 @@ public class CharLocomotion : MonoBehaviour
     {
         direction = direction.normalized;
         Vector2 forceVector = direction * force;
-        _rb.linearVelocity = forceVector;
+        _rb.linearVelocity += forceVector;
     }
 
     public void ChangeDirectionByInput(float direction)

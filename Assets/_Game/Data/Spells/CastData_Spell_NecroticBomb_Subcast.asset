@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_NecroticBomb_Subcast
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
   BaseDMGStellar: 120
   BaseDMGFire: 0
@@ -25,7 +26,7 @@ MonoBehaviour:
   PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
-  KnockbackForce: 20
+  KnockbackForce: 28
   ArmorPenetration: 0
   Projectile: {fileID: 4547714031908120785, guid: 1bfe963b76c5fcb4880f7a06f813c726, type: 3}
   AmountOfCasts: 1

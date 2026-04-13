@@ -148,7 +148,7 @@ public class Projectile : MonoBehaviour
         {
             Vector2 targetDir = (_target.position - transform.position).normalized;
             Vector2 currentDir = _body.linearVelocity.normalized;
-            if (currentDir == Vector2.zero) currentDir = _calculatedConstantVelocity.normalized ;
+            if (currentDir == Vector2.zero) currentDir = _calculatedConstantVelocity.normalized;
 
             float angleDelta = Vector2.SignedAngle(currentDir, targetDir);
             float maxStep = (_rotationVelocity * _castData.ProjectileTrackingPercent) * Time.fixedDeltaTime;

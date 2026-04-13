@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_ShatterStars_Subcast
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
   BaseDMGStellar: 10
   BaseDMGFire: 0
@@ -28,8 +29,8 @@ MonoBehaviour:
   KnockbackForce: 3
   ArmorPenetration: 0
   Projectile: {fileID: 1280583928218935999, guid: 7f2ac06a6350c5e41b1d40f551b3c262, type: 3}
-  AmountOfCasts: 6
-  CastScatteringAngle: 30
+  AmountOfCasts: 5
+  CastScatteringAngle: 45
   ProjectileTrackingPercent: 0
   ProjectileDuration: 1
   InitialForce: 0
