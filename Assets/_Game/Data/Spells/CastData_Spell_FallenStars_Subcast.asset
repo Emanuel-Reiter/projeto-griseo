@@ -20,6 +20,7 @@ MonoBehaviour:
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  UseAreaDamage: 0
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   AmountOfCasts: 12
   CastScatteringAngle: 360
   ProjectileTrackingPercent: 0.15
-  ProjectileDuration: 1
+  ProjectileDuration: 1.5
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
   ConstantVelocityStartDelay: 0

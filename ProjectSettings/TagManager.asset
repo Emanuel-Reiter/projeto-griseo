@@ -77,5 +77,8 @@ TagManager:
   - name: FG_3
     uniqueID: 743859403
     locked: 0
+  - name: WorldUI
+    uniqueID: 3182095381
+    locked: 0
   m_RenderingLayers:
   - Default

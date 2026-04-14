@@ -1,8 +1,6 @@
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
@@ -35,8 +33,9 @@ public class Projectile : MonoBehaviour
     private int _projectilesLayer;
 
     private float _projectileViewRadius = 32f;
-
-    private float _rotationVelocity = 720f;
+    // Rotation in degrees per second
+    private float _rotationVelocity = 1800f;
+    private const float TRACKING_ANGLE_PRIORITY = 1.0f;
 
     [Header("Projectile params")]
     [SerializeField] private bool _useEntityDetection = true;
@@ -453,7 +452,7 @@ public class Projectile : MonoBehaviour
             if (destroyProjectile)
             {
                 Die();
-                break;
+                if (!_castData.UseAreaDamage) break;
             }
         }
     }
@@ -476,32 +475,46 @@ public class Projectile : MonoBehaviour
     {
         if (_target != null) return;
 
+        Vector2 currentDirection = _body.linearVelocity;
+        if (currentDirection.sqrMagnitude < 0.01f)
+            currentDirection = _calculatedConstantVelocity;
+
+        bool hasValidDirection = currentDirection.sqrMagnitude > 0.01f;
+
         int entitiesMask = LayerMask.GetMask(ENTITIES_LAYER);
         Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(transform.position, _projectileViewRadius, entitiesMask);
 
         Transform bestTarget = null;
-        float bestDistance = float.MaxValue;
+        float bestScore = float.MaxValue;
+
         foreach (Collider2D target in targetsInRadius)
         {
-            float targetDistance = Vector2.Distance(target.transform.position, transform.position);
-            if (targetDistance < bestDistance)
+            Transform trackingTransform = target.transform;
+            CharTrackingTarget trackingTarget = target.GetComponentInChildren<CharTrackingTarget>();
+            if (trackingTarget != null) trackingTransform = trackingTarget.transform;
+
+            Vector2 dirToTarget = trackingTransform.position - transform.position;
+            float distance = dirToTarget.magnitude;
+
+            float angleFactor = 0f;
+            if (hasValidDirection)
             {
-                bestDistance = targetDistance;
-                Transform trackingTarget = target.GetComponentInChildren<CharTrackingTarget>().transform;
-                if (trackingTarget != null)
-                {
-                    bestTarget = trackingTarget.transform;
-                }
-                else
-                {
-                    bestTarget = target.transform;
-                }
+                float angle = Vector2.Angle(currentDirection, dirToTarget);
+                angleFactor = angle * TRACKING_ANGLE_PRIORITY;
+            }
+
+            float score = distance + angleFactor;
+
+            if (score < bestScore)
+            {
+                bestScore = score;
+                bestTarget = trackingTransform;
             }
         }
 
         if (bestTarget != null)
         {
-            Debug.Log($"Found a target: {bestTarget.gameObject.name}");
+            //Debug.Log($"Found target: {bestTarget.gameObject.name} | Score: {bestScore:F2}");
             _target = bestTarget;
         }
     }

@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 10
+  BaseDMGStellar: 16
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  UseAreaDamage: 0
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0

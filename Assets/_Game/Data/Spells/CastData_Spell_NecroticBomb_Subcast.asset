@@ -20,6 +20,7 @@ MonoBehaviour:
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  UseAreaDamage: 1
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0

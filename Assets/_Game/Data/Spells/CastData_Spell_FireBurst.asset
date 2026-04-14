@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_FireBurst
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
   BaseDMGStellar: 0
   BaseDMGFire: 50
@@ -19,19 +20,20 @@ MonoBehaviour:
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  UseAreaDamage: 1
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0
   PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
-  KnockbackForce: 0
+  KnockbackForce: 21
   ArmorPenetration: 0
   Projectile: {fileID: 1611011760824452471, guid: 2b9304eeab35cab4699d4eb7c28f3e43, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 0
   ProjectileTrackingPercent: 0
-  ProjectileDuration: 0.5
+  ProjectileDuration: 0.1
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
   ConstantVelocityStartDelay: 0

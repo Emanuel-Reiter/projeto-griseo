@@ -20,6 +20,7 @@ MonoBehaviour:
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  UseAreaDamage: 0
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
   Projectile: {fileID: 1280583928218935999, guid: 2a4a0661c4c05c043962e414b06404aa, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 30
-  ProjectileTrackingPercent: 1
+  ProjectileTrackingPercent: 0.05
   ProjectileDuration: 1
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}

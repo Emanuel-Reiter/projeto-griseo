@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b33854419457a54bbb4dcd52564e2bd, type: 3}
   m_Name: CastData_Spell_NecroticBomb
   m_EditorClassIdentifier: 
+  CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 5
+  BaseDMGStellar: 0
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
+  UseAreaDamage: 0
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0
@@ -30,7 +32,7 @@ MonoBehaviour:
   Projectile: {fileID: 3868220713616496007, guid: 88685f4bb998d3b4198e190610d2f38a, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 2
-  ProjectileTrackingPercent: 0
+  ProjectileTrackingPercent: 0.05
   ProjectileDuration: 5
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}

@@ -18,6 +18,7 @@ public class CastData : ScriptableObject
     public int STSIchor = 0;
 
     [Header("Penetration and bounces")]
+    public bool UseAreaDamage = false;
     [Range(0, 99)] public int MaxTargetPenetration = 0;
     [Range(0f, 1f)] public float PerTargetDmgReduction = 0f;
 
