@@ -32,7 +32,6 @@ public class Projectile : MonoBehaviour
     private int _playerLayer;
     private int _projectilesLayer;
 
-    private float _projectileViewRadius = 32f;
     // Rotation in degrees per second
     private float _rotationVelocity = 1800f;
     private const float TRACKING_ANGLE_PRIORITY = 1.0f;
@@ -42,6 +41,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private bool _useEnvDetection = true;
     [SerializeField] private float _hitDetectionRadius = 0.5f;
     [SerializeField] private Vector2 _hitDetectionOffset = Vector2.zero;
+    [SerializeField] private float _projectileViewRadius = 8f;
     private float _projectileDuration;
 
     [Header("Sprites")]
@@ -529,6 +529,9 @@ public class Projectile : MonoBehaviour
 
         Vector2 hitPos = new Vector2(transform.position.x + _hitDetectionOffset.x, transform.position.y + _hitDetectionOffset.y);
         Gizmos.DrawWireSphere(hitPos, _hitDetectionRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, _projectileViewRadius);
     }
 #endif
 }

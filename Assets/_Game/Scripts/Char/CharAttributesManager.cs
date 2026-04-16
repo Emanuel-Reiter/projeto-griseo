@@ -42,7 +42,7 @@ public class CharAttributesManager : MonoBehaviour
     {
         _locomotion = GetComponent<CharLocomotion>();
 
-        if (_charAttributes == null) Debug.LogError($"Char: {gameObject.name} doesn't have a attributes data assigned");
+        if (_charAttributes == null) Debug.LogError($"Char: {gameObject.name} doesn't have a attributes data assigned.");
 
         CurrentHealth = _charAttributes.MaxHealth;
     }
@@ -56,6 +56,8 @@ public class CharAttributesManager : MonoBehaviour
         // Damage
         //Debug.Log($"Char: {gameObject.name} took damage: {CalculateFinalDamage(damageData)}");
         CurrentHealth -= CalculateFinalDamage(damageData);
+        
+        OnTakeDamageEvent?.Invoke();
     }
 
     private int CalculateFinalDamage(DamageData damageData)
@@ -66,8 +68,6 @@ public class CharAttributesManager : MonoBehaviour
         finalDamage += damageData.BaseDMGStellar;
         finalDamage += damageData.BaseDMGFire;
         finalDamage += damageData.BaseDMGLightining;
-
-        OnTakeDamageEvent?.Invoke();
 
         return finalDamage;
     }

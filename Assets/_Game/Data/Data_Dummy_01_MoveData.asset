@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkSpeed: 4
   _runSpeed: 10
-  _baseAcceleration: 0.5
+  _baseAcceleration: 30
   _jumpHeight: 6
   _gravityMultiplaier: 5
   _maxVerticalVel: -50

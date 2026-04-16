@@ -8,6 +8,12 @@ public class CharLocomotion : MonoBehaviour
     private bool _isFacingRight = true;
     public bool IsFacingRight => _isFacingRight;
 
+    [Header("Phys mats")]
+    [SerializeField] private PhysicsMaterial2D _fullFrictionMat;
+    [SerializeField] private PhysicsMaterial2D _noFrictionMat;
+
+    private CharEnvDetection _envDetection;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -15,26 +21,50 @@ public class CharLocomotion : MonoBehaviour
         _rb.angularDamping = 0f;
         
         SetGravityModifier(1f);
+
+        if (!TryGetComponent<CharEnvDetection>(out _envDetection)) Debug.LogError($"No env detection script assinged to: {gameObject.name}.");
     }
 
-    public void Move(float targetSpeed, float acceleration, float direction) 
+    public void Move(float targetSpeed, float acceleration, float direction)
     {
-        Vector2 moveVector = new Vector2(direction * targetSpeed, 0f);
-        Accelerate(moveVector, acceleration);
-    }
+        Vector2 moveVelocity;
 
-    private void Accelerate(Vector2 targetVelocity, float acceleration)
-    {
-        float xVel = Mathf.MoveTowards(_rb.linearVelocityX, targetVelocity.x, acceleration);
-        Vector2 movement = new Vector2(xVel, _rb.linearVelocityY);
-        _rb.linearVelocity = movement;
+        if (_envDetection.OnSlope)
+        {
+            // Fixed tangent always points rightward along the slope
+            Vector2 tangent = _envDetection.SlopeTangentRight;
+            Vector2 normal = _envDetection.GroundNormal;
+
+            // Desired movement direction: input sign determines left/right along tangent
+            float moveSign = Mathf.Sign(direction);
+            if (direction == 0f) moveSign = 0f; // Stop moving if no input
+
+            // Current velocity components along tangent and normal
+            float currentTangentSpeed = Vector2.Dot(_rb.linearVelocity, tangent);
+            float normalSpeed = Vector2.Dot(_rb.linearVelocity, normal);
+
+            // Accelerate toward target tangent speed
+            float targetTangentSpeed = moveSign * targetSpeed;
+            float newTangentSpeed = Mathf.MoveTowards(currentTangentSpeed, targetTangentSpeed, acceleration * Time.fixedDeltaTime);
+
+            // Reconstruct velocity: keep normal component (gravity) untouched
+            moveVelocity = tangent * newTangentSpeed + normal * normalSpeed;
+        }
+        else
+        {
+            // Flat ground: simple horizontal movement
+            float targetX = direction * targetSpeed;
+            float newX = Mathf.MoveTowards(_rb.linearVelocityX, targetX, acceleration * Time.fixedDeltaTime);
+            moveVelocity = new Vector2(newX, _rb.linearVelocityY);
+        }
+
+        _rb.linearVelocity = moveVelocity;
     }
 
     public void Decelerate(float acceleration)
     {
-        float xVel = Mathf.MoveTowards(_rb.linearVelocityX, 0f, acceleration);
-        Vector2 movement = new Vector2(xVel, _rb.linearVelocityY);
-        _rb.linearVelocity = movement;
+        float newX = Mathf.MoveTowards(_rb.linearVelocityX, 0f, acceleration * Time.fixedDeltaTime);
+        _rb.linearVelocity = new Vector2(newX, _rb.linearVelocityY);
     }
 
     public void PushByDirectionComplex(Vector2 direction, float force)
@@ -66,6 +96,18 @@ public class CharLocomotion : MonoBehaviour
         direction = direction.normalized;
         Vector2 forceVector = direction * force;
         _rb.linearVelocity += forceVector;
+    }
+
+    public void ToggleFriction(bool toggle)
+    {
+        if (toggle)
+        {
+            _rb.sharedMaterial = _fullFrictionMat;
+        }
+        else
+        {
+            _rb.sharedMaterial = _noFrictionMat;
+        }
     }
 
     public void ChangeDirectionByInput(float direction)

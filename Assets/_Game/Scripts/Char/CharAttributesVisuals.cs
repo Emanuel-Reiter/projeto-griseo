@@ -32,6 +32,13 @@ public class CharAttributesVisuals : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        _attributes.OnHealthChangeEvent += OnHealthChange;
+        _attributes.OnTakeDamageEvent += OnTakeDamage;
+        _attributes.OnDieEvent += OnDie;
+    }
+
     private void OnDisable()
     {
         _attributes.OnHealthChangeEvent -= OnHealthChange;
@@ -45,7 +52,7 @@ public class CharAttributesVisuals : MonoBehaviour
         _attributes.OnTakeDamageEvent -= OnTakeDamage;
         _attributes.OnDieEvent -= OnDie;
 
-        Destroy(_hpGroup.transform.parent);
+        if (_hpGroup != null) Destroy(_hpGroup.transform.parent);
     }
 
     private void OnHealthChange(int newHealth)

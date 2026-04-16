@@ -5369,6 +5369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3726378f5d898449e27e658c7568f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fullFrictionMat: {fileID: 6200000, guid: ac385d78562f7fc439d3059cff982a94, type: 2}
+  _noFrictionMat: {fileID: 6200000, guid: a60f5956c0b57634f84fef30ad03eb0f, type: 2}
 --- !u!114 &4182994339815347203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5386,6 +5388,8 @@ MonoBehaviour:
     m_Bits: 256
   _groundDetectionRadius: 0.74
   _envDetectionDistance: 1
+  _slopeDetectionDistanceForward: 1
+  _slopeDetectionDistanceDown: 1
 --- !u!1 &5491373447345383074
 GameObject:
   m_ObjectHideFlags: 0

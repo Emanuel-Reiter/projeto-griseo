@@ -9809,6 +9809,7 @@ MonoBehaviour:
   _useEnvDetection: 1
   _hitDetectionRadius: 0.25
   _hitDetectionOffset: {x: 0, y: 0}
+  _projectileViewRadius: 8
   _projectileSprite: {fileID: 8448834085452088135}
   _sigilSprite: {fileID: 2081211139926189139}
   _light: {fileID: 3006181996789964883}

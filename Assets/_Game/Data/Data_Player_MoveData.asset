@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Data_Player_MoveData
   m_EditorClassIdentifier: 
   _walkSpeed: 4
-  _runSpeed: 10
-  _baseAcceleration: 1.5
+  _runSpeed: 12
+  _baseAcceleration: 60
   _jumpHeight: 6
   _gravityMultiplaier: 5
   _maxVerticalVel: -50
