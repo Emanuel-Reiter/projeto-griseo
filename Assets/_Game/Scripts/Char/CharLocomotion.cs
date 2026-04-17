@@ -1,9 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(CharEnvDetection))]
 public class CharLocomotion : MonoBehaviour
 {
-    private Rigidbody2D _rb;
+    private Rigidbody2D _body;
+    private CharEnvDetection _envDetection;
+    private CapsuleCollider2D _col;
 
     private bool _isFacingRight = true;
     public bool IsFacingRight => _isFacingRight;
@@ -12,101 +14,112 @@ public class CharLocomotion : MonoBehaviour
     [SerializeField] private PhysicsMaterial2D _fullFrictionMat;
     [SerializeField] private PhysicsMaterial2D _noFrictionMat;
 
-    private CharEnvDetection _envDetection;
+    private bool _isMovingUp = false;
+    public bool IsMovingUp => _isMovingUp;
+    public void SetIsMovingUp(bool isMovingUp) => _isMovingUp = isMovingUp;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.linearDamping = 0f;
-        _rb.angularDamping = 0f;
+        _envDetection = GetComponent<CharEnvDetection>();
+        _col = GetComponent<CapsuleCollider2D>();
+
+        _body = GetComponent<Rigidbody2D>();
+        _body.linearDamping = 0f;
+        _body.angularDamping = 0f;
         
         SetGravityModifier(1f);
-
-        if (!TryGetComponent<CharEnvDetection>(out _envDetection)) Debug.LogError($"No env detection script assinged to: {gameObject.name}.");
     }
 
-    public void Move(float targetSpeed, float acceleration, float direction)
+    public void Move(float targetSpeed, float acceleration, float direction) 
     {
-        Vector2 moveVelocity;
-
-        if (_envDetection.OnSlope)
+        if (_envDetection.IsGrounded && !_envDetection.IsOnSlope && !_isMovingUp)
         {
-            // Fixed tangent always points rightward along the slope
-            Vector2 tangent = _envDetection.SlopeTangentRight;
-            Vector2 normal = _envDetection.GroundNormal;
-
-            // Desired movement direction: input sign determines left/right along tangent
-            float moveSign = Mathf.Sign(direction);
-            if (direction == 0f) moveSign = 0f; // Stop moving if no input
-
-            // Current velocity components along tangent and normal
-            float currentTangentSpeed = Vector2.Dot(_rb.linearVelocity, tangent);
-            float normalSpeed = Vector2.Dot(_rb.linearVelocity, normal);
-
-            // Accelerate toward target tangent speed
-            float targetTangentSpeed = moveSign * targetSpeed;
-            float newTangentSpeed = Mathf.MoveTowards(currentTangentSpeed, targetTangentSpeed, acceleration * Time.fixedDeltaTime);
-
-            // Reconstruct velocity: keep normal component (gravity) untouched
-            moveVelocity = tangent * newTangentSpeed + normal * normalSpeed;
+            Vector2 moveVector = new Vector2(direction * targetSpeed, 0f);
+            _body.linearVelocity = moveVector;
         }
-        else
+        else if(_envDetection.IsGrounded && _envDetection.IsOnSlope && !_isMovingUp && _envDetection.IsOnSteepSlope)
         {
-            // Flat ground: simple horizontal movement
-            float targetX = direction * targetSpeed;
-            float newX = Mathf.MoveTowards(_rb.linearVelocityX, targetX, acceleration * Time.fixedDeltaTime);
-            moveVelocity = new Vector2(newX, _rb.linearVelocityY);
+            Vector2 moveVector = new Vector2(targetSpeed * _envDetection.SlopeNormalPerp.x * -direction, targetSpeed * _envDetection.SlopeNormalPerp.y * -direction);
+            _body.linearVelocity = moveVector;
         }
+        else if (!_envDetection.IsGrounded)
+        {
+            Vector2 moveVector = new Vector2(direction * targetSpeed, _body.linearVelocityY);
+            _body.linearVelocity = moveVector;
+        }
+    }
 
-        _rb.linearVelocity = moveVelocity;
+    private void Update()
+    {
+        if (_body.linearVelocityY <= 0f) _isMovingUp = false;
+    }
+
+    private void FixedUpdate()
+    {
+
+    }
+
+    private void Accelerate(Vector2 targetVelocity, float acceleration)
+    {
+        float xVel = Mathf.MoveTowards(_body.linearVelocityX, targetVelocity.x, acceleration * Time.fixedDeltaTime);
+        float yVel = targetVelocity.y;
+        Vector2 movement = new Vector2(xVel, yVel);
+        _body.linearVelocity = movement;
     }
 
     public void Decelerate(float acceleration)
     {
-        float newX = Mathf.MoveTowards(_rb.linearVelocityX, 0f, acceleration * Time.fixedDeltaTime);
-        _rb.linearVelocity = new Vector2(newX, _rb.linearVelocityY);
+        float xVel = Mathf.MoveTowards(_body.linearVelocityX, 0f, acceleration * Time.fixedDeltaTime);
+        Vector2 movement = new Vector2(xVel, _body.linearVelocityY);
+        _body.linearVelocity = movement;
     }
 
     public void PushByDirectionComplex(Vector2 direction, float force)
     {
+        if (direction.y > 0f) SetIsMovingUp(true);
+
         if (!_isFacingRight) direction = new Vector2(-direction.x, direction.y);
 
         direction = direction.normalized;
 
-        float desiredSpeed = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y * _rb.gravityScale) * (force + 0.3f));
-        Vector2 currentHorizontalMovement = new Vector2(_rb.linearVelocityX, 0f);
+        float desiredSpeed = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y * _body.gravityScale) * (force + 0.3f));
+        Vector2 currentHorizontalMovement = new Vector2(_body.linearVelocityX, 0f);
 
         Vector2 forceVector = direction * desiredSpeed + currentHorizontalMovement;
         //Debug.Log($"{gameObject.name} moved by: {forceVector}");
-        _rb.linearVelocity = forceVector;
+        _body.linearVelocity = forceVector;
     }
 
     public void PushByDirectionSimple(Vector2 direction, float force)
     {
+        if (direction.y > 0f) SetIsMovingUp(true);
+
         if (!_isFacingRight) direction = new Vector2(-direction.x, direction.y);
 
         direction = direction.normalized;
-        Vector2 currentHorizontalMovement = new Vector2(_rb.linearVelocityX, 0f);
+        Vector2 currentHorizontalMovement = new Vector2(_body.linearVelocityX, 0f);
         Vector2 forceVector = direction * force + currentHorizontalMovement;
-        _rb.linearVelocity = forceVector;
+        _body.linearVelocity = forceVector;
     }
 
     public void PushByDirectionRaw(Vector2 direction, float force)
     {
+        if (direction.y > 0f) SetIsMovingUp(true);
+
         direction = direction.normalized;
         Vector2 forceVector = direction * force;
-        _rb.linearVelocity += forceVector;
+        _body.linearVelocity += forceVector;
     }
 
     public void ToggleFriction(bool toggle)
     {
         if (toggle)
         {
-            _rb.sharedMaterial = _fullFrictionMat;
+            _body.sharedMaterial = _fullFrictionMat;
         }
         else
         {
-            _rb.sharedMaterial = _noFrictionMat;
+            _body.sharedMaterial = _noFrictionMat;
         }
     }
 
@@ -126,23 +139,23 @@ public class CharLocomotion : MonoBehaviour
 
     public void ChangeDirectionByVelocity()
     {
-        if (_isFacingRight && _rb.linearVelocityX < 0f)
+        if (_isFacingRight && _body.linearVelocityX < 0f)
         {
             transform.localScale = new Vector3(-1f, 1, 1);
             _isFacingRight = false;
         }
-        else if (!_isFacingRight && _rb.linearVelocityX > 0f)
+        else if (!_isFacingRight && _body.linearVelocityX > 0f)
         {
             transform.localScale = new Vector3(1f, 1, 1);
             _isFacingRight = true;
         }
     }
 
-    public void SetGravityModifier(float modifier) => _rb.gravityScale = modifier;
+    public void SetGravityModifier(float modifier) => _body.gravityScale = modifier;
 
 
     public Vector2 GetVelocity()
     {
-        return _rb.linearVelocity;
+        return _body.linearVelocity;
     }
 }

@@ -61,8 +61,11 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
-
-        if (manager.Deps.EnvDetection.OnSlope) manager.Deps.Locomotion.ToggleFriction(true);
+        if (manager.Deps.EnvDetection.IsOnSlope)
+        {
+            if (manager.Deps.EnvDetection.IsOnSteepSlope) manager.Deps.Locomotion.ToggleFriction(false);
+            else manager.Deps.Locomotion.ToggleFriction(true);
+        }
+        else manager.Deps.Locomotion.ToggleFriction(false);
     }
 }
