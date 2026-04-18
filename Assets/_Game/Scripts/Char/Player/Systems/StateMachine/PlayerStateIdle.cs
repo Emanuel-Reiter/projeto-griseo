@@ -51,7 +51,7 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void ExitState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.ToggleFriction(false);
+
     }
 
     public override void PhysicsUpdateState(PlayerStateManager manager)
@@ -61,11 +61,6 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        if (manager.Deps.EnvDetection.IsOnSlope)
-        {
-            if (manager.Deps.EnvDetection.IsOnSteepSlope) manager.Deps.Locomotion.ToggleFriction(false);
-            else manager.Deps.Locomotion.ToggleFriction(true);
-        }
-        else manager.Deps.Locomotion.ToggleFriction(false);
+
     }
 }
