@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerStateIdle : PlayerBaseState
 {
@@ -21,7 +20,7 @@ public class PlayerStateIdle : PlayerBaseState
         }
 
         // Jump
-        if(manager.Deps.EnvDetection.IsGrounded && manager.Deps.Input.IsJumpPressed)
+        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.IsJumpPressed)
         {
             manager.SwitchState(_jumpState);
             return;
@@ -47,7 +46,7 @@ public class PlayerStateIdle : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        manager.Deps.DoubleJump.RestoreJumps();
+        manager.Deps.JumpManager.RestoreJumps();
     }
 
     public override void ExitState(PlayerStateManager manager)

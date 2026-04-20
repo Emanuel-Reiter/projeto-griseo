@@ -17,6 +17,8 @@ public class CharMoveData : ScriptableObject
     [Header("Jump")]
     [SerializeField] private float _jumpHeight = 6f;
     public float JumpHeight => _jumpHeight;
+    [SerializeField] private int _maxAmountOfJumps = 1;
+    public int MaxAmountOfJumps => _maxAmountOfJumps;
 
     [Header("Gravity")]
     [SerializeField] private float _gravityMultiplaier = 5.0f;

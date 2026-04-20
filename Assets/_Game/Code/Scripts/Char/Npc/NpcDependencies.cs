@@ -13,7 +13,7 @@ public class NpcDependencies : MonoBehaviour
     public Transform SpellOrigin => _spellOrigin;
     public NpcTargetDetection TargetDetection { get; private set; }
 
-    public ProjectileCaster Cast { get; private set; }
+    public SpellProjectileCaster Cast { get; private set; }
     public NpcEquipment Equipment { get; private set; }
 
     private void Awake()
@@ -21,7 +21,7 @@ public class NpcDependencies : MonoBehaviour
         Locomotion = GetComponent<CharLocomotion>();
         CharAnimator = GetComponentInChildren<CharAnimator>();
         EnvDetection = GetComponent<CharEnvDetection>();
-        Cast = GetComponent<ProjectileCaster>();
+        Cast = GetComponent<SpellProjectileCaster>();
         TargetDetection = GetComponent<NpcTargetDetection>();
         Equipment = GetComponent<NpcEquipment>();
     }

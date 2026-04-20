@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerStateJump : PlayerBaseState
 {
     [SerializeField] private PlayerBaseState _fallState;
-    bool _allowDoubleJump = false;
 
     public override void CheckExitState(PlayerStateManager manager)
     {
@@ -13,9 +12,8 @@ public class PlayerStateJump : PlayerBaseState
             return;
         }
 
-        if (_allowDoubleJump && manager.Deps.Input.IsJumpPressed && manager.Deps.DoubleJump.JumpsRemaining > 0)
+        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.IsJumpPressed)
         {
-            manager.Deps.DoubleJump.ConsumeJumps();
             manager.SwitchState(this);
             return;
         }
@@ -23,14 +21,13 @@ public class PlayerStateJump : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        _allowDoubleJump = false;
+        manager.Deps.JumpManager.ConsumeJumps();
         manager.Deps.Locomotion.PushByDirectionComplex(Vector2.up, manager.Deps.MoveData.JumpHeight);
-        TimerManager.I.StartTimer(0.15f, () => { _allowDoubleJump = true; });
     }
 
     public override void ExitState(PlayerStateManager manager)
     {
-        _allowDoubleJump = false;
+
     }
 
     public override void PhysicsUpdateState(PlayerStateManager manager)

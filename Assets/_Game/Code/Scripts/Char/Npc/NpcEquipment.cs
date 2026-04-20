@@ -4,7 +4,7 @@ public class NpcEquipment : MonoBehaviour
 {
     private NpcDependencies _deps;
 
-    [SerializeField] private CastData _equipedSpell;
+    [SerializeField] private SpellData _equipedSpell;
 
     private void Start()
     {

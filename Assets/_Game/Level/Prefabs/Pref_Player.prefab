@@ -174,7 +174,7 @@ GameObject:
   m_Layer: 7
   m_Name: SpellOrigin
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 218a7395e9938c648b637ab7f1c95216, type: 2}
   _spellOrigin: {fileID: 7493145325218979522}
-  DoubleJump: {fileID: 0}
+  JumpManager: {fileID: 0}
 --- !u!114 &3498876552512202082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,7 +695,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518af510baa1ef04ea8080e08428e78f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipedSpell: {fileID: 11400000, guid: 52463056a88c2754482ae821ebdee828, type: 2}
+  _spells:
+  - {fileID: 11400000, guid: 52463056a88c2754482ae821ebdee828, type: 2}
+  - {fileID: 11400000, guid: d941fc424d0e96c48bc42747a076eb3c, type: 2}
+  - {fileID: 11400000, guid: 941e9173d2c7f1b41870243f85948c58, type: 2}
+  - {fileID: 11400000, guid: 1bce092925030444d999cd45808d9338, type: 2}
+  - {fileID: 11400000, guid: 8079af8cee3e2f842a4a283ddd1ef291, type: 2}
+  - {fileID: 11400000, guid: 9a48094f8408c2445bd9ce0a9514f6a1, type: 2}
+  - {fileID: 11400000, guid: 172e798fa7e2bd3409a687b126ac496b, type: 2}
+  _spellSwitchHintSfx: {fileID: 8300000, guid: adc2a8c05d1611a41adb99c81d4687a4, type: 3}
 --- !u!114 &6705026270418479665
 MonoBehaviour:
   m_ObjectHideFlags: 0

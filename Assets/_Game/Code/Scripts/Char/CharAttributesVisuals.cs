@@ -73,9 +73,8 @@ public class CharAttributesVisuals : MonoBehaviour
 
     public void DamageFlash()
     {
-        Color corOriginal = _sprite.color;
         _sprite.DOColor(Color.red, 0.1f).OnComplete(() =>
-            _sprite.DOColor(corOriginal, 0.1f));
+            _sprite.DOColor(Color.white, 0.1f));
     }
 
     private void OnDie()

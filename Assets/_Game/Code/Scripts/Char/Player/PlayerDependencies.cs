@@ -13,10 +13,10 @@ public class PlayerDependencies : MonoBehaviour
     [SerializeField] private Transform _spellOrigin;
     public Transform SpellOrigin => _spellOrigin;
 
-    public ProjectileCaster Cast { get; private set; }
+    public SpellProjectileCaster Cast { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
     public PlayerAnimationEvents AnimationEvents { get; private set; }
-    public PlayerDoubleJump DoubleJump;
+    public PlayerJumpManager JumpManager;
 
     private void Awake()
     {
@@ -24,9 +24,9 @@ public class PlayerDependencies : MonoBehaviour
         CharAnimator = GetComponentInChildren<CharAnimator>();
         Input = GetComponent<PlayerInputManager>();
         EnvDetection = GetComponent<CharEnvDetection>();
-        Cast = GetComponent<ProjectileCaster>();
+        Cast = GetComponent<SpellProjectileCaster>();
         Equipment = GetComponent<PlayerEquipment>();
         AnimationEvents = GetComponentInChildren<PlayerAnimationEvents>();
-        DoubleJump = GetComponent<PlayerDoubleJump>();
+        JumpManager = GetComponent<PlayerJumpManager>();
     }
 }
