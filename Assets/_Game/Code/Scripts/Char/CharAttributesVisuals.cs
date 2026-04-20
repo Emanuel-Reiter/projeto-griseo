@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,9 +21,13 @@ public class CharAttributesVisuals : MonoBehaviour
     [SerializeField] private ParticleSystem _takeDamageVfx;
     [SerializeField] private ParticleSystem _dieVfx;
 
+    private SpriteRenderer _sprite;
+
 
     private void Awake()
     {
+        _sprite = GetComponentInChildren<SpriteRenderer>();
+
         _attributes = GetComponent<CharAttributesManager>();
         CreateGradient();
 
@@ -63,6 +68,14 @@ public class CharAttributesVisuals : MonoBehaviour
     private void OnTakeDamage()
     {
         TriggerOnHitEffects();
+        DamageFlash();
+    }
+
+    public void DamageFlash()
+    {
+        Color corOriginal = _sprite.color;
+        _sprite.DOColor(Color.red, 0.1f).OnComplete(() =>
+            _sprite.DOColor(corOriginal, 0.1f));
     }
 
     private void OnDie()

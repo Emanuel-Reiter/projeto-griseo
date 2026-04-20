@@ -203,10 +203,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09fb7898217a8a4db45cdb501937045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _casterLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _useEntityDetection: 0
   _useEnvDetection: 1
   _hitDetectionRadius: 0.5
   _hitDetectionOffset: {x: 0, y: 0}
+  _projectileViewRadius: 8
   _projectileSprite: {fileID: 991217277242070617}
   _sigilSprite: {fileID: 4334371357045585763}
   _light: {fileID: 8247988360399081387}

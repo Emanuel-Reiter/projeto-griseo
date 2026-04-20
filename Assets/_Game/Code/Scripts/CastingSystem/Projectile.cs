@@ -23,13 +23,12 @@ public class Projectile : MonoBehaviour
 
     // Collision layers
     private const string ENV_LAYER = "EnvCollisions";
-    private const string ENTITIES_LAYER = "Entities";
-    private const string PLAYER_LAYER = "Player";
     private const string PROJECTILES_LAYER = "Projectiles";
 
+    [SerializeField] private LayerMask _casterLayer;
+    [SerializeField] private LayerMask _targetLayer;
+   
     private int _envLayer;
-    private int _entitiesLayer;
-    private int _playerLayer;
     private int _projectilesLayer;
 
     // Rotation in degrees per second
@@ -112,8 +111,6 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         _envLayer = LayerMask.NameToLayer(ENV_LAYER);
-        _entitiesLayer = LayerMask.NameToLayer(ENTITIES_LAYER);
-        _playerLayer = LayerMask.NameToLayer(PLAYER_LAYER);
         _projectilesLayer = LayerMask.NameToLayer(PROJECTILES_LAYER);
 
         _body = GetComponent<Rigidbody2D>();
@@ -128,8 +125,9 @@ public class Projectile : MonoBehaviour
                 _collider = gameObject.AddComponent<CircleCollider2D>();
             }
 
-            LayerMask mask = LayerMask.GetMask(ENTITIES_LAYER, PLAYER_LAYER, PROJECTILES_LAYER);
-            _collider.excludeLayers = mask;
+            // Máscara de exclusão SEM a camada de ambiente
+            int exclusionMask = _casterLayer.value | _targetLayer.value | (1 << _projectilesLayer);
+            _collider.excludeLayers = exclusionMask;
             _collider.radius = _hitDetectionRadius;
         }
         else
@@ -400,7 +398,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    #endregion 
+    #endregion
 
     #region Detections
     private void DetectEntityHit()
@@ -413,7 +411,7 @@ public class Projectile : MonoBehaviour
         foreach (RaycastHit2D hit in hits)
         {
             int hitLayer = hit.collider.gameObject.layer;
-            if (hitLayer != _entitiesLayer) continue;
+            if (((1 << hitLayer) & _targetLayer.value) == 0) continue;
 
             if (_castData.CanDealDamage)
             {
@@ -481,7 +479,7 @@ public class Projectile : MonoBehaviour
 
         bool hasValidDirection = currentDirection.sqrMagnitude > 0.01f;
 
-        int entitiesMask = LayerMask.GetMask(ENTITIES_LAYER);
+        int entitiesMask = _targetLayer;
         Collider2D[] targetsInRadius = Physics2D.OverlapCircleAll(transform.position, _projectileViewRadius, entitiesMask);
 
         Transform bestTarget = null;

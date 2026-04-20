@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharAttributesManager : MonoBehaviour
 {
@@ -76,5 +77,11 @@ public class CharAttributesManager : MonoBehaviour
     {
         OnDieEvent?.Invoke();
         gameObject.SetActive(false);
+
+        // Player only
+        if (gameObject.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

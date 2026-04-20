@@ -48,7 +48,7 @@ public class PlayerStateMove : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-
+        manager.Deps.DoubleJump.RestoreJumps();
     }
 
     public override void ExitState(PlayerStateManager manager)

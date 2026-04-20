@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 100
+  BaseDMGStellar: 200
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0

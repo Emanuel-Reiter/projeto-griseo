@@ -8,6 +8,8 @@ public class CharLocomotion : MonoBehaviour
     private bool _isFacingRight = true;
     public bool IsFacingRight => _isFacingRight;
 
+    [SerializeField] private bool _isStaticEnemy = false;
+
     private void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
@@ -19,6 +21,7 @@ public class CharLocomotion : MonoBehaviour
 
     public void Move(float targetSpeed, float acceleration, float direction) 
     {
+        if (_isStaticEnemy) return;
         Vector2 targetVelocity = new Vector2(direction * targetSpeed, 0f);
         Accelerate(targetVelocity, acceleration);
     }

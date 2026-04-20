@@ -16,6 +16,7 @@ public class PlayerDependencies : MonoBehaviour
     public ProjectileCaster Cast { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
     public PlayerAnimationEvents AnimationEvents { get; private set; }
+    public PlayerDoubleJump DoubleJump;
 
     private void Awake()
     {
@@ -26,5 +27,6 @@ public class PlayerDependencies : MonoBehaviour
         Cast = GetComponent<ProjectileCaster>();
         Equipment = GetComponent<PlayerEquipment>();
         AnimationEvents = GetComponentInChildren<PlayerAnimationEvents>();
+        DoubleJump = GetComponent<PlayerDoubleJump>();
     }
 }

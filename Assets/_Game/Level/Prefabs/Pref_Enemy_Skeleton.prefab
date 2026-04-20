@@ -4990,7 +4990,7 @@ Animator:
   m_GameObject: {fileID: 192002739585275848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9b4e1219d7f831e43846405dd83f4a96, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5058,7 +5058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a1197e4f6a07948ab4bec6a96b1662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseAnim: {fileID: 0}
+  _baseAnim: {fileID: 7400000, guid: b253d23789481794cb01658805f601dc, type: 2}
   _hasExitTime: 0
   _duration: 1
   _patrolState: {fileID: 8814052530369995821}
@@ -10034,6 +10034,7 @@ GameObject:
   - component: {fileID: 6150938106687718682}
   - component: {fileID: 6810816426811627307}
   - component: {fileID: 5134556646938046519}
+  - component: {fileID: 1545006345994605955}
   m_Layer: 6
   m_Name: Pref_Enemy_Skeleton
   m_TagString: Untagged
@@ -10194,7 +10195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385c8fb68c529394db684b5d8b6ec1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveData: {fileID: 11400000, guid: 2b56b7fe0cb90774ca1ef151dcca4dfe, type: 2}
+  _moveData: {fileID: 11400000, guid: 196c620992a203046ab461070891a45a, type: 2}
   _spellOrigin: {fileID: 6289617667618069267}
 --- !u!114 &6150938106687718682
 MonoBehaviour:
@@ -10221,6 +10222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3726378f5d898449e27e658c7568f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isStaticEnemy: 0
 --- !u!114 &5134556646938046519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10241,6 +10243,21 @@ MonoBehaviour:
   _envDetectionDistance: 1.5
   _holeDetectionOrigin: {fileID: 6999761369814812437}
   _wallDetectionTranform: {fileID: 6338913404299433250}
+--- !u!114 &1545006345994605955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130586034107805717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e212bf213b205eb468ca98ea6d78f971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4131122686913667601
 GameObject:
   m_ObjectHideFlags: 0
@@ -10442,7 +10459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cfe1e37b0dc71e4683956c4e710fbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseAnim: {fileID: 0}
+  _baseAnim: {fileID: 7400000, guid: a35fb5bc60102f146a59000f55225002, type: 2}
   _hasExitTime: 0
   _duration: 1
   _idleState: {fileID: 3719933529506140511}

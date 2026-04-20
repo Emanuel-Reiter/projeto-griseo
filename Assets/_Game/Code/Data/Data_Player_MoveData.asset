@@ -15,6 +15,6 @@ MonoBehaviour:
   _walkSpeed: 4
   _runSpeed: 10
   _baseAcceleration: 60
-  _jumpHeight: 6
+  _jumpHeight: 4
   _gravityMultiplaier: 5
   _maxVerticalVel: -50

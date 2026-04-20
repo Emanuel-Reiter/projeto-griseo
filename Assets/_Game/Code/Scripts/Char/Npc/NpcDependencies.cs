@@ -11,8 +11,10 @@ public class NpcDependencies : MonoBehaviour
 
     [SerializeField] private Transform _spellOrigin;
     public Transform SpellOrigin => _spellOrigin;
+    public NpcTargetDetection TargetDetection { get; private set; }
 
     public ProjectileCaster Cast { get; private set; }
+    public NpcEquipment Equipment { get; private set; }
 
     private void Awake()
     {
@@ -20,5 +22,7 @@ public class NpcDependencies : MonoBehaviour
         CharAnimator = GetComponentInChildren<CharAnimator>();
         EnvDetection = GetComponent<CharEnvDetection>();
         Cast = GetComponent<ProjectileCaster>();
+        TargetDetection = GetComponent<NpcTargetDetection>();
+        Equipment = GetComponent<NpcEquipment>();
     }
 }
