@@ -15,7 +15,7 @@ MonoBehaviour:
   SpellName: Stellar Shard
   CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 20
+  BaseDMGStellar: 15
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0
@@ -28,13 +28,13 @@ MonoBehaviour:
   PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
-  KnockbackForce: 10
+  KnockbackForce: 5
   ArmorPenetration: 0
   Projectile: {fileID: 1280583928218935999, guid: 0eaff5deb38eb674cabaf254679e090f, type: 3}
   AmountOfCasts: 1
   CastScatteringAngle: 0
-  ProjectileTrackingPercent: 0.1
-  ProjectileDuration: 0.5
+  ProjectileTrackingPercent: 0
+  ProjectileDuration: 0.3
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
   ConstantVelocityStartDelay: 0
