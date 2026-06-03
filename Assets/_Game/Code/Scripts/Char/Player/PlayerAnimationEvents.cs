@@ -11,6 +11,6 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     public void TriggerCast()
     {
-        _deps.Equipment.CastBasicSpell();
+        _deps.Equipment.CastBasicSpell1();
     }
 }
