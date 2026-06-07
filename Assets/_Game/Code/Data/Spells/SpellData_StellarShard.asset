@@ -34,7 +34,7 @@ MonoBehaviour:
   AmountOfCasts: 1
   CastScatteringAngle: 0
   ProjectileTrackingPercent: 0
-  ProjectileDuration: 0.3
+  ProjectileDuration: 0.35
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
   ConstantVelocityStartDelay: 0

@@ -197,8 +197,8 @@ TextureImporter:
       name: Spr_Char_Charlotte_Run_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 384
+        y: 128
         width: 128
         height: 128
       alignment: 9
@@ -219,7 +219,7 @@ TextureImporter:
       name: Spr_Char_Charlotte_Run_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 0
         width: 128
         height: 128
@@ -241,7 +241,7 @@ TextureImporter:
       name: Spr_Char_Charlotte_Run_5
       rect:
         serializedVersion: 2
-        x: 256
+        x: 128
         y: 0
         width: 128
         height: 128
@@ -255,6 +255,50 @@ TextureImporter:
       bones: []
       spriteID: b7cfc414a41b98b30800000000000000
       internalID: 4290155052528368763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Char_Charlotte_Run_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d7b9d18ba9c0e408cd5f92fa454796
+      internalID: -212408307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Char_Charlotte_Run_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08223bf4b8e09f4280f945e81323bef
+      internalID: 1838927130
       vertices: []
       indices: 
       edges: []
@@ -279,6 +323,8 @@ TextureImporter:
       Spr_Char_Charlotte_Run_3: 8457056851648188075
       Spr_Char_Charlotte_Run_4: -1104258722970702599
       Spr_Char_Charlotte_Run_5: 4290155052528368763
+      Spr_Char_Charlotte_Run_6: -212408307
+      Spr_Char_Charlotte_Run_7: 1838927130
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

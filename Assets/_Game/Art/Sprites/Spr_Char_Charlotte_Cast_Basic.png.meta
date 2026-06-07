@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 128
         width: 128
         height: 128
       alignment: 9
@@ -157,7 +157,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 256
+        y: 128
         width: 128
         height: 128
       alignment: 9
@@ -179,7 +179,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 128
         width: 128
         height: 128
       alignment: 9
@@ -200,7 +200,7 @@ TextureImporter:
       name: Spr_Char_Charlotte_Cast_Basic_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 384
         y: 128
         width: 128
         height: 128
@@ -222,8 +222,8 @@ TextureImporter:
       name: Spr_Char_Charlotte_Cast_Basic_4
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 0
+        y: 0
         width: 128
         height: 128
       alignment: 9
@@ -244,8 +244,8 @@ TextureImporter:
       name: Spr_Char_Charlotte_Cast_Basic_5
       rect:
         serializedVersion: 2
-        x: 256
-        y: 128
+        x: 128
+        y: 0
         width: 128
         height: 128
       alignment: 9
@@ -266,7 +266,7 @@ TextureImporter:
       name: Spr_Char_Charlotte_Cast_Basic_6
       rect:
         serializedVersion: 2
-        x: 0
+        x: 256
         y: 0
         width: 128
         height: 128
