@@ -71,6 +71,11 @@ public class CharLocomotion : MonoBehaviour
         _body.linearVelocity = forceVector;
     }
 
+    public void SetYVelocity(float yVel)
+    {
+        _body.linearVelocityY = yVel;
+    }
+
     public void ChangeDirectionByInput(float direction)
     {
         if(_isFacingRight && direction < 0f)

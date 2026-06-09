@@ -43,9 +43,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AttackBasic",
+                    "name": "AttackBasic1",
                     "type": "Button",
                     "id": "eac41591-9613-4024-abba-0652421c4269",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttackBasic2",
+                    "type": "Button",
+                    "id": "987050c0-2586-421d-996b-b2c9db30cc6d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -55,6 +64,15 @@
                     "name": "AttackSpecial1",
                     "type": "Button",
                     "id": "c4915bb3-a851-417b-9439-272fd6e7a253",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttackSpecial2",
+                    "type": "Button",
+                    "id": "99e6d89d-78e2-4184-9236-bef29aedd295",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -243,7 +261,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";MouseKeyboard",
-                    "action": "AttackBasic",
+                    "action": "AttackBasic1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -254,7 +272,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "AttackBasic",
+                    "action": "AttackBasic1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14235fb7-8ff1-42b4-9845-a5f1846a9fd2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";MouseKeyboard",
+                    "action": "AttackBasic2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "922dfa47-2078-45f1-b132-c945a010cb40",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "AttackBasic2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -294,7 +334,7 @@
                 {
                     "name": "",
                     "id": "a8f55433-c5e2-4dc1-9434-8950a007fca0",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -310,6 +350,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "AttackSpecial1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48ae5a02-7d51-49f0-b9dd-1d6c3158ca01",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackSpecial2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "661c3c47-09b0-4357-97ab-3b3a6e7c31aa",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackSpecial2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

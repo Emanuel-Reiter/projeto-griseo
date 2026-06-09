@@ -8,7 +8,10 @@ public class PlayerStateMove : PlayerBaseState
     [SerializeField] private PlayerBaseState _jumpState;
     
     [Header("Attack transitions")]
-    [SerializeField] private PlayerBaseState _atkLightState;
+    [SerializeField] private PlayerBaseState _atkBasic1State;
+    [SerializeField] private PlayerBaseState _atkBasic2State;
+    [SerializeField] private PlayerBaseState _atkSpecial1State;
+    [SerializeField] private PlayerBaseState _atkSpecial2State;
 
     [Header("Animation float")]
     [SerializeField] private string _movementMultiplaier;
@@ -23,24 +26,54 @@ public class PlayerStateMove : PlayerBaseState
         }
 
         // Jump
-        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.IsJumpPressed)
+        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.Jump.Pressed)
         {
             manager.SwitchState(_jumpState);
             return;
         }
 
         // Idle
-        if (manager.Deps.Input.MoveDirInput.x == 0f)
+        if (manager.Deps.Input.MoveDir.x == 0f)
         {
             manager.SwitchState(_idleState);
         }
 
-        // Attack
-        if (manager.Deps.Input.IsAttackBasicPressed)
+        // Attack Basic 1
+        if (manager.Deps.Input.AttackBasic1.Pressed)
         {
             if (manager.Deps.EnvDetection.IsGrounded)
             {
-                manager.SwitchState(_atkLightState);
+                manager.SwitchState(_atkBasic1State);
+                return;
+            }
+        }
+
+        // Attack Basic 2
+        if (manager.Deps.Input.AttackBasic2.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                manager.SwitchState(_atkBasic2State);
+                return;
+            }
+        }
+
+        // Attack Special 1
+        if (manager.Deps.Input.AttackSpecial1.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                manager.SwitchState(_atkSpecial1State);
+                return;
+            }
+        }
+
+        // Attack Special 2
+        if (manager.Deps.Input.AttackSpecial2.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                manager.SwitchState(_atkSpecial2State);
                 return;
             }
         }
@@ -58,13 +91,13 @@ public class PlayerStateMove : PlayerBaseState
 
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
-        Vector2 inputDir = manager.Deps.Input.MoveDirInput;
+        Vector2 inputDir = manager.Deps.Input.MoveDir;
         manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir.x);
     }
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
+        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDir.x);
 
 
         //float multiplaier = Mathf.InverseLerp(0f, manager.Deps.MoveData.RunSpeed, Mathf.Abs(manager.Deps.Locomotion.GetVelocity().x));

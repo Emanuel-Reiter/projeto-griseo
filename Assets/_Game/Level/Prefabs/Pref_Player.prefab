@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &74026765231639633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2698477389032259246}
+  - component: {fileID: 7635680328160827878}
+  m_Layer: 7
+  m_Name: Atk_Special_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2698477389032259246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74026765231639633}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7534534121063362883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7635680328160827878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74026765231639633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3709455f89dfaed47892aac463e1b1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseAnim: {fileID: 7400000, guid: 60de997fc6b64b549a5eaae7e061f482, type: 2}
+  _hasExitTime: 1
+  _duration: 1
+  _idleState: {fileID: 4235024104573445288}
 --- !u!1 &861496098344560272
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +172,7 @@ MonoBehaviour:
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
   m_ShadowsEnabled: 1
-  m_ShadowIntensity: 1
+  m_ShadowIntensity: 0.7
   m_ShadowSoftness: 1
   m_ShadowSoftnessFalloffIntensity: 1
   m_ShadowVolumeIntensityEnabled: 0
@@ -244,8 +292,59 @@ MonoBehaviour:
   _idleState: {fileID: 4235024104573445288}
   _fallState: {fileID: 3147743841914413809}
   _jumpState: {fileID: 4228982231037461826}
-  _atkLightState: {fileID: 7243268743756284045}
+  _atkBasic1State: {fileID: 7243268743756284045}
+  _atkBasic2State: {fileID: 8283888393763090507}
+  _atkSpecial1State: {fileID: 410052897922779868}
+  _atkSpecial2State: {fileID: 7635680328160827878}
   _movementMultiplaier: 
+--- !u!1 &3284028625526908346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7586501678030147778}
+  - component: {fileID: 8283888393763090507}
+  m_Layer: 7
+  m_Name: Atk_Basic_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7586501678030147778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3284028625526908346}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7534534121063362883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8283888393763090507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3284028625526908346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568b76d427934dc4a9d7ecb7b0c53ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseAnim: {fileID: 7400000, guid: 30fff135a78a35d4f9d729b0745dc029, type: 2}
+  _hasExitTime: 1
+  _duration: 1
+  _idleState: {fileID: 4235024104573445288}
 --- !u!1 &4389044750825161248
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +460,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 8, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -424,7 +523,7 @@ GameObject:
   - component: {fileID: 198963411035851358}
   - component: {fileID: 7243268743756284045}
   m_Layer: 7
-  m_Name: Atk_Basic
+  m_Name: Atk_Basic_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,7 +610,10 @@ MonoBehaviour:
   _moveState: {fileID: 8670734630466565218}
   _fallState: {fileID: 3147743841914413809}
   _jumpState: {fileID: 4228982231037461826}
-  _atkLightState: {fileID: 7243268743756284045}
+  _atkBasic1State: {fileID: 7243268743756284045}
+  _atkBasic2State: {fileID: 8283888393763090507}
+  _atkSpecial1State: {fileID: 410052897922779868}
+  _atkSpecial2State: {fileID: 7635680328160827878}
 --- !u!1 &5800424850401532544
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,8 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72784b131a6f0a34ea8312254efd0e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseAnim: {fileID: 0}
-  _hasExitTime: 0
+  _baseAnim: {fileID: 7400000, guid: 4366e8be071ec274ca98bd77b4823006, type: 2}
+  _hasExitTime: 1
   _duration: 1
   _idleState: {fileID: 4235024104573445288}
 --- !u!1 &6501957285080210812
@@ -862,7 +964,9 @@ Transform:
   - {fileID: 8393354665861587713}
   - {fileID: 2170176625254912508}
   - {fileID: 198963411035851358}
+  - {fileID: 7586501678030147778}
   - {fileID: 3231224156605066431}
+  - {fileID: 2698477389032259246}
   m_Father: {fileID: 7690745984092461798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7345748843273936329

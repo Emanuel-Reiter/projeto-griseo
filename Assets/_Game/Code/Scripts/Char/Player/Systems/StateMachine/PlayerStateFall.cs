@@ -13,7 +13,7 @@ public class PlayerStateFall : PlayerBaseState
             return;
         }
 
-        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.IsJumpPressed)
+        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.Jump.Pressed)
         {
             manager.SwitchState(_jumpState);
             return;
@@ -32,12 +32,12 @@ public class PlayerStateFall : PlayerBaseState
 
     public override void PhysicsUpdateState(PlayerStateManager manager)
     {
-        Vector2 inputDir = manager.Deps.Input.MoveDirInput;
+        Vector2 inputDir = manager.Deps.Input.MoveDir;
         manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir.x);
     }
 
     public override void UpdateState(PlayerStateManager manager)
     {
-        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
+        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDir.x);
     }
 }
