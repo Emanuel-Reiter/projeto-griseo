@@ -116,7 +116,95 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spr_BonePile_01_0
+      name: Spr_Char_BonePile_01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24dfa269cd9b1fb4699b0a3db3726847
+      internalID: -1930036413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Char_BonePile_01_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7995d4eb642417c4c8a8b342276a2829
+      internalID: 1236353075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Char_BonePile_01_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65d907dc4b8304e49a8e4c8ae7825f4a
+      internalID: 648539185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Char_BonePile_01_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5879b99193f8034ab8b37d1e954b69e
+      internalID: -1515436674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Char_BonePile_01_4
       rect:
         serializedVersion: 2
         x: 0
@@ -129,16 +217,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d9d4ec15c5916b7d0800000000000000
-      internalID: -2903105025493545571
+      spriteID: 2e409cd7244027f4d838b3bf7d2a8364
+      internalID: -1553814522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spr_BonePile_01_1
+      name: Spr_Char_BonePile_01_5
       rect:
         serializedVersion: 2
         x: 64
@@ -151,10 +239,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e37767c5c4cd3d210800000000000000
-      internalID: 1356670133295544126
+      spriteID: 3734e27a972931b49ab03930ea555b51
+      internalID: 1207144925
       vertices: []
       indices: 
       edges: []
@@ -173,8 +261,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Spr_BonePile_01_0: -2903105025493545571
-      Spr_BonePile_01_1: 1356670133295544126
+      Spr_Char_BonePile_01_0: -1930036413
+      Spr_Char_BonePile_01_1: 1236353075
+      Spr_Char_BonePile_01_2: 648539185
+      Spr_Char_BonePile_01_3: -1515436674
+      Spr_Char_BonePile_01_4: -1553814522
+      Spr_Char_BonePile_01_5: 1207144925
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

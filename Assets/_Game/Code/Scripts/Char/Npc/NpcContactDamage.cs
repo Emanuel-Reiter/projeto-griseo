@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour
 {
     [SerializeField] private int _damage = 10;
+    [SerializeField] private int _knockback = 2;
     [SerializeField] private float _cooldown = 0.5f;
     [SerializeField] private LayerMask _targetLayer;
 
@@ -34,7 +35,7 @@ public class EnemyDamage : MonoBehaviour
                 {
                     Vector2 targetPos = hit.transform.position;
                     Vector2 dmgPos = transform.position;
-                    Vector2 dirKb = new Vector2(targetPos.x - dmgPos.x, 0f);
+                    Vector2 dirKb = new Vector2(targetPos.x - dmgPos.x, 0f) * _knockback;
 
                     DamageData damageData = new DamageData(
                     _damage,

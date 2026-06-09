@@ -21,15 +21,21 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1356670133295544126, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
-    - time: 0.5
-      value: {fileID: 1356670133295544126, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+      value: {fileID: 1236353075, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - time: 0.2
+      value: {fileID: 648539185, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - time: 0.4
+      value: {fileID: -1515436674, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - time: 0.6
+      value: {fileID: -1553814522, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - time: 1
+      value: {fileID: 1207144925, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 2
+  m_SampleRate: 5
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -46,14 +52,17 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 1356670133295544126, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
-    - {fileID: 1356670133295544126, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - {fileID: 1236353075, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - {fileID: 648539185, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - {fileID: -1515436674, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - {fileID: -1553814522, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
+    - {fileID: 1207144925, guid: f6cbb43747814cf459e8cce9f22e4854, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 1.2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -73,7 +82,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5
+  - time: 0.6
     functionName: TriggerCast
     data: 
     objectReferenceParameter: {fileID: 0}

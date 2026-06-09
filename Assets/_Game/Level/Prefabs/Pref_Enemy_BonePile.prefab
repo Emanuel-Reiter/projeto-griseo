@@ -4978,7 +4978,7 @@ SpriteRenderer:
   m_Size: {x: 8, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &7945490763880524977
@@ -10156,6 +10156,7 @@ GameObject:
   - component: {fileID: 3458414566004915240}
   - component: {fileID: 1042470254744713039}
   - component: {fileID: 5300675262005941178}
+  - component: {fileID: 916844079604388076}
   m_Layer: 6
   m_Name: Pref_Enemy_BonePile
   m_TagString: Untagged
@@ -10393,6 +10394,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _equipedSpell: {fileID: 11400000, guid: 7ec6d7b6a19fcd24c9094c828736572c, type: 2}
+--- !u!114 &916844079604388076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833829527548650652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e212bf213b205eb468ca98ea6d78f971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 10
+  _cooldown: 0.5
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &9218467500582806453
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,6 +70,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
 
     public void DamageFlash()
     {
+        _sprite.color = Color.white;
         Color corOriginal = _sprite.color;
         _sprite.DOColor(Color.red, 0.1f).OnComplete(() =>
             _sprite.DOColor(corOriginal, 0.1f));

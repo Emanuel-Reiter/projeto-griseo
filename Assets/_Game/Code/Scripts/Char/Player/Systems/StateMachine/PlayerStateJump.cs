@@ -39,5 +39,7 @@ public class PlayerStateJump : PlayerBaseState
     public override void UpdateState(PlayerStateManager manager)
     {
         manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDirInput.x);
+
+        //if (manager.Deps.Input.)
     }
 }

@@ -27,7 +27,7 @@ public class SpellProjectile : MonoBehaviour
 
     [SerializeField] private LayerMask _casterLayer;
     [SerializeField] private LayerMask _targetLayer;
-   
+
     private int _envLayer;
     private int _projectilesLayer;
 
@@ -228,10 +228,18 @@ public class SpellProjectile : MonoBehaviour
         CalculateVelocity();
 
         // Constant velociy apply delay trigger
-        TimerManager.I.StartTimer(_spellData.ConstantVelocityStartDelay, () => _allowConstantVelocity = true);
+        TimerManager.I.StartTimer(_spellData.ConstantVelocityStartDelay, () =>
+        {
+            if (this == null) return;
+            _allowConstantVelocity = true;
+        });
 
         // Fizzle timer
-        _fizzleTimerIndex = TimerManager.I.StartTimer(_projectileDuration, () => Fizzle());
+        _fizzleTimerIndex = TimerManager.I.StartTimer(_projectileDuration, () =>
+        {
+            if (this == null) return;
+            Fizzle();
+        });
 
         // Initial subcasts
         TriggerOnSpawnSubcast();
@@ -251,7 +259,15 @@ public class SpellProjectile : MonoBehaviour
 
     private void Die()
     {
+        if (_hasDied) return;
         _hasDied = true;
+
+        // Cancel events, timers and DOTween calls
+        CancelInvoke();
+
+        DOTween.Kill(transform);
+        DOTween.Kill(this);
+
         _body.linearVelocity = Vector2.zero;
 
         TimerManager.I.CancelTimer(_fizzleTimerIndex);
@@ -263,7 +279,11 @@ public class SpellProjectile : MonoBehaviour
         if (_idleVfx != null) _idleVfx.Stop();
         if (_projectileSprite != null) _projectileSprite.DOFade(0f, 0.1f);
 
-        TimerManager.I.StartTimer(5f, () => { Destroy(gameObject); });
+        TimerManager.I.StartTimer(5f, () =>
+        {
+            if (this == null) return;
+            Destroy(gameObject);
+        });
     }
 
     private void Fizzle()
@@ -271,6 +291,13 @@ public class SpellProjectile : MonoBehaviour
         Die();
         TriggerFizzleEffects();
         TriggerOnFizzleSubcast();
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke();
+        DOTween.Kill(transform);
+        DOTween.Kill(this);
     }
 
     #region Subcasts
@@ -285,7 +312,11 @@ public class SpellProjectile : MonoBehaviour
     {
         if (_spellData.OnSpawnCast != null && Random.value <= _spellData.OnSpawnCastChance)
         {
-            TimerManager.I.StartTimer(_spellData.OnSpawnCastDelay, () => { CastSubcast(_spellData.OnSpawnCast); });
+            TimerManager.I.StartTimer(_spellData.OnSpawnCastDelay, () =>
+            {
+                if (this == null) return;
+                CastSubcast(_spellData.OnSpawnCast);
+            });
         }
     }
 
@@ -305,7 +336,11 @@ public class SpellProjectile : MonoBehaviour
     {
         if (_spellData.OnFizzleCast != null && Random.value <= _spellData.OnFizzleCastChance)
         {
-            TimerManager.I.StartTimer(_spellData.OnFizzleCastDelay, () => { CastSubcast(_spellData.OnFizzleCast); });
+            TimerManager.I.StartTimer(_spellData.OnFizzleCastDelay, () =>
+            {
+                if (this == null) return;
+                CastSubcast(_spellData.OnFizzleCast);
+            });
         }
     }
 
@@ -314,7 +349,11 @@ public class SpellProjectile : MonoBehaviour
     {
         if (_spellData.OnHitCast != null && Random.value <= _spellData.OnHitCastChance)
         {
-            TimerManager.I.StartTimer(_spellData.OnHitCastDelay, () => { CastSubcast(_spellData.OnHitCast); });
+            TimerManager.I.StartTimer(_spellData.OnHitCastDelay, () =>
+            {
+                if (this == null) return;
+                CastSubcast(_spellData.OnHitCast);
+            });
         }
     }
 
@@ -393,6 +432,7 @@ public class SpellProjectile : MonoBehaviour
             if (_disableLightOnDie) _light.gameObject.SetActive(false);
             else TimerManager.I.StartTimer(_spellData.ProjectileDuration, () =>
             {
+                if (this == null) return;
                 DOTween.To(() => _light.intensity, x => _light.intensity = x, 0f, _spellData.ProjectileDuration)
                 .OnComplete(() => _light.gameObject.SetActive(false));
             });
