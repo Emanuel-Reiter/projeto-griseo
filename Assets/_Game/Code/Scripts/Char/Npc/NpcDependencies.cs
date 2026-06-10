@@ -15,6 +15,7 @@ public class NpcDependencies : MonoBehaviour
 
     public SpellProjectileCaster Cast { get; private set; }
     public NpcEquipment Equipment { get; private set; }
+    public CharAttributesManager Attributes { get; private set; }
 
     private void Awake()
     {
@@ -24,5 +25,6 @@ public class NpcDependencies : MonoBehaviour
         Cast = GetComponent<SpellProjectileCaster>();
         TargetDetection = GetComponent<NpcTargetDetection>();
         Equipment = GetComponent<NpcEquipment>();
+        Attributes = GetComponent<CharAttributesManager>();
     }
 }

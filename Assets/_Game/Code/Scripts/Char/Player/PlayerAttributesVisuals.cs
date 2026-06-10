@@ -7,12 +7,19 @@ public class PlayerAttributesVisuals : MonoBehaviour
 {
     private CharAttributesManager _attributes;
 
-    [Header("UI refs")]
+    [Header("Hp Ui refs")]
     [SerializeField] private Slider _hpSlider;
     [SerializeField] private Image _hpBarFill;
     [SerializeField] private Image _hpBarBackground;
     private Gradient _hpBarFillGradient;
     private Gradient _hpBarBackgroundGradient;
+
+    [Header("Mp Ui refs")]
+    [SerializeField] private Slider _mpSlider;
+    [SerializeField] private Image _mpBarFill;
+    [SerializeField] private Image _mpBarBackground;
+    private Gradient _mpBarFillGradient;
+    private Gradient _mpBarBackgroundGradient;
 
     [Header("VFX")]
     [SerializeField] private Vector2 _vfxOffset = new Vector2(0f, 2f);
@@ -33,7 +40,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
         _attributes.OnHealthChangeEvent += OnHealthChange;
         _attributes.OnTakeDamageEvent += OnTakeDamage;
         _attributes.OnDieEvent += OnDie;
-        
+        _attributes.OnManaChangeEvent += OnManaChange;
     }
 
     private void OnEnable()
@@ -41,6 +48,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
         _attributes.OnHealthChangeEvent += OnHealthChange;
         _attributes.OnTakeDamageEvent += OnTakeDamage;
         _attributes.OnDieEvent += OnDie;
+        _attributes.OnManaChangeEvent += OnManaChange;
     }
 
     private void OnDisable()
@@ -48,6 +56,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
         _attributes.OnHealthChangeEvent -= OnHealthChange;
         _attributes.OnTakeDamageEvent -= OnTakeDamage;
         _attributes.OnDieEvent -= OnDie;
+        _attributes.OnManaChangeEvent -= OnManaChange;
     }
 
     private void OnDestroy()
@@ -55,11 +64,17 @@ public class PlayerAttributesVisuals : MonoBehaviour
         _attributes.OnHealthChangeEvent -= OnHealthChange;
         _attributes.OnTakeDamageEvent -= OnTakeDamage;
         _attributes.OnDieEvent -= OnDie;
+        _attributes.OnManaChangeEvent -= OnManaChange;
     }
 
     private void OnHealthChange(int newHealth)
     {
         UpdateHealthUi(newHealth);
+    }
+
+    private void OnManaChange(int newMana)
+    {
+        UpdateManaUi(newMana);
     }
 
     private void OnTakeDamage()
@@ -107,10 +122,30 @@ public class PlayerAttributesVisuals : MonoBehaviour
     {
         float hpPercent = (float)newHealth / (float)_attributes.CharAttributes.MaxHealth;
 
-        if (_hpSlider != null) _hpSlider.value = hpPercent;
+        if (_hpBarFill != null)
+        {
+            DOTween.To(() => _hpSlider.value, x => _hpSlider.value = x, hpPercent, 0.25f)
+           .SetEase(Ease.InOutSine)
+           .OnComplete(() => { _hpSlider.value = hpPercent; });
+        }
 
         if (_hpBarFill != null) _hpBarFill.color = _hpBarFillGradient.Evaluate(hpPercent);
         if (_hpBarBackground != null) _hpBarBackground.color = _hpBarBackgroundGradient.Evaluate(hpPercent);
+    }
+
+    private void UpdateManaUi(int newMana)
+    {
+        float mpPercent = (float)newMana / (float)_attributes.CharAttributes.MaxHealth;
+
+        if (_mpSlider != null)
+        {
+            DOTween.To(() => _mpSlider.value, x => _mpSlider.value = x, mpPercent, 0.25f)
+           .SetEase(Ease.InOutSine)
+           .OnComplete(() => { _mpSlider.value = mpPercent; });
+        }
+
+        //if (_mpBarFill != null) _mpBarFill.color = _hpBarFillGradient.Evaluate(mpPercent);
+        //if (_mpBarBackground != null) _mpBarBackground.color = _hpBarBackgroundGradient.Evaluate(mpPercent);
     }
 
     private void CreateGradient()

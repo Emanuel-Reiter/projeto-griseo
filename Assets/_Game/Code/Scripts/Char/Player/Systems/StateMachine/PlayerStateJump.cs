@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerStateJump : PlayerBaseState
 {
@@ -7,6 +8,10 @@ public class PlayerStateJump : PlayerBaseState
     [Header("Jump grunt Sfx")]
     [SerializeField] private AudioClip[] _jumpGruntSfx;
     private bool _canPlayJumpSfx = true;
+    private int _currentSfxIndex = 0;
+
+    private bool _lastJumpSfxPlayed = false;
+    private float _repeatPenalty = 0.25f;
 
     public override void CheckExitState(PlayerStateManager manager)
     {
@@ -28,12 +33,16 @@ public class PlayerStateJump : PlayerBaseState
         manager.Deps.JumpManager.ConsumeJumps();
         manager.Deps.Locomotion.PushByDirectionComplex(Vector2.up, manager.Deps.MoveData.JumpHeight);
 
+        float playProbability = _lastJumpSfxPlayed ? _repeatPenalty : (1f - _repeatPenalty);
+        _canPlayJumpSfx = Random.value < playProbability;
+        _lastJumpSfxPlayed = _canPlayJumpSfx;
+
         if (_jumpGruntSfx != null && _canPlayJumpSfx)
         {
-            int audioIndex = Random.Range(0, _jumpGruntSfx.Length);
-            Debug.Log(audioIndex);
-            AudioPool.Play(_jumpGruntSfx[audioIndex], default, false, default, 0.2f);
+            _currentSfxIndex = (_currentSfxIndex + 1) % _jumpGruntSfx.Length;
+            AudioPool.Play(_jumpGruntSfx[_currentSfxIndex], default, false, default, 0.3f, Random.Range(0.95f, 1.1f));
         }
+
         //_canPlayJumpSfx = !_canPlayJumpSfx;
     }
 

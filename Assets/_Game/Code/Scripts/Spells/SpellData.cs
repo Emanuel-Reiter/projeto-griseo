@@ -5,6 +5,11 @@ public class SpellData : ScriptableObject
 {
     [Header("Info")]
     public string SpellName = "Spell";
+    public Sprite SpellIcon = null;
+
+    [Header("Mana")]
+    public int ManaCost = 0;
+    public int ManaRegen = 0;
 
     [Header("Damage toggle")]
     public bool CanDealDamage = true;

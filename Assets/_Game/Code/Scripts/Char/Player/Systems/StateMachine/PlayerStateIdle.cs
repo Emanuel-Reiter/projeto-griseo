@@ -13,6 +13,9 @@ public class PlayerStateIdle : PlayerBaseState
     [SerializeField] private PlayerBaseState _atkSpecial1State;
     [SerializeField] private PlayerBaseState _atkSpecial2State;
 
+    [Header("Sfx")]
+    [SerializeField] private AudioClip _castFailSfx;
+
     public override void CheckExitState(PlayerStateManager manager)
     {
         // Fall
@@ -61,8 +64,15 @@ public class PlayerStateIdle : PlayerBaseState
         {
             if (manager.Deps.EnvDetection.IsGrounded)
             {
-                manager.SwitchState(_atkSpecial1State);
-                return;
+                if (manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell1.ManaCost)
+                {
+                    manager.SwitchState(_atkSpecial1State);
+                    return;
+                }
+                else
+                {
+                    AudioPool.Play(_castFailSfx, default, false, default, 0.6f);
+                }
             }
         }
 
@@ -71,8 +81,15 @@ public class PlayerStateIdle : PlayerBaseState
         {
             if (manager.Deps.EnvDetection.IsGrounded)
             {
-                manager.SwitchState(_atkSpecial2State);
-                return;
+                if (manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell2.ManaCost)
+                {
+                    manager.SwitchState(_atkSpecial2State);
+                    return;
+                }
+                else
+                {
+                    AudioPool.Play(_castFailSfx, default, false, default, 0.6f);
+                }
             }
         }
     }

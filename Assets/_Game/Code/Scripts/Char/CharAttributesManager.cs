@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +8,7 @@ public class CharAttributesManager : MonoBehaviour
     [SerializeField] private CharAttributesData _charAttributes;
     public CharAttributesData CharAttributes => _charAttributes;
 
+    // Health
     private int _currentHealth = 1;
     public int CurrentHealth
     {
@@ -25,6 +25,13 @@ public class CharAttributesManager : MonoBehaviour
                 return;
             }
 
+            if (value > _charAttributes.MaxHealth)
+            {
+                _currentHealth = _charAttributes.MaxHealth;
+                OnHealthChangeEvent?.Invoke(CurrentHealth);
+                return;
+            }
+
             _currentHealth = value;
             OnHealthChangeEvent?.Invoke(CurrentHealth);
         }
@@ -36,6 +43,38 @@ public class CharAttributesManager : MonoBehaviour
     public delegate void OnTakeDamageDelegate();
     public event OnTakeDamageDelegate OnTakeDamageEvent;
 
+    // Mana
+    private int _currentMana = 1;
+    public int CurrentMana
+    {
+        get => _currentMana;
+        set
+        {
+            if (_currentMana == value) return;
+
+            if (value <= 0)
+            {
+                _currentMana = 0;
+                OnManaChangeEvent?.Invoke(CurrentMana);
+                return;
+            }
+
+            if (value > _charAttributes.MaxMana)
+            {
+                _currentMana = _charAttributes.MaxMana;
+                OnManaChangeEvent?.Invoke(CurrentMana);
+                return;
+            }
+
+            _currentMana = value;
+            OnManaChangeEvent?.Invoke(CurrentMana);
+        }
+    }
+
+    public delegate void OnManaChangeDelegate(int mana);
+    public event OnManaChangeDelegate OnManaChangeEvent;
+
+    // Die
     public delegate void OnDieDelegate();
     public event OnDieDelegate OnDieEvent;
 
@@ -46,6 +85,7 @@ public class CharAttributesManager : MonoBehaviour
         if (_charAttributes == null) Debug.LogError($"Char: {gameObject.name} doesn't have a attributes data assigned.");
 
         CurrentHealth = _charAttributes.MaxHealth;
+        CurrentMana = _charAttributes.MaxMana;
     }
 
     public void TakeDamage(DamageData damageData)

@@ -16,7 +16,9 @@ public class PlayerDependencies : MonoBehaviour
     public SpellProjectileCaster Cast { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
     public PlayerAnimationEvents AnimationEvents { get; private set; }
-    public PlayerJumpManager JumpManager;
+    public PlayerJumpManager JumpManager { get; private set; }
+
+    public CharAttributesManager Attributes { get; private set; }
 
     private void Awake()
     {
@@ -28,5 +30,6 @@ public class PlayerDependencies : MonoBehaviour
         Equipment = GetComponent<PlayerEquipment>();
         AnimationEvents = GetComponentInChildren<PlayerAnimationEvents>();
         JumpManager = GetComponent<PlayerJumpManager>();
+        Attributes = GetComponent<CharAttributesManager>();
     }
 }

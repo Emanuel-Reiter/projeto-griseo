@@ -13,6 +13,6 @@ public class NpcEquipment : MonoBehaviour
 
     public void CastBasicSpell()
     {
-        _deps.Cast.Cast(_equipedSpell, _deps.SpellOrigin.position, _deps.Locomotion.IsFacingRight);
+        _deps.Cast.Cast(_equipedSpell, _deps.SpellOrigin.position, _deps.Locomotion.IsFacingRight, _deps.Attributes);
     }
 }

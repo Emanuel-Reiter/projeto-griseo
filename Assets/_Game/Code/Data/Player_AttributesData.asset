@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Player_AttributesData
   m_EditorClassIdentifier: 
   MaxHealth: 100
+  MaxMana: 100

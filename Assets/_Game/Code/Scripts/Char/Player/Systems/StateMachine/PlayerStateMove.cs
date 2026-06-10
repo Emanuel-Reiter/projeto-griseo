@@ -13,6 +13,9 @@ public class PlayerStateMove : PlayerBaseState
     [SerializeField] private PlayerBaseState _atkSpecial1State;
     [SerializeField] private PlayerBaseState _atkSpecial2State;
 
+    [Header("Sfx")]
+    [SerializeField] private AudioClip _castFailSfx;
+
     [Header("Animation float")]
     [SerializeField] private string _movementMultiplaier;
 
@@ -63,8 +66,15 @@ public class PlayerStateMove : PlayerBaseState
         {
             if (manager.Deps.EnvDetection.IsGrounded)
             {
-                manager.SwitchState(_atkSpecial1State);
-                return;
+                if (manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell1.ManaCost)
+                {
+                    manager.SwitchState(_atkSpecial1State);
+                    return;
+                }
+                else
+                {
+                    AudioPool.Play(_castFailSfx, default, false, default, 0.6f);
+                }
             }
         }
 
@@ -73,8 +83,15 @@ public class PlayerStateMove : PlayerBaseState
         {
             if (manager.Deps.EnvDetection.IsGrounded)
             {
-                manager.SwitchState(_atkSpecial2State);
-                return;
+                if (manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell2.ManaCost)
+                {
+                    manager.SwitchState(_atkSpecial2State);
+                    return;
+                }
+                else
+                {
+                    AudioPool.Play(_castFailSfx, default, false, default, 0.6f);
+                }
             }
         }
     }

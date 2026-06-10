@@ -10,6 +10,7 @@ public class PlayerStateAtkSpecial2 : PlayerBaseState
 
     [Header("Atk grunt Sfx")]
     [SerializeField] private AudioClip[] _atkGruntSfx;
+    private int _currentSfxIndex = 0;
 
     public override void CheckExitState(PlayerStateManager manager)
     {
@@ -36,14 +37,13 @@ public class PlayerStateAtkSpecial2 : PlayerBaseState
 
         _atkPushTimer = TimerManager.I.StartTimer(GetStateCompletion(0.75f), () =>
         {
-            manager.Deps.Locomotion.PushByDirectionComplex(-manager.transform.right, 1f);
+            if (this != null) manager.Deps.Locomotion.PushByDirectionComplex(-manager.transform.right, 1f);
         });
 
         if (_atkGruntSfx != null)
         {
-            int audioIndex = Random.Range(0, _atkGruntSfx.Length);
-            Debug.Log(audioIndex);
-            AudioPool.Play(_atkGruntSfx[audioIndex], default, false, default, 0.4f);
+            _currentSfxIndex = (_currentSfxIndex + 1) % _atkGruntSfx.Length;
+            AudioPool.Play(_atkGruntSfx[_currentSfxIndex], default, false, default, 0.4f, Random.Range(0.95f, 1.05f));
         }
     }
 

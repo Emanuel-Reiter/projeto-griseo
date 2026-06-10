@@ -10,6 +10,11 @@ public class PlayerStateAtkBasic1 : PlayerBaseState
 
     [Header("Atk grunt Sfx")]
     [SerializeField] private AudioClip[] _atkGruntSfx;
+    private int _currentSfxIndex = 0;
+    private bool _canPlayAtkSfx = true;
+
+    private bool _lastAtkSfxPlayed = false;
+    private float _repeatPenalty = 0.25f;
 
     public override void CheckExitState(PlayerStateManager manager)
     {
@@ -36,15 +41,22 @@ public class PlayerStateAtkBasic1 : PlayerBaseState
 
         _atkPushTimer = TimerManager.I.StartTimer(GetStateCompletion(0.75f), () =>
         {
-            manager.Deps.Locomotion.PushByDirectionComplex(-manager.transform.right, 0.5f);
+            if (this != null) manager.Deps.Locomotion.PushByDirectionComplex(-manager.transform.right, 0.5f);
         });
 
-        if (_atkGruntSfx != null)
+        _canPlayAtkSfx = Random.Range(0, 2) == 1 ? true : false;
+
+        float playProbability = _lastAtkSfxPlayed ? _repeatPenalty : (1f - _repeatPenalty);
+        _canPlayAtkSfx = Random.value < playProbability;
+        _lastAtkSfxPlayed = _canPlayAtkSfx;
+
+        if (_atkGruntSfx != null && _canPlayAtkSfx)
         {
-            int audioIndex = Random.Range(0, _atkGruntSfx.Length);
-            Debug.Log(audioIndex);
-            AudioPool.Play(_atkGruntSfx[audioIndex], default, false, default, 0.4f);
+            _currentSfxIndex = (_currentSfxIndex + 1) % _atkGruntSfx.Length;
+            AudioPool.Play(_atkGruntSfx[_currentSfxIndex], default, false, default, 0.4f, Random.Range(0.95f, 1.05f));
         }
+
+        //_canPlayAtkSfx = !_canPlayAtkSfx;
     }
 
     public override void ExitState(PlayerStateManager manager)

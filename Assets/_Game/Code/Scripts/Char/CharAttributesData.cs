@@ -4,12 +4,18 @@ using UnityEngine;
 public class CharAttributesData : ScriptableObject
 {
     [Min(0)] public int MaxHealth = 1;
+    [Min(0)] public int MaxMana = 1;
 
     private void OnValidate()
     {
         if (MaxHealth < 1)
         {
             MaxHealth = 1;
+        }
+
+        if (MaxMana <= 0)
+        {
+            MaxMana = 0;
         }
     }
 }

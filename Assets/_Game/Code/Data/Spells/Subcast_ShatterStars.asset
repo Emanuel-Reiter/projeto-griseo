@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb5f81bbdff17f418e0dc5db7af3a42, type: 3}
+  m_Name: Subcast_ShatterStars
+  m_EditorClassIdentifier: 
+  SpellName: Subcast_ShatterStars
+  SpellIcon: {fileID: 0}
+  ManaCost: 0
+  ManaRegen: 7
+  CanDealDamage: 1
+  BaseDMGPhysical: 0
+  BaseDMGStellar: 7
+  BaseDMGFire: 0
+  BaseDMGLightining: 0
+  STSPoison: 0
+  STSFrostbite: 0
+  STSIchor: 0
+  UseAreaDamage: 0
+  MaxTargetPenetration: 0
+  PerTargetDmgReduction: 0
+  MaxEnvironmentHits: 0
+  PerEnvHitDmgReduction: 0
+  CritChace: 0
+  CritModifier: 1
+  KnockbackForce: 3
+  ArmorPenetration: 0
+  Projectile: {fileID: 1280583928218935999, guid: 7f2ac06a6350c5e41b1d40f551b3c262, type: 3}
+  AmountOfCasts: 6
+  CastScatteringAngle: 45
+  ProjectileTrackingPercent: 0
+  ProjectileDuration: 0.5
+  InitialForce: 0
+  InitialDirection: {x: 0, y: 0}
+  ConstantVelocityStartDelay: 0
+  ConstantVelocity: 15
+  ConstantDirection: {x: 1, y: 0}
+  DecelerationRate: 0
+  GravityModifier: 0
+  OnSpawnCast: {fileID: 0}
+  OnSpawnCastChance: 1
+  OnSpawnCastDelay: 0
+  OverLifetimeCast: {fileID: 0}
+  OverLifetimeCastChance: 1
+  OverLifetimeCastInterval: 1
+  OnFizzleCast: {fileID: 0}
+  OnFizzleCastChance: 1
+  OnFizzleCastDelay: 0
+  OnHitCast: {fileID: 0}
+  OnHitCastChance: 1
+  OnHitCastDelay: 0
