@@ -135,7 +135,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
         }
 
         if (_hpBarFill != null) _hpBarFill.color = _hpBarFillGradient.Evaluate(hpPercent);
-        if (_hpBarBackground != null) _hpBarBackground.color = _hpBarBackgroundGradient.Evaluate(hpPercent);
+        // if (_hpBarBackground != null) _hpBarBackground.color = _hpBarBackgroundGradient.Evaluate(hpPercent);
     }
 
     private void UpdateManaUi(int newMana)
