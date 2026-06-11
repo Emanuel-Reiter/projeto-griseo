@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
     [SerializeField] private Slider _hpSlider;
     [SerializeField] private Image _hpBarFill;
     [SerializeField] private Image _hpBarBackground;
+    [SerializeField] private TMP_Text _heathLabel;
     private Gradient _hpBarFillGradient;
     private Gradient _hpBarBackgroundGradient;
 
@@ -18,6 +20,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
     [SerializeField] private Slider _mpSlider;
     [SerializeField] private Image _mpBarFill;
     [SerializeField] private Image _mpBarBackground;
+    [SerializeField] private TMP_Text _manaLabel;
     private Gradient _mpBarFillGradient;
     private Gradient _mpBarBackgroundGradient;
 
@@ -122,6 +125,8 @@ public class PlayerAttributesVisuals : MonoBehaviour
     {
         float hpPercent = (float)newHealth / (float)_attributes.CharAttributes.MaxHealth;
 
+        if (_heathLabel != null) _heathLabel.text = $"{newHealth} / {_attributes.CharAttributes.MaxHealth}";
+
         if (_hpBarFill != null)
         {
             DOTween.To(() => _hpSlider.value, x => _hpSlider.value = x, hpPercent, 0.25f)
@@ -136,6 +141,8 @@ public class PlayerAttributesVisuals : MonoBehaviour
     private void UpdateManaUi(int newMana)
     {
         float mpPercent = (float)newMana / (float)_attributes.CharAttributes.MaxHealth;
+
+        if (_manaLabel != null) _manaLabel.text = $"{newMana} / {_attributes.CharAttributes.MaxMana}";
 
         if (_mpSlider != null)
         {
