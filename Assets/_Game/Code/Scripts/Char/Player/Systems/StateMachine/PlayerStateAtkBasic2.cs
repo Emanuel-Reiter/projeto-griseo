@@ -6,7 +6,6 @@ public class PlayerStateAtkBasic2 : PlayerBaseState
     [SerializeField] private PlayerBaseState _idleState;
 
     private bool _queueAttack = false;
-    private int _atkPushTimer;
 
     [Header("Atk grunt Sfx")]
     [SerializeField] private AudioClip[] _atkGruntSfx;
@@ -39,11 +38,6 @@ public class PlayerStateAtkBasic2 : PlayerBaseState
         _queueAttack = false;
         manager.Deps.CharAnimator.Play(_baseAnim);
 
-        _atkPushTimer = TimerManager.I.StartTimer(GetStateCompletion(0.75f), () =>
-        {
-            if (this != null) manager.Deps.Locomotion.PushByDirectionComplex(-manager.transform.right, 0.5f);
-        });
-
         float playProbability = _lastAtkSfxPlayed ? _repeatPenalty : (1f - _repeatPenalty);
         _canPlayAtkSfx = Random.value < playProbability;
         _lastAtkSfxPlayed = _canPlayAtkSfx;
@@ -59,7 +53,7 @@ public class PlayerStateAtkBasic2 : PlayerBaseState
 
     public override void ExitState(PlayerStateManager manager)
     {
-        TimerManager.I.CancelTimer(_atkPushTimer);
+
     }
 
     public override void PhysicsUpdateState(PlayerStateManager manager)

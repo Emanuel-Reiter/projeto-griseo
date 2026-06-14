@@ -140,7 +140,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
 
     private void UpdateManaUi(int newMana)
     {
-        float mpPercent = (float)newMana / (float)_attributes.CharAttributes.MaxHealth;
+        float mpPercent = (float)newMana / (float)_attributes.CharAttributes.MaxMana;
 
         if (_manaLabel != null) _manaLabel.text = $"{newMana} / {_attributes.CharAttributes.MaxMana}";
 

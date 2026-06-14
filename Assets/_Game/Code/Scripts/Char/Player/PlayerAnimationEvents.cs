@@ -28,4 +28,24 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         _deps.Equipment.CastSpecialSpell2();
     }
+
+    public void PushBack1()
+    {
+        _deps.Locomotion.PushByDirectionComplex(-transform.right, 0.5f);
+    }
+
+    public void PushBack2()
+    {
+        _deps.Locomotion.PushByDirectionComplex(-transform.right, 1f);
+    }
+
+    public void PushFront1()
+    {
+        _deps.Locomotion.PushByDirectionComplex(transform.right, 0.5f);
+    }
+
+    public void PushFront2()
+    {
+        _deps.Locomotion.PushByDirectionComplex(transform.right, 1f);
+    }
 }
