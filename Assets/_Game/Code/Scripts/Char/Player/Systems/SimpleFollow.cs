@@ -10,7 +10,7 @@ public class SimpleFollow : MonoBehaviour
     [SerializeField] private Vector3 _offset;
 
 
-    private void LateUpdate()
+    private void Update()
     {
         FollowTarget();
     }

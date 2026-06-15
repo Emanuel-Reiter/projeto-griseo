@@ -7,8 +7,6 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerInputActions _playerInputActions;
 
     public Vector2 MoveDir { get; private set; }
-    public Vector2 NavigateDir { get; private set; }
-
     private ButtonState _jump;
     private ButtonState _sprint;
     private ButtonState _dash;
@@ -17,6 +15,9 @@ public class PlayerInputManager : MonoBehaviour
     private ButtonState _attackSpecial1;
     private ButtonState _attackSpecial2;
     private ButtonState _interact;
+    private ButtonState _useItem;
+
+    public Vector2 NavigateDir { get; private set; }
     private ButtonState _confirm;
     private ButtonState _cancel;
 
@@ -30,6 +31,7 @@ public class PlayerInputManager : MonoBehaviour
     public ButtonState Interact => _interact;
     public ButtonState Confirm => _confirm;
     public ButtonState Cancel => _cancel;
+
 
     private void Awake()
     {
@@ -55,12 +57,13 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        // UI
         NavigateDir = _playerInputActions.OnMenu.Navigate.ReadValue<Vector2>();
-        MoveDir = _playerInputActions.InGame.Movement.ReadValue<Vector2>();
-
         _confirm.Update(_playerInputActions.OnMenu.Confirm);
         _cancel.Update(_playerInputActions.OnMenu.Cancel);
 
+        // In game
+        MoveDir = _playerInputActions.InGame.Movement.ReadValue<Vector2>();
         _jump.Update(_playerInputActions.InGame.Jump);
         _sprint.Update(_playerInputActions.InGame.Sprint);
         _dash.Update(_playerInputActions.InGame.Dash);
@@ -69,6 +72,7 @@ public class PlayerInputManager : MonoBehaviour
         _attackSpecial1.Update(_playerInputActions.InGame.AttackSpecial1);
         _attackSpecial2.Update(_playerInputActions.InGame.AttackSpecial2);
         _interact.Update(_playerInputActions.InGame.Interact);
+        _useItem.Update(_playerInputActions.InGame.UseItem);
     }
 
     [System.Serializable]

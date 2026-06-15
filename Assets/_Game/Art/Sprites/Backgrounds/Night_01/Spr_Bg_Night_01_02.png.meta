@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: a1bb428713c60af489f67683771d4aa3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2211525145098939864
+    second: Spr_Bg_Night_01_02_0
+  - first:
+      213: -9208459473988524424
+    second: Spr_Bg_Night_01_02_1
+  - first:
+      213: 2997112206875250538
+    second: Spr_Bg_Night_01_02_2
+  - first:
+      213: 8907696377105196881
+    second: Spr_Bg_Night_01_02_3
+  - first:
+      213: 3022197207274355756
+    second: Spr_Bg_Night_01_02_4
+  - first:
+      213: 7423953486644612186
+    second: Spr_Bg_Night_01_02_5
+  - first:
+      213: 3762987609859301346
+    second: Spr_Bg_Night_01_02_6
+  - first:
+      213: -1081288097416305061
+    second: Spr_Bg_Night_01_02_7
+  - first:
+      213: -4152734223081170860
+    second: Spr_Bg_Night_01_02_8
+  - first:
+      213: -5958425320369927936
+    second: Spr_Bg_Night_01_02_9
+  - first:
+      213: -4195112458373874774
+    second: Spr_Bg_Night_01_02_10
+  - first:
+      213: -8436615100408496920
+    second: Spr_Bg_Night_01_02_11
+  - first:
+      213: 8746717015352258119
+    second: Spr_Bg_Night_01_02_12
+  - first:
+      213: 8368351776359295569
+    second: Spr_Bg_Night_01_02_13
+  - first:
+      213: -1083752714943935277
+    second: Spr_Bg_Night_01_02_14
+  - first:
+      213: 7197645532727582147
+    second: Spr_Bg_Night_01_02_15
+  - first:
+      213: 3768791182772172798
+    second: Spr_Bg_Night_01_02_16
+  - first:
+      213: -4648359206127086539
+    second: Spr_Bg_Night_01_02_17
+  - first:
+      213: -2998214451826911700
+    second: Spr_Bg_Night_01_02_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 310
+        width: 37
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dd677df66ae0be10800000000000000
+      internalID: 2211525145098939864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 236
+        width: 295
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 876655c95eaf43080800000000000000
+      internalID: -9208459473988524424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_2
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 262
+        width: 218
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6f49ca3ca1e79920800000000000000
+      internalID: 2997112206875250538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_3
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 308
+        width: 54
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 157a364f8ae7e9b70800000000000000
+      internalID: 8907696377105196881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 257
+        width: 76
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2cf3c4095001f920800000000000000
+      internalID: 3022197207274355756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_5
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 256
+        width: 123
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5c8970cc5e270760800000000000000
+      internalID: 7423953486644612186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_6
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 231
+        width: 82
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ef1cd34b41d83430800000000000000
+      internalID: 3762987609859301346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_7
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 233
+        width: 75
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56a4ad443e7ef0f0800000000000000
+      internalID: -1081288097416305061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_8
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 187
+        width: 238
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45893aae9368e56c0800000000000000
+      internalID: -4152734223081170860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 196
+        width: 122
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00948ae7dbb6f4da0800000000000000
+      internalID: -5958425320369927936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_10
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 210
+        width: 37
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aab3fcd1277f7c5c0800000000000000
+      internalID: -4195112458373874774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_11
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 150
+        width: 368
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec7479e34f1bea80800000000000000
+      internalID: -8436615100408496920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 119
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74eafea88c4926970800000000000000
+      internalID: 8746717015352258119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_13
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 126
+        width: 94
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15aa7696a9b522470800000000000000
+      internalID: 8368351776359295569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_14
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 148
+        width: 112
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dcc661d5acb5f0f0800000000000000
+      internalID: -1083752714943935277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_15
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 140
+        width: 73
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cd976d2a7c23e360800000000000000
+      internalID: 7197645532727582147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_16
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 122
+        width: 85
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef772c1ec9f6d4430800000000000000
+      internalID: 3768791182772172798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_17
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 116
+        width: 34
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 534d06a1ee5bd7fb0800000000000000
+      internalID: -4648359206127086539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spr_Bg_Night_01_02_18
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 95
+        width: 170
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c261a6e57d33466d0800000000000000
+      internalID: -2998214451826911700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Spr_Bg_Night_01_02_0: 2211525145098939864
+      Spr_Bg_Night_01_02_1: -9208459473988524424
+      Spr_Bg_Night_01_02_10: -4195112458373874774
+      Spr_Bg_Night_01_02_11: -8436615100408496920
+      Spr_Bg_Night_01_02_12: 8746717015352258119
+      Spr_Bg_Night_01_02_13: 8368351776359295569
+      Spr_Bg_Night_01_02_14: -1083752714943935277
+      Spr_Bg_Night_01_02_15: 7197645532727582147
+      Spr_Bg_Night_01_02_16: 3768791182772172798
+      Spr_Bg_Night_01_02_17: -4648359206127086539
+      Spr_Bg_Night_01_02_18: -2998214451826911700
+      Spr_Bg_Night_01_02_2: 2997112206875250538
+      Spr_Bg_Night_01_02_3: 8907696377105196881
+      Spr_Bg_Night_01_02_4: 3022197207274355756
+      Spr_Bg_Night_01_02_5: 7423953486644612186
+      Spr_Bg_Night_01_02_6: 3762987609859301346
+      Spr_Bg_Night_01_02_7: -1081288097416305061
+      Spr_Bg_Night_01_02_8: -4152734223081170860
+      Spr_Bg_Night_01_02_9: -5958425320369927936
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
