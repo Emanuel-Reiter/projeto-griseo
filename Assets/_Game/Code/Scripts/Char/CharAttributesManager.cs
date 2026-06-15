@@ -116,12 +116,21 @@ public class CharAttributesManager : MonoBehaviour
     private void Die()
     {
         OnDieEvent?.Invoke();
-        gameObject.SetActive(false);
 
         // Player only
         if (gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            _ = LevelManager.I.LoadLevel(LevelManager.I.CurrentLoadedLevel);
         }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void ReloadAttributes()
+    {
+        CurrentHealth = _charAttributes.MaxHealth;
+        CurrentMana = _charAttributes.MaxMana;
     }
 }

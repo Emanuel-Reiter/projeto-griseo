@@ -36,20 +36,20 @@ public class PlayerInputManager : MonoBehaviour
     private void Awake()
     {
         _playerInputActions = new PlayerInputActions();
-        EnableInGame();
+        EnableInGameControls();
     }
 
     private void OnEnable() => _playerInputActions?.Enable();
     private void OnDisable() => _playerInputActions?.Disable();
     private void OnDestroy() => _playerInputActions?.Dispose();
 
-    public void EnableInGame()
+    public void EnableInGameControls()
     {
         _playerInputActions.InGame.Enable();
         _playerInputActions.OnMenu.Disable();
     }
 
-    public void EnableMenu()
+    public void EnableOnMenuControls()
     {
         _playerInputActions.InGame.Disable();
         _playerInputActions.OnMenu.Enable();

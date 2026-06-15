@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
@@ -66,29 +67,12 @@ public class LevelManager : Singleton<LevelManager>
         }
 
         MusicManager.I.Stop();
+        PlayerManager.I.TogglePlayer(false);
 
         await Task.Delay(_playerAnimSyncTime);
 
-        //UIManager.I.InitializeMenus();
-
         LevelLoadPercent = 0f;
         IsLevelLoading = true;
-
-        //try
-        //{
-        //    await GameManager.I.InitializeGame();
-        //}
-        //catch (InitializationException e)
-        //{
-        //    Debug.LogError($"Game initialization error. {e}");
-        //    return;
-        //}
-
-        //GameManager.I.TogglePlayerMovement(false);
-
-        //GameContext.I.LoadPlayerRefs();
-        //UIManager.I.InitializeInteractPrompt();
-        //UIManager.I.InitializeHUD();
 
         await SceneManager.LoadSceneAsync(_initialLevel.SceneName, LoadSceneMode.Additive);
         _currentLoadedLevel = _initialLevel;
@@ -98,16 +82,18 @@ public class LevelManager : Singleton<LevelManager>
 
         LevelLoadPercent = 0.5f;
 
-        //GameManager.I.MovePlayerToSpawn(GetSpawnPoint());
+        PlayerManager.I.LoadPlayerOnLevel(GetSpawnPoint());
 
         LevelLoadPercent = 1f;
+
         await Task.Delay(_finishLoadTime);
+        
+        UiMainMenuManager.I.Toggle(false);
 
         IsLevelLoading = false;
         HasGameStarted = true;
-        //LevelProgressManager.I.ResetProgress();
-        //GameContext.I.PlayerAttributes.Heal(99999);
-        //GameManager.I.TogglePlayerMovement(true);
+
+        PlayerManager.I.TogglePlayer(true);
 
         if (_initialLevel.LevelMusic == null)
         {
@@ -137,14 +123,22 @@ public class LevelManager : Singleton<LevelManager>
         LevelLoadPercent = 0f;
 
         MusicManager.I.Stop();
-
-        // GameManager.I.TogglePlayerMovement(false);
+        PlayerManager.I.TogglePlayer(false);
 
         await Task.Delay(_playerAnimSyncTime);
 
         if (_currentLoadedLevel != null)
         {
             var scene = SceneManager.GetSceneByName(_currentLoadedLevel.SceneName);
+
+            Light2D globalLight = GameObject.FindGameObjectWithTag("GlobalLight").GetComponent<Light2D>();
+
+            if (globalLight != null)
+            {
+                Destroy(globalLight.gameObject);
+                globalLight = null;
+            }
+
             if (scene.isLoaded) await SceneManager.UnloadSceneAsync(scene);
         }
 
@@ -158,19 +152,15 @@ public class LevelManager : Singleton<LevelManager>
 
         LevelLoadPercent = 0.67f;
 
-       //GameManager.I.MovePlayerToSpawn(GetSpawnPoint());
+        PlayerManager.I.LoadPlayerOnLevel(GetSpawnPoint());
 
         LevelLoadPercent = 1f;
         await Task.Delay(_finishLoadTime);
 
         IsLevelLoading = false;
         HasGameStarted = true;
-        
-        // Respawn logic
-        //LevelProgressManager.I.ResetProgress();
-        //GameContext.I.PlayerAttributes.Heal(99999);
-        //GameContext.I.ResetCinemachineLookRotation();
-        //GameManager.I.TogglePlayerMovement(true);
+
+        PlayerManager.I.TogglePlayer(true);
 
         if (levelToLoad.LevelMusic == null)
         {

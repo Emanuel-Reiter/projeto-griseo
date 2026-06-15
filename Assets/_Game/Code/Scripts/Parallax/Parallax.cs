@@ -11,11 +11,18 @@ public class Parallax : MonoBehaviour
     [SerializeField][Range(0f, 1f)] private float _parallaxFaxtor;
 
     private void Start() {
+        if (_target == null)
+        {
+            _target = Camera.main.transform;
+        }
+
         _objectStartPosition = transform.position.x;
         _objectSizeX = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     private void LateUpdate() {
+        if (_target == null) return;
+
         float parallaxDistance = _target.position.x * _parallaxFaxtor;
 
         transform.position = new Vector3(
