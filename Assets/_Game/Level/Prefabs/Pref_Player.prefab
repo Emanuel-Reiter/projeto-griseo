@@ -48,6 +48,8 @@ MonoBehaviour:
   _hasExitTime: 1
   _duration: 1
   _idleState: {fileID: 4235024104573445288}
+  _atkGruntSfx:
+  - {fileID: 8300000, guid: 49aece205dac1574391eaf71e4a39efb, type: 3}
 --- !u!1 &861496098344560272
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +244,9 @@ MonoBehaviour:
   _hasExitTime: 0
   _duration: 1
   _fallState: {fileID: 3147743841914413809}
+  _jumpGruntSfx:
+  - {fileID: 8300000, guid: 73c0ed1c74cc6d648ae0c4be5b5175f7, type: 3}
+  - {fileID: 8300000, guid: 576bf4252ce868b49a021c1baa7e4fc0, type: 3}
 --- !u!1 &2588472595778115885
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +301,7 @@ MonoBehaviour:
   _atkBasic2State: {fileID: 8283888393763090507}
   _atkSpecial1State: {fileID: 410052897922779868}
   _atkSpecial2State: {fileID: 7635680328160827878}
+  _castFailSfx: {fileID: 8300000, guid: 558b6bd9691bb264494628f1f422ed54, type: 3}
   _movementMultiplaier: 
 --- !u!1 &3284028625526908346
 GameObject:
@@ -345,6 +351,10 @@ MonoBehaviour:
   _hasExitTime: 1
   _duration: 1
   _idleState: {fileID: 4235024104573445288}
+  _atkGruntSfx:
+  - {fileID: 8300000, guid: 2037f0fde6efb3a47a5aed955e7c7df4, type: 3}
+  - {fileID: 8300000, guid: 271fbfa1d5a4cee4583fcff07a0b8247, type: 3}
+  - {fileID: 8300000, guid: 576bf4252ce868b49a021c1baa7e4fc0, type: 3}
 --- !u!1 &4389044750825161248
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +570,10 @@ MonoBehaviour:
   _hasExitTime: 1
   _duration: 1
   _idleState: {fileID: 4235024104573445288}
+  _atkGruntSfx:
+  - {fileID: 8300000, guid: 2037f0fde6efb3a47a5aed955e7c7df4, type: 3}
+  - {fileID: 8300000, guid: 271fbfa1d5a4cee4583fcff07a0b8247, type: 3}
+  - {fileID: 8300000, guid: 576bf4252ce868b49a021c1baa7e4fc0, type: 3}
 --- !u!1 &5642904272094209658
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +628,7 @@ MonoBehaviour:
   _atkBasic2State: {fileID: 8283888393763090507}
   _atkSpecial1State: {fileID: 410052897922779868}
   _atkSpecial2State: {fileID: 7635680328160827878}
+  _castFailSfx: {fileID: 8300000, guid: 558b6bd9691bb264494628f1f422ed54, type: 3}
 --- !u!1 &5800424850401532544
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +677,8 @@ MonoBehaviour:
   _hasExitTime: 1
   _duration: 1
   _idleState: {fileID: 4235024104573445288}
+  _atkGruntSfx:
+  - {fileID: 8300000, guid: 49aece205dac1574391eaf71e4a39efb, type: 3}
 --- !u!1 &6501957285080210812
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,7 +816,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: 218a7395e9938c648b637ab7f1c95216, type: 2}
   _spellOrigin: {fileID: 7493145325218979522}
-  JumpManager: {fileID: 0}
 --- !u!114 &3498876552512202082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,6 +902,8 @@ MonoBehaviour:
   _equipedBasicSpell2: {fileID: 11400000, guid: 941e9173d2c7f1b41870243f85948c58, type: 2}
   _equipedSpecialSpell1: {fileID: 11400000, guid: 9a48094f8408c2445bd9ce0a9514f6a1, type: 2}
   _equipedSpecialSpell2: {fileID: 11400000, guid: 172e798fa7e2bd3409a687b126ac496b, type: 2}
+  _equipedSpecialSpell1Image: {fileID: 0}
+  _equipedSpecialSpell2Image: {fileID: 0}
 --- !u!114 &6705026270418479665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,6 +932,11 @@ MonoBehaviour:
   _hpSlider: {fileID: 0}
   _hpBarFill: {fileID: 0}
   _hpBarBackground: {fileID: 0}
+  _heathLabel: {fileID: 0}
+  _mpSlider: {fileID: 0}
+  _mpBarFill: {fileID: 0}
+  _mpBarBackground: {fileID: 0}
+  _manaLabel: {fileID: 0}
   _vfxOffset: {x: 0, y: 2}
   _takeDamageVfx: {fileID: 0}
   _dieVfx: {fileID: 0}
