@@ -25,11 +25,15 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             _deps.Locomotion.ToggleMovement(true);
             _deps.Input.EnableInGameControls();
+
+            UiHudManager.I.FadeToggle(true);
         }
         else
         {
             _deps.Locomotion.ToggleMovement(false);
             _deps.Input.EnableOnMenuControls();
+
+            UiHudManager.I.FadeToggle(false);
         }
     }
 
@@ -40,5 +44,15 @@ public class PlayerManager : Singleton<PlayerManager>
         _playerRef.transform.position = spawnPoint.position;
 
         _deps.Attributes.ReloadAttributes();
+    }
+
+    private void Update()
+    {
+        if (_playerRef == null) return;
+
+        if (_deps.Input.PauseGame.Pressed)
+        {
+            UiPauseMenuManager.I.TogglePauseGame(true);
+        }
     }
 }

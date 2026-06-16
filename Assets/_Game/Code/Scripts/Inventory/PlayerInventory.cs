@@ -28,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
     {
         _deps = GetComponent<PlayerDependencies>();
 
-        HealthPotAmount = 1;
+        HealthPotAmount = 0;
     }
 
     private void Update()
@@ -45,6 +45,7 @@ public class PlayerInventory : MonoBehaviour
         if (hit.collider.gameObject.TryGetComponent<ItemPickup>(out ItemPickup item))
         {
             item.Collect(this);
+            _deps.InventoryVisuals.PlayCollectItemVisuals();
         }
     }
 

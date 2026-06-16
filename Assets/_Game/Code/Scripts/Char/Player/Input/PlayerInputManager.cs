@@ -16,6 +16,7 @@ public class PlayerInputManager : MonoBehaviour
     private ButtonState _attackSpecial2;
     private ButtonState _interact;
     private ButtonState _useItem;
+    private ButtonState _pauseGame;
 
     public Vector2 NavigateDir { get; private set; }
     private ButtonState _confirm;
@@ -30,6 +31,7 @@ public class PlayerInputManager : MonoBehaviour
     public ButtonState AttackSpecial2 => _attackSpecial2;
     public ButtonState UseItem => _useItem;
     public ButtonState Interact => _interact;
+    public ButtonState PauseGame => _pauseGame;
     
     public ButtonState Confirm => _confirm;
     public ButtonState Cancel => _cancel;
@@ -75,6 +77,7 @@ public class PlayerInputManager : MonoBehaviour
         _attackSpecial2.Update(_playerInputActions.InGame.AttackSpecial2);
         _interact.Update(_playerInputActions.InGame.Interact);
         _useItem.Update(_playerInputActions.InGame.UseItem);
+        _pauseGame.Update(_playerInputActions.InGame.PauseGame);
     }
 
     [System.Serializable]

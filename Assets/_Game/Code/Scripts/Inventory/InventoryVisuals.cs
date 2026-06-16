@@ -13,6 +13,9 @@ public class InventoryVisuals : MonoBehaviour
     [SerializeField] private ParticleSystem _healVfx;
     [SerializeField] private AudioClip _healSfx;
 
+    [Header("Item collect")]
+    [SerializeField] private ParticleSystem _itemCollectVfx;
+    [SerializeField] private AudioClip _itemCollectSfx;
  
     private void Start()
     {
@@ -42,5 +45,11 @@ public class InventoryVisuals : MonoBehaviour
     {
         if ( _healVfx != null ) _healVfx.Play();
         if (_healSfx != null) AudioPool.Play(_healSfx, transform.position);
+    }
+
+    public void PlayCollectItemVisuals()
+    {
+        if (_itemCollectVfx != null) _itemCollectVfx.Play();
+        if (_itemCollectSfx != null) AudioPool.Play(_itemCollectSfx, transform.position, false, default, 1f, Random.Range(0.9f, 1.1f)); 
     }
 }

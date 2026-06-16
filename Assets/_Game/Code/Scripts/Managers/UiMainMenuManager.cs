@@ -1,5 +1,4 @@
 using DG.Tweening;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class UiMainMenuManager : Singleton<UiMainMenuManager>
