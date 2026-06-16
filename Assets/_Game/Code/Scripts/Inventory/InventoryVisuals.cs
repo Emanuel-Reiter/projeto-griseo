@@ -8,6 +8,11 @@ public class InventoryVisuals : MonoBehaviour
 
     [SerializeField] private TMP_Text _potAmountLabel;
     [SerializeField] private Image _potImage;
+
+    [Header("Heal")]
+    [SerializeField] private ParticleSystem _healVfx;
+    [SerializeField] private AudioClip _healSfx;
+
  
     private void Start()
     {
@@ -31,5 +36,11 @@ public class InventoryVisuals : MonoBehaviour
             if(newAmount > 0) _potImage.color = defaultColor;
             else _potImage.color = disabledColor;
         }
+    }
+
+    public void PlayHealEffects()
+    {
+        if ( _healVfx != null ) _healVfx.Play();
+        if (_healSfx != null) AudioPool.Play(_healSfx, transform.position);
     }
 }

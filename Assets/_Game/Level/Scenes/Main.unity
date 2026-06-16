@@ -1710,6 +1710,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2366,6 +2367,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2690,6 +2692,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2826,6 +2829,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3170,6 +3174,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3382,6 +3387,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3598,6 +3604,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3812,6 +3819,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4063,6 +4071,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4492,6 +4501,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4887,6 +4897,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4960,7 +4971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 1674975369}
-  _offset: {x: 0, y: 2, z: 0}
+  _offset: {x: 0, y: 1.5, z: 0}
 --- !u!81 &1842803419
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5297,12 +5308,56 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.frequency
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.scrollSpeed.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strength.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strengthY.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strengthZ.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: ColorModule.gradient.minMaxState
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strength.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strengthY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: NoiseModule.strengthZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime1
@@ -5313,13 +5368,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: InitialModule.gravityModifier.minScalar
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 653163717836950162, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 1149138281900082082, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: _healVfx
       value: 
       objectReference: {fileID: 1363829736}
+    - target: {fileID: 1149138281900082082, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: _baseAnim
+      value: 
+      objectReference: {fileID: 7400000, guid: 4affdf19df284114b9a227f9b2e3b4d9, type: 2}
     - target: {fileID: 4048890603643842750, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: _hpSlider
       value: 
@@ -5404,6 +5471,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8914316356773795393, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: _healSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: b6f9a4f555ff743489f1cfc280043da5, type: 3}
+    - target: {fileID: 8914316356773795393, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
+      propertyPath: _healVfx
+      value: 
+      objectReference: {fileID: 1363829736}
     - target: {fileID: 8914316356773795393, guid: 85179b34183c6b444b5b674cdb43c241, type: 3}
       propertyPath: _potImage
       value: 

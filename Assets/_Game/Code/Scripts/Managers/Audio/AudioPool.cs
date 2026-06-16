@@ -48,8 +48,8 @@ public sealed class AudioPool : Singleton<AudioPool>
         int priority = 128,
         float volume = 1f,
         float pitch = 1f,
-        float minDistance = -1f,
-        float maxDistance = -1f,
+        float minDistance = 4f,
+        float maxDistance = 32f,
         bool loop = false
         )
     {

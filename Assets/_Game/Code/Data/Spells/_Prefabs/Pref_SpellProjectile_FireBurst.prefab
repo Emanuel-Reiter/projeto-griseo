@@ -100,7 +100,7 @@ MonoBehaviour:
   _hitVfx: {fileID: 7967151054518775518}
   _spawnSfx: {fileID: 8300000, guid: 0c7c675111e38b6489b4c30f3a36eb09, type: 3}
   _spawnSfxVolume: 1
-  _isSpawnSfx3D: 1
+  _isSpawnSfx3D: 0
   _spawnSfxPitchMin: 0.9
   _spawnSfxPitchMax: 1.1
   _idleSfx: {fileID: 0}

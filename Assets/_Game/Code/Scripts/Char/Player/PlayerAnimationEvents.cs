@@ -48,4 +48,10 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         _deps.Locomotion.PushByDirectionComplex(transform.right, 1f);
     }
+
+    public void UseHealthPot()
+    {
+        _deps.Inventory.UseHealthPotion();
+        _deps.InventoryVisuals.PlayHealEffects();
+    }
 }

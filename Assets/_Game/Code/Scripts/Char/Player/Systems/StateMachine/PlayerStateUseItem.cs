@@ -18,9 +18,7 @@ public class PlayerStateUseItem : PlayerBaseState
 
     public override void EnterState(PlayerStateManager manager)
     {
-        manager.Deps.Inventory.UseHealthPotion();
-
-        if (_healVfx != null) _healVfx.Play();
+        SetStateDuration(_baseAnim.length);
     }
 
     public override void ExitState(PlayerStateManager manager)

@@ -21,6 +21,7 @@ public class PlayerDependencies : MonoBehaviour
     public CharAttributesManager Attributes { get; private set; }
 
     public PlayerInventory Inventory {get; private set;}
+    public InventoryVisuals InventoryVisuals { get; private set; }
 
     private void Awake()
     {
@@ -34,5 +35,6 @@ public class PlayerDependencies : MonoBehaviour
         JumpManager = GetComponent<PlayerJumpManager>();
         Attributes = GetComponent<CharAttributesManager>();
         Inventory = GetComponent<PlayerInventory>();
+        InventoryVisuals = GetComponent<InventoryVisuals>();
     }
 }
