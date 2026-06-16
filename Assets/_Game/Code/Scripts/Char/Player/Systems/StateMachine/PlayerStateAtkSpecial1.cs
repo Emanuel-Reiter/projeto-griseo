@@ -54,7 +54,7 @@ public class PlayerStateAtkSpecial1 : PlayerBaseState
     public override void UpdateState(PlayerStateManager manager)
     {
         bool atkInput = manager.Deps.Input.AttackSpecial1.Pressed;
-        if (GetCurrentTime() > GetStateCompletion(0.667f) && atkInput) _queueAttack = true;
+        if (GetCurrentTime() > GetStateCompletion(0.667f) && atkInput && manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell1.ManaCost) _queueAttack = true;
 
         if (GetCurrentTime() < GetStateCompletion(0.2f))
         {

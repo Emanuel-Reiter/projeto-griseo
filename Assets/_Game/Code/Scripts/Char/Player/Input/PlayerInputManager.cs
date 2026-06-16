@@ -28,7 +28,9 @@ public class PlayerInputManager : MonoBehaviour
     public ButtonState AttackBasic2 => _attackBasic2;
     public ButtonState AttackSpecial1 => _attackSpecial1;
     public ButtonState AttackSpecial2 => _attackSpecial2;
+    public ButtonState UseItem => _useItem;
     public ButtonState Interact => _interact;
+    
     public ButtonState Confirm => _confirm;
     public ButtonState Cancel => _cancel;
 

@@ -20,6 +20,8 @@ public class PlayerDependencies : MonoBehaviour
 
     public CharAttributesManager Attributes { get; private set; }
 
+    public PlayerInventory Inventory {get; private set;}
+
     private void Awake()
     {
         Locomotion = GetComponent<CharLocomotion>();
@@ -31,5 +33,6 @@ public class PlayerDependencies : MonoBehaviour
         AnimationEvents = GetComponentInChildren<PlayerAnimationEvents>();
         JumpManager = GetComponent<PlayerJumpManager>();
         Attributes = GetComponent<CharAttributesManager>();
+        Inventory = GetComponent<PlayerInventory>();
     }
 }

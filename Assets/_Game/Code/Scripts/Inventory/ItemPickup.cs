@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    //[SerializeField] private Item _item;
-
     public void Collect(PlayerInventory playerInventory)
     {
+        // TODO: Refactor item pickup
         gameObject.SetActive(false);
+        playerInventory.HealthPotAmount++;
     }
 }

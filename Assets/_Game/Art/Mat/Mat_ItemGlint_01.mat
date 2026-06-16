@@ -46,7 +46,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Bob_Speed: 1
-    - _NoiseScale: 3
+    - _NoiseScale: 2
     - _NoiseSpeed: 0.5
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}

@@ -6,6 +6,7 @@ public class PlayerStateIdle : PlayerBaseState
     [SerializeField] private PlayerBaseState _moveState;
     [SerializeField] private PlayerBaseState _fallState;
     [SerializeField] private PlayerBaseState _jumpState;
+    [SerializeField] private PlayerBaseState _useItemState;
 
     [Header("Attack transitions")]
     [SerializeField] private PlayerBaseState _atkBasic1State;
@@ -14,7 +15,7 @@ public class PlayerStateIdle : PlayerBaseState
     [SerializeField] private PlayerBaseState _atkSpecial2State;
 
     [Header("Sfx")]
-    [SerializeField] private AudioClip _castFailSfx;
+    [SerializeField] private AudioClip _failSfx;
 
     public override void CheckExitState(PlayerStateManager manager)
     {
@@ -71,7 +72,7 @@ public class PlayerStateIdle : PlayerBaseState
                 }
                 else
                 {
-                    AudioPool.Play(_castFailSfx, default, false, default, 0.6f);
+                    AudioPool.Play(_failSfx, default, false, default, 0.6f);
                 }
             }
         }
@@ -88,8 +89,22 @@ public class PlayerStateIdle : PlayerBaseState
                 }
                 else
                 {
-                    AudioPool.Play(_castFailSfx, default, false, default, 0.6f);
+                    AudioPool.Play(_failSfx, default, false, default, 0.6f);
                 }
+            }
+        }
+
+        // Use Item
+        if (manager.Deps.Input.UseItem.Pressed)
+        {
+            if (manager.Deps.Inventory.HealthPotAmount > 0)
+            {
+                manager.SwitchState(_useItemState);
+                return;
+            }
+            else
+            {
+                AudioPool.Play(_failSfx, default, false, default, 0.6f);
             }
         }
     }

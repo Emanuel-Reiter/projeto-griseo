@@ -7,7 +7,7 @@ public class PlayerInventory : MonoBehaviour
 
     private PlayerDependencies _deps;
 
-    private int _healthPotAmountMax = 3;
+    private int _healthPotAmountMax = 9;
     private int _healthPotAmount = 0;
     public int HealthPotAmount
     {
@@ -16,30 +16,41 @@ public class PlayerInventory : MonoBehaviour
         {
             _healthPotAmount = value;
             _healthPotAmount = Mathf.Clamp(_healthPotAmount, 0, _healthPotAmountMax);
+            
+            OnHealthPotAmountChange?.Invoke(HealthPotAmount);
         }
     }
+
+    public delegate void OnHealthPotAmountChangeDelegate(int amount);
+    public event OnHealthPotAmountChangeDelegate OnHealthPotAmountChange;
 
     private void Start()
     {
         _deps = GetComponent<PlayerDependencies>();
+
+        HealthPotAmount = 1;
+    }
+
+    private void Update()
+    {
+        DetectItems();
     }
 
     private void DetectItems()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _detectionRadius, transform.right, 0f);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _detectionRadius, transform.right, 0f, _itemLayer);
 
         if (hit.collider == null) return;
 
         if (hit.collider.gameObject.TryGetComponent<ItemPickup>(out ItemPickup item))
         {
             item.Collect(this);
-            HealthPotAmount++;
         }
     }
 
     public void UseHealthPotion()
     {
-        _healthPotAmount--;
+        HealthPotAmount--;
         _deps.Attributes.CurrentHealth += 60;
     }
 }
