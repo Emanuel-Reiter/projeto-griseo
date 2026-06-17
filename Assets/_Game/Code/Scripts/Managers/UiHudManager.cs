@@ -13,10 +13,10 @@ public class UiHudManager : Singleton<UiHudManager>
     public void FadeToggle(bool toggle)
     {
         if (toggle)
-        {
+        {   
             _containerHud.gameObject.SetActive(true);
             _containerHud.alpha = 0f;
-            _containerHud.DOFade(1f, 0.25f).OnComplete(() =>
+            _containerHud.DOFade(1f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _containerHud.alpha = 1f;
             });
@@ -24,7 +24,7 @@ public class UiHudManager : Singleton<UiHudManager>
         else
         {
             _containerHud.alpha = 1f;
-            _containerHud.DOFade(0f, 0.25f).OnComplete(() =>
+            _containerHud.DOFade(0f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _containerHud.alpha = 0f;
                 _containerHud.gameObject.SetActive(false);

@@ -14,11 +14,12 @@ public class UiLoadingScreenManager : Singleton<UiLoadingScreenManager>
 
     public void FadeToggle(bool toggle)
     {
+
         if (toggle)
-        {
+        {   
             _loadingScreen.gameObject.SetActive(true);
             _loadingScreen.alpha = 0f;
-            _loadingScreen.DOFade(1f, 0.25f).OnComplete(() =>
+            _loadingScreen.DOFade(1f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _loadingScreen.alpha = 1f;
             });
@@ -26,7 +27,7 @@ public class UiLoadingScreenManager : Singleton<UiLoadingScreenManager>
         else
         {
             _loadingScreen.alpha = 1f;
-            _loadingScreen.DOFade(0f, 0.25f).OnComplete(() =>
+            _loadingScreen.DOFade(0f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _loadingScreen.alpha = 0f;
                 _loadingScreen.gameObject.SetActive(false);

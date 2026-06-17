@@ -16,7 +16,7 @@ public class UiMainMenuManager : Singleton<UiMainMenuManager>
         {
             _mianMenu.gameObject.SetActive(true);
             _mianMenu.alpha = 0f;
-            _mianMenu.DOFade(1f, 0.25f).OnComplete(() =>
+            _mianMenu.DOFade(1f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _mianMenu.alpha = 1f;
             });
@@ -24,7 +24,7 @@ public class UiMainMenuManager : Singleton<UiMainMenuManager>
         else
         {
             _mianMenu.alpha = 1f;
-            _mianMenu.DOFade(0f, 0.25f).OnComplete(() =>
+            _mianMenu.DOFade(0f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _mianMenu.alpha = 0f;
                 _mianMenu.gameObject.SetActive(false);
@@ -41,5 +41,10 @@ public class UiMainMenuManager : Singleton<UiMainMenuManager>
     public void StarGame()
     {
         _ = LevelManager.I.InitalizeGame();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

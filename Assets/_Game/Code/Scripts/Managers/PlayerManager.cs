@@ -6,6 +6,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public GameObject PlayerRef => _playerRef;
 
     private PlayerDependencies _deps;
+    public PlayerDependencies Deps => _deps;
 
     private void Start()
     {
@@ -49,10 +50,5 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Update()
     {
         if (_playerRef == null) return;
-
-        if (_deps.Input.PauseGame.Pressed)
-        {
-            UiPauseMenuManager.I.TogglePauseGame(true);
-        }
     }
 }

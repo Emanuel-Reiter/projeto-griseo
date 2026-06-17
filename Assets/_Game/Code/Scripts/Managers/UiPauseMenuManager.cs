@@ -8,29 +8,52 @@ public class UiPauseMenuManager : Singleton<UiPauseMenuManager>
 
     public bool IsGamePaused { get; private set; } = false;
 
+    public bool OnPauseMenuTransition { get; private set; } = false;
+
     private void Start()
     {
         Toggle(false);
+        TimerManager.I.StartTimer(0.1f, () => { TogglePauseGame(true); });
+    }
+
+    private void Update()
+    {
+        if (PlayerManager.I.Deps.Input.PauseGame.Pressed)
+        {
+            TogglePauseGame(true);
+        }
+
+        if (IsGamePaused)
+        {
+            if (PlayerManager.I.Deps.Input.Cancel.Pressed)
+            {
+                TogglePauseGame(false);
+            }
+        }
     }
 
     public void FadeToggle(bool toggle)
     {
         if (toggle)
         {
-            _pauseMenu.gameObject.SetActive(true);
+            OnPauseMenuTransition = true;
+            Toggle(true);
             _pauseMenu.alpha = 0f;
-            _pauseMenu.DOFade(1f, 0.25f).OnComplete(() =>
+            _pauseMenu.DOFade(1f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _pauseMenu.alpha = 1f;
+                OnPauseMenuTransition = false;
             });
         }
         else
         {
+            OnPauseMenuTransition = true;
             _pauseMenu.alpha = 1f;
-            _pauseMenu.DOFade(0f, 0.25f).OnComplete(() =>
+            _pauseMenu.DOFade(0f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _pauseMenu.alpha = 0f;
-                _pauseMenu.gameObject.SetActive(false);
+                Toggle(false);
+                OnPauseMenuTransition = false;
             });
         }
     }
@@ -43,9 +66,11 @@ public class UiPauseMenuManager : Singleton<UiPauseMenuManager>
 
     public void TogglePauseGame(bool toggle)
     {
+        if (OnPauseMenuTransition) return;
+
         if (toggle)
         {
-            TimerManager.I.StartTimer(0.3f, () => { Time.timeScale = 0f; });
+            Time.timeScale = 0f;
             FadeToggle(true);
             IsGamePaused = true;
             PlayerManager.I.TogglePlayer(false);
@@ -59,5 +84,10 @@ public class UiPauseMenuManager : Singleton<UiPauseMenuManager>
         }
 
         EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        _ = LevelManager.I.ReturnToMainMenu();
     }
 }
