@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player_MoveData
   m_EditorClassIdentifier: 
   _walkSpeed: 4
-  _runSpeed: 10
+  _runSpeed: 13
   _baseAcceleration: 60
   _jumpHeight: 4
   _maxAmountOfJumps: 2

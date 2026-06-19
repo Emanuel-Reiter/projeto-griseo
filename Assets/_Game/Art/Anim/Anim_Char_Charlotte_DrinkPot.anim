@@ -33,16 +33,12 @@ AnimationClip:
     - time: 0.6
       value: {fileID: 5950150160646792576, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     - time: 0.8
-      value: {fileID: -4911254477862798942, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - time: 1
-      value: {fileID: -3291752968364445687, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - time: 1.2
       value: {fileID: -103291872875047485, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - time: 1.4
+    - time: 1
       value: {fileID: -1996329805679782319, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - time: 1.5
+    - time: 1.1
       value: {fileID: -6324830993301356145, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - time: 1.6
+    - time: 1.2
       value: {fileID: -8969812793147055555, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     attribute: m_Sprite
     path: 
@@ -72,8 +68,6 @@ AnimationClip:
     - {fileID: 432517990636038779, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     - {fileID: 2107973914665420432, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     - {fileID: 5950150160646792576, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - {fileID: -4911254477862798942, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
-    - {fileID: -3291752968364445687, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     - {fileID: -103291872875047485, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     - {fileID: -1996329805679782319, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
     - {fileID: -6324830993301356145, guid: 8b09afb2392d61641beac56af19e75c8, type: 3}
@@ -83,7 +77,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.7
+    m_StopTime: 1.3000001
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -103,7 +97,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5
+  - time: 0.6
     functionName: UseHealthPot
     data: 
     objectReferenceParameter: {fileID: 0}

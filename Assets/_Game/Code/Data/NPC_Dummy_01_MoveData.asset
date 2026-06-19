@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: NPC_Dummy_01_MoveData
   m_EditorClassIdentifier: 
   _walkSpeed: 4
-  _runSpeed: 10
+  _runSpeed: 13
   _baseAcceleration: 30
   _jumpHeight: 6
+  _maxAmountOfJumps: 1
   _gravityMultiplaier: 5
   _maxVerticalVel: -50
