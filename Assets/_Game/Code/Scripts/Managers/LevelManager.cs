@@ -54,15 +54,17 @@ public class LevelManager : Singleton<LevelManager>
 
     public async Task InitalizeGame()
     {
+        Logger.Started("Initializing game.");
+
         if (_initialLevel == null)
         {
-            Debug.LogError("Initial level not assinged.");
+            Logger.Error("Initial level not assinged.");
             return;
         }
 
         if (!_initialLevel.IsValid)
         {
-            Debug.LogError("LevelData invalid.");
+            Logger.Error("LevelData invalid.");
             return;
         }
 
@@ -80,9 +82,13 @@ public class LevelManager : Singleton<LevelManager>
         var loadedScene = SceneManager.GetSceneByName(_currentLoadedLevel.SceneName);
         SceneManager.SetActiveScene(loadedScene);
 
+        Logger.Processed("Initial level loaded successfully");
+
         LevelLoadPercent = 0.5f;
 
         PlayerManager.I.LoadPlayerOnLevel(GetSpawnPoint());
+
+        Logger.Processed("Player set to level spawn point.");
 
         LevelLoadPercent = 1f;
 
@@ -104,19 +110,21 @@ public class LevelManager : Singleton<LevelManager>
         {
             MusicManager.I.Play(_initialLevel.LevelMusic);
         }
+
+        Logger.Started("Loading game.");
     }
 
     public async Task LoadLevel(LevelData levelToLoad)
     {
         if (levelToLoad == null)
         {
-            Debug.LogError("Level to load is null.");
+            Logger.Error("Level to load is null.");
             return;
         }
 
         if (!levelToLoad.IsValid)
         {
-            Debug.LogError("LevelData invalid.");
+            Logger.Error("LevelData invalid.");
             return;
         }
 
@@ -137,7 +145,6 @@ public class LevelManager : Singleton<LevelManager>
             if (globalLight != null)
             {
                 Destroy(globalLight.gameObject);
-                globalLight = null;
             }
 
             if (scene.isLoaded) await SceneManager.UnloadSceneAsync(scene);
@@ -181,13 +188,13 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (_mainMenuLevel == null)
         {
-            Debug.LogError("Initial level not assinged.");
+            Logger.Error("Initial level not assinged.");
             return;
         }
 
         if (!_mainMenuLevel.IsValid)
         {
-            Debug.LogError("LevelData invalid.");
+            Logger.Error("LevelData invalid.");
             return;
         }
 
@@ -208,7 +215,6 @@ public class LevelManager : Singleton<LevelManager>
             if (globalLight != null)
             {
                 Destroy(globalLight.gameObject);
-                globalLight = null;
             }
 
             if (scene.isLoaded) await SceneManager.UnloadSceneAsync(scene);
@@ -249,7 +255,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-            Debug.LogWarning("Spawn point not found. Using fallback at world origin.");
+            Logger.Waring("Spawn point not found. Using fallback at world origin.");
             GameObject fallback = new GameObject("SpawnPoint_Fallback");
             fallback.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
             return fallback.transform;

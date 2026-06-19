@@ -14,7 +14,7 @@ public class UiMainMenuManager : Singleton<UiMainMenuManager>
     {
         if (toggle)
         {
-            _mianMenu.gameObject.SetActive(true);
+            Toggle(true);
             _mianMenu.alpha = 0f;
             _mianMenu.DOFade(1f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
@@ -27,7 +27,7 @@ public class UiMainMenuManager : Singleton<UiMainMenuManager>
             _mianMenu.DOFade(0f, 0.25f).SetUpdate(true).OnComplete(() =>
             {
                 _mianMenu.alpha = 0f;
-                _mianMenu.gameObject.SetActive(false);
+                Toggle(false);
             });
         }
     }

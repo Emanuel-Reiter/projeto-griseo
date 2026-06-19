@@ -13,7 +13,8 @@ public class UiPauseMenuManager : Singleton<UiPauseMenuManager>
     private void Start()
     {
         Toggle(false);
-        TimerManager.I.StartTimer(0.1f, () => { TogglePauseGame(true); });
+        IsGamePaused = true;
+        Time.timeScale = 0f;
     }
 
     private void Update()
