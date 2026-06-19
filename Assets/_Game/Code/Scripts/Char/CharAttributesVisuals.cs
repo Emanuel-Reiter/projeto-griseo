@@ -23,10 +23,14 @@ public class CharAttributesVisuals : MonoBehaviour
 
     private SpriteRenderer _sprite;
 
+    private Color _startColor;
+
 
     private void Awake()
     {
         _sprite = GetComponentInChildren<SpriteRenderer>();
+
+        _startColor = _sprite.color;
 
         _attributes = GetComponent<CharAttributesManager>();
         CreateGradient();
@@ -73,10 +77,10 @@ public class CharAttributesVisuals : MonoBehaviour
 
     public void DamageFlash()
     {
-        _sprite.color = Color.white;
+        _sprite.color = _startColor;
 
         _sprite.DOColor(Color.red, 0.1f).OnComplete(() =>
-            _sprite.DOColor(Color.white, 0.1f));
+            _sprite.DOColor(_startColor, 0.1f));
     }
 
     private void OnDie()

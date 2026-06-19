@@ -61,11 +61,11 @@ TagManager:
   - name: Entities
     uniqueID: 901292539
     locked: 0
-  - name: Items
-    uniqueID: 888670225
-    locked: 0
   - name: Player
     uniqueID: 881391177
+    locked: 0
+  - name: Items
+    uniqueID: 888670225
     locked: 0
   - name: Spells
     uniqueID: 1100681281

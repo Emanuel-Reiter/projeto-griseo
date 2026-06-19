@@ -92,7 +92,8 @@ public class CharAttributesManager : MonoBehaviour
     {
         // knockback
         Vector2 kbDir = new Vector2(damageData.KnockbackDir.x, 0.2f).normalized;
-        _locomotion.PushByDirectionRaw(kbDir, damageData.KnockbackForce);
+        float adjustedKbForce = 1f - _charAttributes.KbResistence;
+        _locomotion.PushByDirectionRaw(kbDir, damageData.KnockbackForce * adjustedKbForce);
 
         // Damage
         //Debug.Log($"Char: {gameObject.name} took damage: {CalculateFinalDamage(damageData)}");
