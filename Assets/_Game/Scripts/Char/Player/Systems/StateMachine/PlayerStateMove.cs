@@ -1,0 +1,139 @@
+using UnityEngine;
+
+public class PlayerStateMove : PlayerBaseState
+{
+    [Header("Transitions")]
+    [SerializeField] private PlayerBaseState _idleState;
+    [SerializeField] private PlayerBaseState _fallState;
+    [SerializeField] private PlayerBaseState _jumpState;
+    [SerializeField] private PlayerBaseState _useItemState;
+    
+    [Header("Attack transitions")]
+    [SerializeField] private PlayerBaseState _atkBasic1State;
+    [SerializeField] private PlayerBaseState _atkBasic2State;
+    [SerializeField] private PlayerBaseState _atkSpecial1State;
+    [SerializeField] private PlayerBaseState _atkSpecial2State;
+
+    [Header("Sfx")]
+    [SerializeField] private AudioClip _failSfx;
+
+    [Header("Animation float")]
+    [SerializeField] private string _movementMultiplaier;
+
+    public override void CheckExitState(PlayerStateManager manager)
+    {
+        // Fall
+        if (!manager.Deps.EnvDetection.IsGrounded)
+        {
+            manager.SwitchState(_fallState);
+            return;
+        }
+
+        // Jump
+        if (manager.Deps.JumpManager.CanJump() && manager.Deps.Input.Jump.Pressed)
+        {
+            manager.SwitchState(_jumpState);
+            return;
+        }
+
+        // Idle
+        if (manager.Deps.Input.MoveDir.x == 0f)
+        {
+            manager.SwitchState(_idleState);
+        }
+
+        // Attack Basic 1
+        if (manager.Deps.Input.AttackBasic1.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                manager.SwitchState(_atkBasic1State);
+                return;
+            }
+        }
+
+        // Attack Basic 2
+        if (manager.Deps.Input.AttackBasic2.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                manager.SwitchState(_atkBasic2State);
+                return;
+            }
+        }
+
+        // Attack Special 1
+        if (manager.Deps.Input.AttackSpecial1.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                if (manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell1.ManaCost)
+                {
+                    manager.SwitchState(_atkSpecial1State);
+                    return;
+                }
+                else
+                {
+                    AudioPool.Play(_failSfx, default, false, default, 0.6f);
+                }
+            }
+        }
+
+        // Attack Special 2
+        if (manager.Deps.Input.AttackSpecial2.Pressed)
+        {
+            if (manager.Deps.EnvDetection.IsGrounded)
+            {
+                if (manager.Deps.Attributes.CurrentMana >= manager.Deps.Equipment.EquipedSpecialSpell2.ManaCost)
+                {
+                    manager.SwitchState(_atkSpecial2State);
+                    return;
+                }
+                else
+                {
+                    AudioPool.Play(_failSfx, default, false, default, 0.6f);
+                }
+            }
+        }
+
+                // Use Item
+        if (manager.Deps.Input.UseItem.Pressed)
+        {
+            if (manager.Deps.Inventory.HealthPotAmount > 0)
+            {
+                manager.SwitchState(_useItemState);
+                return;
+            }
+            else
+            {
+                AudioPool.Play(_failSfx, default, false, default, 0.6f);
+            }
+        }
+    }
+
+    public override void EnterState(PlayerStateManager manager)
+    {
+        manager.Deps.JumpManager.RestoreJumps();
+    }
+
+    public override void ExitState(PlayerStateManager manager)
+    {
+
+    }
+
+    public override void PhysicsUpdateState(PlayerStateManager manager)
+    {
+        Vector2 inputDir = manager.Deps.Input.MoveDir;
+        manager.Deps.Locomotion.Move(manager.Deps.MoveData.RunSpeed, manager.Deps.MoveData.BaseAcceleration, inputDir.x);
+    }
+
+    public override void UpdateState(PlayerStateManager manager)
+    {
+        manager.Deps.Locomotion.ChangeDirectionByInput(manager.Deps.Input.MoveDir.x);
+
+
+        //float multiplaier = Mathf.InverseLerp(0f, manager.Deps.MoveData.RunSpeed, Mathf.Abs(manager.Deps.Locomotion.GetVelocity().x));
+        //manager.Deps.CharAnimator.SetFloat(_movementMultiplaier, multiplaier);
+    }
+
+}
