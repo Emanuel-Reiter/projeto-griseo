@@ -10,36 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb5f81bbdff17f418e0dc5db7af3a42, type: 3}
-  m_Name: Subcast_LightningPillars
+  m_Name: SpellData_RoennaTheQueen_ShatterStars_Subcast
   m_EditorClassIdentifier: 
-  SpellName: Subcast_LighningPillars
+  SpellName: Subcast_ShatterStars
+  SpellIcon: {fileID: 0}
+  ManaCost: 0
+  ManaRegen: 10
   CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 0
+  BaseDMGStellar: 10
   BaseDMGFire: 0
-  BaseDMGLightining: 30
+  BaseDMGLightining: 0
   STSPoison: 0
   STSFrostbite: 0
   STSIchor: 0
-  UseAreaDamage: 1
+  UseAreaDamage: 0
   MaxTargetPenetration: 0
   PerTargetDmgReduction: 0
   MaxEnvironmentHits: 0
   PerEnvHitDmgReduction: 0
   CritChace: 0
   CritModifier: 1
-  KnockbackForce: 25
+  KnockbackForce: 3
   ArmorPenetration: 0
-  Projectile: {fileID: 8165534038158181400, guid: 50e5e722f4633db4dba82693c8916d61, type: 3}
-  AmountOfCasts: 1
-  CastScatteringAngle: 0
-  ProjectileTrackingPercent: 0
-  ProjectileDuration: 0.1
+  Projectile: {fileID: 1280583928218935999, guid: 52350476371e0dc4b8240617870648ec, type: 3}
+  AmountOfCasts: 12
+  CastScatteringAngle: 360
+  ProjectileTrackingPercent: 0.065
+  ProjectileDuration: 2
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
   ConstantVelocityStartDelay: 0
-  ConstantVelocity: 0
-  ConstantDirection: {x: 0, y: 0}
+  ConstantVelocity: 15
+  ConstantDirection: {x: 1, y: 0}
   DecelerationRate: 0
   GravityModifier: 0
   OnSpawnCast: {fileID: 0}

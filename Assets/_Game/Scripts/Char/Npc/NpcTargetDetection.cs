@@ -29,4 +29,11 @@ public class NpcTargetDetection : MonoBehaviour
             HasTarget = false;
         }
     }
+
+    public float GetDistanceFromTarget()
+    {
+        if (!HasTarget) return 0f;
+        
+        return Vector3.Distance(transform.position, _targetRef.position);
+    }
 }

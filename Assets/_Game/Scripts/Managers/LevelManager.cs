@@ -47,7 +47,7 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    private int _playerAnimSyncTime = 1000;
+    private int _loadingSyncTime = 1000;
     private int _finishLoadTime = 2000;
 
     public bool HasGameStarted { get; private set; } = false;
@@ -71,7 +71,7 @@ public class LevelManager : Singleton<LevelManager>
         MusicManager.I.Stop();
         PlayerManager.I.TogglePlayer(false);
 
-        await Task.Delay(_playerAnimSyncTime);
+        await Task.Delay(_loadingSyncTime);
 
         LevelLoadPercent = 0f;
         IsLevelLoading = true;
@@ -97,6 +97,7 @@ public class LevelManager : Singleton<LevelManager>
         await Task.Delay(_finishLoadTime);
         
         PlayerManager.I.TogglePlayer(true);
+        PlayerManager.I.SetPlayerLantern(_initialLevel.PlayerLanternIntensity);
         UiMainMenuManager.I.Toggle(false);
 
         IsLevelLoading = false;
@@ -134,7 +135,7 @@ public class LevelManager : Singleton<LevelManager>
         MusicManager.I.Stop();
         PlayerManager.I.TogglePlayer(false);
 
-        await Task.Delay(_playerAnimSyncTime);
+        await Task.Delay(_loadingSyncTime);
 
         if (_currentLoadedLevel != null)
         {
@@ -145,9 +146,18 @@ public class LevelManager : Singleton<LevelManager>
             if (globalLight != null)
             {
                 Destroy(globalLight.gameObject);
+                globalLight = null;
+            }
+            else
+            {
+                Logger.Error("Couldn't find GlobalLight to destroy.");
             }
 
+            await Task.Delay(_loadingSyncTime);
+
             if (scene.isLoaded) await SceneManager.UnloadSceneAsync(scene);
+
+            await Task.Delay(_loadingSyncTime);
         }
 
         LevelLoadPercent = 0.33f;
@@ -169,6 +179,7 @@ public class LevelManager : Singleton<LevelManager>
         await Task.Delay(_finishLoadTime);
 
         PlayerManager.I.TogglePlayer(true);
+        PlayerManager.I.SetPlayerLantern(levelToLoad.PlayerLanternIntensity);
 
         IsLevelLoading = false;
         HasGameStarted = true;
@@ -204,7 +215,7 @@ public class LevelManager : Singleton<LevelManager>
         MusicManager.I.Stop();
         PlayerManager.I.TogglePlayer(false);
 
-        await Task.Delay(_playerAnimSyncTime);
+        await Task.Delay(_loadingSyncTime);
 
         if (_currentLoadedLevel != null)
         {
@@ -215,9 +226,18 @@ public class LevelManager : Singleton<LevelManager>
             if (globalLight != null)
             {
                 Destroy(globalLight.gameObject);
+                globalLight = null;
+            }
+            else
+            {
+                Logger.Error("Couldn't find GlobalLight to destroy.");
             }
 
+            await Task.Delay(_loadingSyncTime);
+
             if (scene.isLoaded) await SceneManager.UnloadSceneAsync(scene);
+
+            await Task.Delay(_loadingSyncTime);
         }
 
         LevelLoadPercent = 0.33f;
@@ -234,6 +254,7 @@ public class LevelManager : Singleton<LevelManager>
         HasGameStarted = false;
 
         UiMainMenuManager.I.Toggle(true);
+        PlayerManager.I.SetPlayerLantern(_mainMenuLevel.PlayerLanternIntensity);
 
         if (_mainMenuLevel.LevelMusic == null)
         {
@@ -245,6 +266,7 @@ public class LevelManager : Singleton<LevelManager>
         }
 
     }
+
     public Transform GetSpawnPoint()
     {
         GameObject go = GameObject.FindGameObjectWithTag(LEVEL_SPAWN_TAG);

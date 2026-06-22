@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb5f81bbdff17f418e0dc5db7af3a42, type: 3}
-  m_Name: Subcast_FallenStars
+  m_Name: SpellData_ShatterStars_Subcast
   m_EditorClassIdentifier: 
-  SpellName: Subcast_FallenStars
+  SpellName: Subcast_ShatterStars
+  SpellIcon: {fileID: 0}
+  ManaCost: 0
+  ManaRegen: 7
   CanDealDamage: 1
   BaseDMGPhysical: 0
-  BaseDMGStellar: 8
+  BaseDMGStellar: 7
   BaseDMGFire: 0
   BaseDMGLightining: 0
   STSPoison: 0
@@ -30,15 +33,15 @@ MonoBehaviour:
   CritModifier: 1
   KnockbackForce: 3
   ArmorPenetration: 0
-  Projectile: {fileID: 1280583928218935999, guid: c9e4a6328c760ff49beabeb674e07664, type: 3}
-  AmountOfCasts: 12
-  CastScatteringAngle: 360
-  ProjectileTrackingPercent: 0.5
-  ProjectileDuration: 1
+  Projectile: {fileID: 1280583928218935999, guid: 7f2ac06a6350c5e41b1d40f551b3c262, type: 3}
+  AmountOfCasts: 6
+  CastScatteringAngle: 45
+  ProjectileTrackingPercent: 0
+  ProjectileDuration: 0.5
   InitialForce: 0
   InitialDirection: {x: 0, y: 0}
   ConstantVelocityStartDelay: 0
-  ConstantVelocity: 25
+  ConstantVelocity: 15
   ConstantDirection: {x: 1, y: 0}
   DecelerationRate: 0
   GravityModifier: 0

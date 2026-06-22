@@ -18,7 +18,6 @@ public class MusicManager : Singleton<MusicManager>
     {
         if (music == null) return;
 
-        _source.DOKill();
         _source.volume = 1f;
         _source.clip = music;
         _source.loop = true;
@@ -32,5 +31,17 @@ public class MusicManager : Singleton<MusicManager>
             _source.Stop();
             _source.clip = null;
         });
+    }
+
+    public void PlayWithFadeIn(AudioClip music, float fadeInTime = 1f)
+    {
+        if (music == null) return;
+
+        _source.volume = 0;
+        _source.clip = music;
+        _source.loop = true;
+        _source.Play();
+
+        _source.DOFade(1f, fadeInTime);
     }
 }

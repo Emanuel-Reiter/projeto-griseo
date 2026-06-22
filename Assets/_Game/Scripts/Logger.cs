@@ -31,4 +31,9 @@ public class Logger : Singleton<Logger>
     {
         Debug.Log($"[Processed] {msg}");
     }
+
+    public static void Success(string msg)
+    {
+        Debug.Log($"[Success] {msg}");
+    }
 }

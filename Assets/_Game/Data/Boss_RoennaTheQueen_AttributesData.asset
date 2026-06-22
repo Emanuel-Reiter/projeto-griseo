@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9d6fdfa5a3f9f4cabafa3a4675d0c6, type: 3}
   m_Name: Boss_RoennaTheQueen_AttributesData
   m_EditorClassIdentifier: 
-  MaxHealth: 3000
+  MaxHealth: 2000
   MaxMana: 1
-  KbResistence: 1
+  KbResistence: 0.9

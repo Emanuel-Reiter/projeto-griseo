@@ -78,6 +78,8 @@ public class CharAttributesManager : MonoBehaviour
     public delegate void OnDieDelegate();
     public event OnDieDelegate OnDieEvent;
 
+    public bool HasBeenDefeated { get; private set; } = false;
+
     private void Start()
     {
         _locomotion = GetComponent<CharLocomotion>();
@@ -116,8 +118,6 @@ public class CharAttributesManager : MonoBehaviour
 
     private void Die()
     {
-        OnDieEvent?.Invoke();
-
         // Player only
         if (gameObject.CompareTag("Player"))
         {
@@ -126,7 +126,10 @@ public class CharAttributesManager : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            HasBeenDefeated = true;
         }
+
+        OnDieEvent?.Invoke();
     }
 
     public void ReloadAttributes()

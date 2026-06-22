@@ -10,6 +10,9 @@ public class NpcStateManager : MonoBehaviour
     private NpcDependencies _dependencies;
     public NpcDependencies Deps => _dependencies;
 
+    [SerializeField] private bool _isActive = true;
+    public bool IsActive => _isActive;
+
     private void Awake()
     {
         _dependencies = GetComponent<NpcDependencies>();
@@ -26,12 +29,16 @@ public class NpcStateManager : MonoBehaviour
 
     private void Update()
     {
+        if (!_isActive) return;
+
         CurrentState?.CheckExitState(this);
         CurrentState?.UpdateState(this);
     }
 
     private void FixedUpdate()
     {
+        if (!_isActive) return;
+
         CurrentState?.PhysicsUpdateState(this);
     }
 
@@ -57,4 +64,9 @@ public class NpcStateManager : MonoBehaviour
     public bool WasPreviousState<T>() where T : NpcBaseState { return PreviousState is T; }
 
     public bool IsCurrentState<T>() where T : NpcBaseState { return CurrentState is T; }
+
+    public void ToggleNpc(bool toggle)
+    {
+        _isActive = toggle;
+    }
 }

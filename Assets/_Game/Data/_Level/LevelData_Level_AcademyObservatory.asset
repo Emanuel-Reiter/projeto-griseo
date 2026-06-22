@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: LevelData_Level_AcademyObservatory
   m_EditorClassIdentifier: 
   _sceneName: Level_AcademyObservatory
-  _levelMusic: {fileID: 8300000, guid: ad114c1099ab5724c807adf1d2c80a55, type: 3}
+  _levelMusic: {fileID: 0}
+  _playerLanternIntensity: 0

@@ -12,4 +12,8 @@ public class LevelData : ScriptableObject
     [Header("Music")]
     [SerializeField] private AudioClip _levelMusic;
     public AudioClip LevelMusic => _levelMusic;
+
+    [Header("Player")]
+    [SerializeField][Range(0f, 10f)] private float _playerLanternIntensity = 0.5f;
+    public float PlayerLanternIntensity => _playerLanternIntensity;
 }
