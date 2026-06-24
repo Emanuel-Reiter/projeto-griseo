@@ -9,31 +9,31 @@ public class Logger : Singleton<Logger>
 
     public static void Waring(string msg)
     {
-        Debug.Log($"[Warning] {msg}");
+        Debug.Log($"<color=yellow>[Warning]</color> {msg}");
     }
 
     public static void Error(string msg)
     {
-        Debug.Log($"[Error] {msg}");
+        Debug.Log($"<color=red>[Error]</color> {msg}");
     }
 
     public static void Started(string msg)
     {
-        Debug.Log($"[Started] {msg}");
+        Debug.Log($"<color=orange>[Started]</color> {msg}");
     }
 
-    public static void Finilized(string msg)
+    public static void Finalized(string msg)
     {
-        Debug.Log($"[Finilized] {msg}");
+        Debug.Log($"<color=green>[Finalized]</color> {msg}");
     }
 
     public static void Processed(string msg)
     {
-        Debug.Log($"[Processed] {msg}");
+        Debug.Log($"<color=cyan>[Processed]</color> {msg}");
     }
 
     public static void Success(string msg)
     {
-        Debug.Log($"[Success] {msg}");
+        Debug.Log($"<color=green>[Success]</colord> {msg}");
     }
 }

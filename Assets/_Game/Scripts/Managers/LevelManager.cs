@@ -92,13 +92,14 @@ public class LevelManager : Singleton<LevelManager>
 
         LevelLoadPercent = 1f;
 
-        UiPauseMenuManager.I.TogglePauseGame(false);
+        UiGlobalManager.I.TogglePauseGame(false);
 
         await Task.Delay(_finishLoadTime);
         
         PlayerManager.I.TogglePlayer(true);
+        UiGlobalManager.I.ToggleHud(true);
         PlayerManager.I.SetPlayerLantern(_initialLevel.PlayerLanternIntensity);
-        UiMainMenuManager.I.Toggle(false);
+        UiGlobalManager.I.Toggle(UiGlobalManager.I.MainMenu.gameObject, false);
 
         IsLevelLoading = false;
         HasGameStarted = true;
@@ -112,11 +113,13 @@ public class LevelManager : Singleton<LevelManager>
             MusicManager.I.Play(_initialLevel.LevelMusic);
         }
 
-        Logger.Started("Loading game.");
+        Logger.Finalized("Game started with success.");
     }
 
     public async Task LoadLevel(LevelData levelToLoad)
     {
+        Logger.Started("Initializing level loading.");
+
         if (levelToLoad == null)
         {
             Logger.Error("Level to load is null.");
@@ -174,11 +177,12 @@ public class LevelManager : Singleton<LevelManager>
 
         LevelLoadPercent = 1f;
 
-        UiPauseMenuManager.I.TogglePauseGame(false);
+        UiGlobalManager.I.TogglePauseGame(false);
 
         await Task.Delay(_finishLoadTime);
 
         PlayerManager.I.TogglePlayer(true);
+        UiGlobalManager.I.ToggleHud(true);
         PlayerManager.I.SetPlayerLantern(levelToLoad.PlayerLanternIntensity);
 
         IsLevelLoading = false;
@@ -192,11 +196,16 @@ public class LevelManager : Singleton<LevelManager>
         {
             MusicManager.I.Play(levelToLoad.LevelMusic);
         }
+
+        Logger.Finalized($"Level ({levelToLoad.SceneName}) loaded with success.");
     }
 
 
     public async Task ReturnToMainMenu()
     {
+        Logger.Started("Initializing return to menu.");
+
+
         if (_mainMenuLevel == null)
         {
             Logger.Error("Initial level not assinged.");
@@ -214,6 +223,8 @@ public class LevelManager : Singleton<LevelManager>
 
         MusicManager.I.Stop();
         PlayerManager.I.TogglePlayer(false);
+        UiGlobalManager.I.ToggleHud(false);
+
 
         await Task.Delay(_loadingSyncTime);
 
@@ -253,7 +264,7 @@ public class LevelManager : Singleton<LevelManager>
         IsLevelLoading = false;
         HasGameStarted = false;
 
-        UiMainMenuManager.I.Toggle(true);
+        UiGlobalManager.I.Toggle(UiGlobalManager.I.MainMenu.gameObject, true);
         PlayerManager.I.SetPlayerLantern(_mainMenuLevel.PlayerLanternIntensity);
 
         if (_mainMenuLevel.LevelMusic == null)
@@ -265,6 +276,7 @@ public class LevelManager : Singleton<LevelManager>
             MusicManager.I.Play(_mainMenuLevel.LevelMusic);
         }
 
+        Logger.Finalized($"Returned to main menu with success.");
     }
 
     public Transform GetSpawnPoint()

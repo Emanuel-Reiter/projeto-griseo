@@ -31,15 +31,11 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             _deps.Locomotion.ToggleMovement(true);
             _deps.Input.EnableInGameControls();
-
-            UiHudManager.I.FadeToggle(true);
         }
         else
         {
             _deps.Locomotion.ToggleMovement(false);
             _deps.Input.EnableOnMenuControls();
-
-            UiHudManager.I.FadeToggle(false);
         }
     }
 
