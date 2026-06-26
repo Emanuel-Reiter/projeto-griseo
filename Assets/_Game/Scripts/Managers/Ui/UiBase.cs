@@ -8,6 +8,8 @@ public abstract class UiBase: MonoBehaviour
     private CanvasGroup _canvasGroup;
     public CanvasGroup CanvasGroup => _canvasGroup;
 
+    public bool IsActive { get; private set; } = false;
+    public void SetIsActive(bool active) { IsActive = active; }
 
     private void Awake()
     {

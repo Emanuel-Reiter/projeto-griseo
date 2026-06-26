@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -45,6 +46,9 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
     public float BtnDisabledOpacity { get; private set; } = 0.2f;
 
 
+    private Stack<UiBase> _menuStack = new Stack<UiBase>();
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -87,14 +91,15 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
 
     private void Update()
     {
-        if (!IsGamePaused && PlayerManager.I.Deps.Input.PauseGame.Pressed)
+        if (PlayerManager.I.Deps.Input.PauseGame.Pressed)
         {
             TogglePauseGame(true);
         }
 
-        if (IsGamePaused && PlayerManager.I.Deps.Input.Cancel.Pressed)
+        if (PlayerManager.I.Deps.Input.Cancel.Pressed)
         {
-            TogglePauseGame(false);
+            if (_menuStack.Count == 1) TogglePauseGame(false);
+            CloseActiveMenu();
         }
     }
 
@@ -107,41 +112,94 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
             return;
         }
 
+        Logger.Write($"Toggling {(toggle ? "ON" : "OFF")} {target.name}");
+
         target.SetActive(toggle);
     }
 
-    public void Transition(UiBase target, bool toggle, float transitionTime, Action callback)
+
+    public void NavigatgeToMenu(UiBase targetMenu, float transitionTime, Action callback)
     {
+        if (IsMenuTransitioning) return;
+
+        Logger.Started($"Navigating to {targetMenu.name}");
+
         EventSystem.current.SetSelectedGameObject(null);
 
-        if (target == null)
+        if (targetMenu == null)
         {
-            Logger.Error($"UI Element reference not assigned correctly.");
+            Logger.Error($"Menu reference not assigned correctly.");
             return;
         }
 
         IsMenuTransitioning = true;
 
+        Logger.Processed($"Menu references ok.");
+
+        Toggle(targetMenu.CanvasGroup.gameObject, true);
+        targetMenu.CanvasGroup.alpha = 0f;
+        targetMenu.CanvasGroup.DOFade(1f, transitionTime).SetUpdate(true).OnComplete(() =>
+        {
+            targetMenu.CanvasGroup.alpha = 1f;
+            callback?.Invoke();
+            IsMenuTransitioning = false;
+
+            Logger.Finalized($"Menu loaded ok.");
+        });
+
+        
+        if (_menuStack.Count > 0)
+        {
+            UiBase currentMenu = _menuStack.Peek();
+            currentMenu.SetIsActive(false);
+            Fade(currentMenu.CanvasGroup, false, BaseTransitionTime);
+
+            Logger.Processed($"Fade previous menu");
+        }
+
+        _menuStack.Push(targetMenu);
+        targetMenu.SetIsActive(true);
+
+        Logger.Processed($"Add menu to stack and activated it.");
+    }
+
+    public void CloseActiveMenu()
+    {
+        if (IsMenuTransitioning) return;
+
+        if (_menuStack.Count <= 1) return;
+
+        EventSystem.current.SetSelectedGameObject(null);
+
+        UiBase currentMenu = _menuStack.Pop();
+        currentMenu.SetIsActive(false);
+        Fade(currentMenu.CanvasGroup, false, BaseTransitionTime);
+    }
+
+    public void Fade(CanvasGroup cg, bool toggle, float transitionTime)
+    {
+        if (cg == null)
+        {
+            Logger.Error($"UI Element reference not assigned correctly.");
+            return;
+        }
+
         if (toggle)
         {
-            Toggle(target.CanvasGroup.gameObject, true);
-            target.CanvasGroup.alpha = 0f;
-            target.CanvasGroup.DOFade(1f, transitionTime).SetUpdate(true).OnComplete(() =>
+            Toggle(cg.gameObject, true);
+            cg.alpha = 0f;
+            cg.DOFade(1f, transitionTime).SetUpdate(true).OnComplete(() =>
             {
-                target.CanvasGroup.alpha = 1f;
-                callback?.Invoke();
-                IsMenuTransitioning = false;
+                cg.alpha = 1f;
             });
         }
         else
         {
-            target.CanvasGroup.alpha = 1f;
-            target.CanvasGroup.DOFade(0f, transitionTime).SetUpdate(true).OnComplete(() =>
+            cg.alpha = 1f;
+            cg.DOFade(0f, transitionTime).SetUpdate(true).OnComplete(() =>
             {
-                target.CanvasGroup.alpha = 0f;
-                Toggle(target.CanvasGroup.gameObject, false);
-                callback?.Invoke();
-                IsMenuTransitioning = false;
+                cg.alpha = 0f;
+                Toggle(cg.gameObject, false);
             });
         }
     }
@@ -179,19 +237,19 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
     private void ManageLoadScreen(bool toggle)
     {
         Logger.Write("Tiggered loading screen.");
-        Transition(LoadingScreen, toggle, BaseTransitionTime, () => { });
+        Fade(LoadingScreen.CanvasGroup, toggle, BaseTransitionTime);
     }
 
     public void StartGame()
     {
         _ = LevelManager.I.InitalizeGame();
-        Transition(UiBgBase, false, BaseTransitionTime, () => { });
+        Fade(UiBgBase.CanvasGroup, false, BaseTransitionTime);
     }
 
     public void ReturnToMainMenu()
     {
         _ = LevelManager.I.ReturnToMainMenu();
-        Transition(UiBgBase, true, BaseTransitionTime, () => { });
+        Fade(UiBgBase.CanvasGroup, true, BaseTransitionTime);
     }
 
     public void ExitGame()
@@ -201,7 +259,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
 
     public void ToggleHud(bool toggle)
     {
-        Transition(Hud, toggle, BaseTransitionTime, () => { });
+        Fade(Hud.CanvasGroup, toggle, BaseTransitionTime);
     }
 
     public void TogglePauseGame(bool toggle)
@@ -217,7 +275,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
             // Disable hud when pause menu is on
             ToggleHud(false);
 
-            Transition(PauseMenu, true, BaseTransitionTime, () => { });
+            NavigatgeToMenu(PauseMenu, BaseTransitionTime, () => { });
         }
         else
         {
@@ -227,8 +285,6 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
 
             // Enable hud when pause menu is off
             ToggleHud(true);
-
-            Transition(PauseMenu, false, BaseTransitionTime, () => { });
         }
     }
     #endregion

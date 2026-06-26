@@ -3,37 +3,13 @@ using UnityEngine;
 
 public class UiConfigMenu : UiBase
 {
-    private bool _isMenuOpen = false;
-
     [Header("Ui")]
     [SerializeField] private TMP_Text _sfxVolumePercent;
     [SerializeField] private TMP_Text _musicVolumePercent;
 
-    private void Update()
+    public void OpenConfigMenu()
     {
-        if (_isMenuOpen)
-        {
-            if (PlayerManager.I.Deps.Input.Cancel.Pressed || PlayerManager.I.Deps.Input.PauseGame.Pressed)
-            ToggleConfigMenu(false);
-        }
-    }
-
-    public void ToggleConfigMenu(bool toggle)
-    {
-        if (UiGlobalManager.I.IsMenuTransitioning) return;
-
-        if (LevelManager.I.HasGameStarted)
-        {
-            UiGlobalManager.I.Transition(UiGlobalManager.I.PauseMenu, !toggle, UiGlobalManager.I.BaseTransitionTime, () => { });
-        }
-        else
-        {
-            UiGlobalManager.I.Transition(UiGlobalManager.I.MainMenu, !toggle, UiGlobalManager.I.BaseTransitionTime, () => { });
-        }
-
-        UiGlobalManager.I.Transition(UiGlobalManager.I.ConfigMenu, toggle, UiGlobalManager.I.BaseTransitionTime, () => { });
-
-        _isMenuOpen = toggle;
+        UiGlobalManager.I.NavigatgeToMenu(UiGlobalManager.I.PauseMenu, UiGlobalManager.I.BaseTransitionTime, () => { });
     }
 
     public void UpdateSfxVolumeText(float percent)
