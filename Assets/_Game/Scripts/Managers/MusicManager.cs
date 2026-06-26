@@ -1,11 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MusicManager : Singleton<MusicManager>
 {
     [SerializeField] private AudioClip _initialMusic;
 
     private AudioSource _source;
+    [SerializeField] private AudioMixer _mixer;
 
     private void Start()
     {
@@ -44,4 +46,15 @@ public class MusicManager : Singleton<MusicManager>
 
         _source.DOFade(1f, fadeInTime);
     }
+
+    public void SetVolume(float percent)
+    {
+        if (_mixer == null)
+        {
+            Logger.Error("No audio mixer assigned.");
+        }
+
+        _mixer.SetFloat("MasterVolume", Mathf.Log10(percent) * 20f);
+    }
 }
+

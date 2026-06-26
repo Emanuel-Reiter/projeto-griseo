@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Audio;
 
 public sealed class AudioPool : Singleton<AudioPool>
 {
@@ -9,9 +9,12 @@ public sealed class AudioPool : Singleton<AudioPool>
     [SerializeField] private int _maxVoices = 64;
 
     [Header("Defaults")]
-    [SerializeField] private AudioMixerGroupRef _mixerGroup;
+    [SerializeField] private UnityEngine.Audio.AudioMixerGroup _mixerGroup;
     [SerializeField] private float _defaultMinDistance = 1f;
     [SerializeField] private float _defaultMaxDistance = 25f;
+
+    [Header("Defaults")]
+    [SerializeField] private AudioMixer _mixer;
 
     private readonly List<PooledVoice> _voices = new();
     private Transform _poolRoot;
@@ -27,6 +30,16 @@ public sealed class AudioPool : Singleton<AudioPool>
             _voices.Add(CreateVoice());
     }
 
+    public void SetVolume(float percent)
+    {
+        if (_mixer == null)
+        {
+            Logger.Error("No audio mixer assigned.");
+        }
+
+        _mixer.SetFloat("MasterVolume", Mathf.Log10(percent) * 20f);
+    }
+
     private PooledVoice CreateVoice()
     {
         var go = new GameObject("Voice");
@@ -35,6 +48,7 @@ public sealed class AudioPool : Singleton<AudioPool>
         var src = go.AddComponent<AudioSource>();
         src.playOnAwake = false;
         src.spatialBlend = 1f;
+        src.outputAudioMixerGroup = _mixerGroup;
         src.minDistance = _defaultMinDistance;
         src.maxDistance = _defaultMaxDistance;
 
@@ -143,8 +157,7 @@ public sealed class AudioPool : Singleton<AudioPool>
             else if (v.Priority == best.Priority && v.StartTime < best.StartTime) best = v;
         }
 
-        if (best != null && newPriority > best.Priority)
-            return best;
+        if (best != null && newPriority > best.Priority) return best;
 
         return null;
     }

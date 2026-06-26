@@ -11,6 +11,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
     [SerializeField] private Canvas _configMenuCanvas;
     [SerializeField] private Canvas _loadingScreenCanvas;
     [SerializeField] private Canvas _hudCanvas;
+    [SerializeField] private Canvas _uiBgBaseCanvas;
 
     private UiBase _mainMenu;
     public UiBase MainMenu => _mainMenu;
@@ -27,14 +28,22 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
     private UiBase _hud;
     public UiBase Hud => _hud;
 
+    private UiBase _uiBgBase;
+    public UiBase UiBgBase => _uiBgBase;
+
+
     // Game related flags
     public bool IsGamePaused { get; private set; } = false;
 
     public bool HasMenuActive = true;
-    public bool OnPauseMenuTransition { get; private set; } = false;
+    public bool IsMenuTransitioning { get; private set; } = false;
 
     // Transition params
     public float BaseTransitionTime { get; private set; } = 0.25f;
+
+    // Button params
+    public float BtnDisabledOpacity { get; private set; } = 0.2f;
+
 
     protected override void Awake()
     {
@@ -59,15 +68,19 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
 
         Toggle(_hudCanvas.gameObject, true);
         _hud = GetUiRefs(_hudCanvas.gameObject);
+
+        Toggle(_uiBgBaseCanvas.gameObject, true);
+        _uiBgBase = GetUiRefs(_uiBgBaseCanvas.gameObject);
     }
 
     private void Start()
     {
-        Toggle(_mainMenu.CanvasGroup.gameObject, true);
-        Toggle(_pauseMenu.CanvasGroup.gameObject, false);
-        Toggle(_configMenu.CanvasGroup.gameObject, false);
-        Toggle(_loadingScreen.CanvasGroup.gameObject, false);
-        Toggle(_hud.CanvasGroup.gameObject, false);
+        Toggle(MainMenu.CanvasGroup.gameObject, true);
+        Toggle(PauseMenu.CanvasGroup.gameObject, false);
+        Toggle(ConfigMenu.CanvasGroup.gameObject, false);
+        Toggle(LoadingScreen.CanvasGroup.gameObject, false);
+        Toggle(Hud.CanvasGroup.gameObject, false);
+        Toggle(UiBgBase.CanvasGroup.gameObject, true);
 
         SubscribeToMethods();
     }
@@ -107,6 +120,8 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
             return;
         }
 
+        IsMenuTransitioning = true;
+
         if (toggle)
         {
             Toggle(target.CanvasGroup.gameObject, true);
@@ -115,6 +130,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
             {
                 target.CanvasGroup.alpha = 1f;
                 callback?.Invoke();
+                IsMenuTransitioning = false;
             });
         }
         else
@@ -125,6 +141,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
                 target.CanvasGroup.alpha = 0f;
                 Toggle(target.CanvasGroup.gameObject, false);
                 callback?.Invoke();
+                IsMenuTransitioning = false;
             });
         }
     }
@@ -165,14 +182,16 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
         Transition(LoadingScreen, toggle, BaseTransitionTime, () => { });
     }
 
-    public void StarGame()
+    public void StartGame()
     {
         _ = LevelManager.I.InitalizeGame();
+        Transition(UiBgBase, false, BaseTransitionTime, () => { });
     }
 
     public void ReturnToMainMenu()
     {
         _ = LevelManager.I.ReturnToMainMenu();
+        Transition(UiBgBase, true, BaseTransitionTime, () => { });
     }
 
     public void ExitGame()
@@ -187,8 +206,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
 
     public void TogglePauseGame(bool toggle)
     {
-        // Return if OnPauseMenuTransition is true to avoid breaking the transition logic
-        if (OnPauseMenuTransition) return;
+        if (IsMenuTransitioning) return;
 
         if (toggle)
         {
@@ -199,8 +217,7 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
             // Disable hud when pause menu is on
             ToggleHud(false);
 
-            OnPauseMenuTransition = true;
-            Transition(PauseMenu, true, BaseTransitionTime, () => OnPauseMenuTransition = false);
+            Transition(PauseMenu, true, BaseTransitionTime, () => { });
         }
         else
         {
@@ -211,11 +228,8 @@ public class UiGlobalManager : Singleton<UiGlobalManager>
             // Enable hud when pause menu is off
             ToggleHud(true);
 
-            OnPauseMenuTransition = true;
-            Transition(PauseMenu, false, BaseTransitionTime, () => OnPauseMenuTransition = false);
+            Transition(PauseMenu, false, BaseTransitionTime, () => { });
         }
     }
     #endregion
-
 }
-

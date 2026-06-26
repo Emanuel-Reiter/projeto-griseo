@@ -134,7 +134,7 @@ public class PlayerAttributesVisuals : MonoBehaviour
            .OnComplete(() => { _hpSlider.value = hpPercent; });
         }
 
-        if (_hpBarFill != null) _hpBarFill.color = _hpBarFillGradient.Evaluate(hpPercent);
+        // if (_hpBarFill != null) _hpBarFill.color = _hpBarFillGradient.Evaluate(hpPercent);
         // if (_hpBarBackground != null) _hpBarBackground.color = _hpBarBackgroundGradient.Evaluate(hpPercent);
     }
 
@@ -151,8 +151,8 @@ public class PlayerAttributesVisuals : MonoBehaviour
            .OnComplete(() => { _mpSlider.value = mpPercent; });
         }
 
-        //if (_mpBarFill != null) _mpBarFill.color = _hpBarFillGradient.Evaluate(mpPercent);
-        //if (_mpBarBackground != null) _mpBarBackground.color = _hpBarBackgroundGradient.Evaluate(mpPercent);
+        // if (_mpBarFill != null) _mpBarFill.color = _hpBarFillGradient.Evaluate(mpPercent);
+        // if (_mpBarBackground != null) _mpBarBackground.color = _hpBarBackgroundGradient.Evaluate(mpPercent);
     }
 
     private void CreateGradient()

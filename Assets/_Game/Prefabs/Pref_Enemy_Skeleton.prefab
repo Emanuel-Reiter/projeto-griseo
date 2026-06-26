@@ -10210,6 +10210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialState: {fileID: 3719933529506140511}
+  _isActive: 1
 --- !u!114 &6810816426811627307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10240,7 +10241,7 @@ MonoBehaviour:
     m_Bits: 256
   _groundDetectionRadius: 0.49
   _groundDetectionOffset: {x: 0, y: 0}
-  _envDetectionDistance: 1.5
+  _envDetectionDistance: 0.9
   _holeDetectionOrigin: {fileID: 6999761369814812437}
   _wallDetectionTranform: {fileID: 6338913404299433250}
 --- !u!114 &1545006345994605955
@@ -10255,6 +10256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212bf213b205eb468ca98ea6d78f971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 10
+  _knockback: 2
+  _cooldown: 0.5
   _targetLayer:
     serializedVersion: 2
     m_Bits: 128
